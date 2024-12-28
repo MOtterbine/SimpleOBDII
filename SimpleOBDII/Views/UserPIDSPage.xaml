@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:controls="clr-namespace:OS.OBDII.Controls" 
+                        Title="{Binding Title}" 
+                        Background="#000"
+                        NavigationPage.HasNavigationBar="False"
+                        xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+                        NavigationPage.HasBackButton="False"
+                        x:Class="OS.OBDII.Views.UserPIDSPage">
+    
+   
+    <!--<ContentPage.BindingContext>
+        <vm:UserPIDSViewModel />
+    </ContentPage.BindingContext>-->
+
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+            <ControlTemplate x:Key="ScalarView">
+                <controls:UserPIDsDataGrid BindingContext="{Binding Source={RelativeSource TemplatedParent}}"
+                            Padding="0" EmptyGridString="{TemplateBinding BindingContext.EmptyGridMessage }" 
+                            MonitorTitle="{TemplateBinding BindingContext.MonitorGridTitle}" 
+                            ItemsSource="{TemplateBinding BindingContext.SelectedPIDS}" />
+            </ControlTemplate>
+            
+            <ControlTemplate x:Key="PlotView">
+                <controls:LivePlotsGrid BindingContextChanged="LivePlotsGrid_BindingContextChanged"  BindingContext="{Binding Source={RelativeSource TemplatedParent}}"
+                            Padding="0" PlotHeight="{TemplateBinding BindingContext.PlotHeight}" 
+                            EmptyGridString="{TemplateBinding BindingContext.EmptyGridMessage}" 
+                            MonitorTitle="{TemplateBinding BindingContext.MonitorGridTitle}" 
+                            ItemsSource="{TemplateBinding BindingContext.PlotData}"/> 
+            </ControlTemplate>
+            
+        </ResourceDictionary>
+
+        <!--<Style TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource Dark}" />
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        --><!--<Style TargetType="Button" BaseResourceKey="MainOperationButtonStyle">
+        </Style>--><!--
+
+        <Style x:Key="JammButton" TargetType="Button" BaseResourceKey="MainOperationButtonStyle">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+        </Style>-->
+
+    </ContentPage.Resources>
+
+    <Frame Style="{StaticResource page-frame}" >
+        <AbsoluteLayout Background="{StaticResource Dark}" >
+
+            <Grid RowSpacing="0" Padding="0" Margin="0,0,0,0" 
+                  AbsoluteLayout.LayoutBounds=".5, .5,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0" Margin="0" Padding="0" Spacing="0">
+                    <!--<Frame BackgroundColor="Black" Padding="1" BorderColor="Black"></Frame>-->
+
+                    <!-- Header -->
+                    <controls:HeaderView Title="{Binding Title}" ActivityLEDOn="{Binding DataIsTransmitting}"
+                                ConnectedLEDOn="{Binding IsCommunicating}"
+                                NavButtonIsEnabled="{Binding IsCommunicating, Converter={StaticResource InvertedBoolConverter}}"
+                                NavCommand="{Binding BackCommand}" ErrorExists="{Binding ErrorExists}"
+                                ControlTemplate="{StaticResource HeaderViewControlTemplate}" />
+                    <!-- Ads -->
+                    <ContentView  IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}"  x:Name="AdCtrl" 
+                              Content="{Binding AdContent}"  BackgroundColor="{DynamicResource Accent}"  Style="{DynamicResource ad-content}"/>
+
+                </StackLayout>
+
+                <StackLayout Grid.Row="1">
+                    <Grid RowSpacing="0" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                         <RowDefinition Height="Auto" />
+                        <!--<RowDefinition Height="Auto" />-->
+                        </Grid.RowDefinitions>
+
+                        <StackLayout Grid.Row="0" Style="{DynamicResource Blue}" Spacing="0" Background="#00000000">
+
+                            <StackLayout Orientation="Horizontal" Padding="5,0" Margin="0" Spacing="3">
+                                
+                                <ContentView Padding="0,3" VerticalOptions="Center"  HorizontalOptions="Start" >
+                                    <Button IsEnabled="{Binding CanStartStop}" Text="{Binding RunButtonText}" Command="{Binding StartStopCommand}" Behaviors:CursorBehavior.Cursor="Hand"
+                                           />
+                                </ContentView>
+                                
+                                <!-- Plot vs Scalar -->
+                                <Label IsEnabled="{Binding CanStartStop}" FontAttributes="Bold" VerticalOptions="Center"  HorizontalOptions="EndAndExpand" Style="{DynamicResource alt-label}" Text="&#x1f4c9;"
+                                           Margin="{OnPlatform WinUI='0,0,12,0', Android='0,0,0,0', iOS='0,0,0,0'}"/>
+
+                                <CheckBox IsEnabled="{Binding CanStartStop}" IsChecked="{Binding UsePlots}" Margin="-2,0,2,0" HorizontalOptions="End"></CheckBox>
+
+                            </StackLayout >
+
+                            <StackLayout IsVisible="True"  Padding="0" BackgroundColor="#33FFFFFF" Margin="0">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="5,0,5,2" Padding="0" >
+                                    <ContentView HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                                        <Label Text="{Binding StatusMessage}" Style="{DynamicResource mini-message}" LineBreakMode="WordWrap"/>
+                                    </ContentView>
+                                </StackLayout>
+                            </StackLayout>
+
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1" Spacing="0" Padding="0" Margin="0" IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}"  BackgroundColor="#21FFFFFF">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="5,3" Margin="0" Spacing="0">
+
+                                <!-- Clear Button -->
+                                <ContentView Padding="0" VerticalOptions="FillAndExpand" IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}">
+                                    <Button IsEnabled="{Binding CanSelectUserPID}" Text="Clear" Command="{Binding ClearSelectionsCommand}"  HorizontalOptions="StartAndExpand" 
+                                            Style="{DynamicResource transparent-button-light}" Behaviors:CursorBehavior.Cursor="Hand"/>
+                                </ContentView>
+
+                                <!-- Negative Sign Button -->
+                                <ContentView Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand" IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}">
+                                    <Button Margin="0"  Padding="0,5" IsEnabled="{Binding CanSelectUserPID}"  FontSize="Large" WidthRequest="{OnPlatform 50, WinUI=50}" Command="{Binding RemovePIDsCommand}" 
+                                            HorizontalOptions="End" Style="{DynamicResource transparent-button-light}" Behaviors:CursorBehavior.Cursor="Hand"
+                                            ImageSource="{OnPlatform WinUI='neg_sign_sm_lt.png', 
+                                                                                      Android='neg_sign_sm_lt.png', 
+                                                                                      iOS='neg_sign_sm_lt.png'}"/>
+                                </ContentView>
+
+                                <!-- Positive Sign Button -->
+                                <ContentView Margin="5,0,0,0"  Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="End" IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}">
+
+
+                                    <Button BackgroundColor="Transparent" IsEnabled="{Binding CanAddUserPID}" WidthRequest="{OnPlatform 50, WinUI=50}" Behaviors:CursorBehavior.Cursor="Hand"
+                                            Command="{Binding AddPIDCommand}" HorizontalOptions="End" Padding="0,5" Margin="0" Style="{DynamicResource transparent-button-light}"
+                                            ImageSource="{OnPlatform WinUI='pos_sign_sm_lt.png', 
+                                                Android='pos_sign_sm_lt.png', 
+                                                iOS='pos_sign_sm_lt.png'}"/>
+                                    
+                                </ContentView>
+
+                                <!--<ContentView Margin="5,0,0,0"  Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="End" IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}">
+                                    <ImageButton Aspect="AspectFill" Source="{OnPlatform WinUI='pos_sign_sm.png', 
+                                                Android='pos_sign_sm.png', 
+                                                iOS='pos_sign_sm.png'}"/>
+
+                                </ContentView>-->
+
+
+                            </StackLayout >
+
+                            <!-- Press and hold message -->
+                            <ContentView Padding="0" Margin="0,-20,0,0" VerticalOptions="End" HeightRequest="20" HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}">
+                                <Label LineHeight="-1" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" 
+                                HorizontalTextAlignment="Center" Style="{DynamicResource micro-text}"
+                                Text="{OnPlatform WinUI='', 
+                                        Android='press and hold to edit', 
+                                        iOS='press and hold to edit'}"/>
+
+                                <!--<Label.Text>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <OnPlatform.iOS>press and hold for details</OnPlatform.iOS>
+                                        <OnPlatform.Android>press and hold for details</OnPlatform.Android>
+                                        -->
+                                <!--<OnPlatform.WinPhone></OnPlatform.WinPhone>-->
+                                <!--
+                                    </OnPlatform>
+                                </Label.Text>
+                            </Label>-->
+                            </ContentView>
+
+                        </StackLayout>
+
+                        
+                    </Grid>
+                </StackLayout>
+                <ScrollView Grid.Row="2"  x:Name="GridScroller">
+                    <Grid Margin="0" Padding="0"  IsClippedToBounds="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Live Data Grid -->
+                        <StackLayout Grid.Row="0"   IsVisible="{Binding IsLive}" Margin="0" Padding="0">
+                            <ContentView IsVisible="True"  ChildRemoved="ContentView_ChildRemoved">
+                                    <ContentView.Resources>
+                                    </ContentView.Resources>
+                                    <ContentView.Triggers>
+                                        <DataTrigger TargetType="ContentView" Binding="{Binding UsePlots}" Value="True">
+                                            <Setter Property="ControlTemplate" Value="{StaticResource PlotView}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="ContentView" Binding="{Binding UsePlots}" Value="False">
+                                            <Setter Property="ControlTemplate" Value="{StaticResource ScalarView}" />
+                                        </DataTrigger>
+                                    </ContentView.Triggers>
+                                </ContentView>
+                            </StackLayout>
+
+                        <!-- Selection Grid -->
+                        <controls:LiveDataSelectionGrid Grid.Row="1" x:Name="SelectionGrid" SelectionMode="None" IsEnabled="{Binding IsCommunicating, Converter={StaticResource InvertedBoolConverter}}"
+                                        IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}" SelectedItem="{Binding PIDToEdit, Mode=OneWayToSource}" 
+                                                                Margin="0" Padding="0" EmptyGridString="{Binding EmptyGridMessage}"  MonitorTitle="{Binding MonitorGridTitle}" ItemsSource="{Binding UserPIDs}"/>
+
+                        <!--<ContentView  Grid.Row="1" IsEnabled="{Binding CanSelectUserPID}">
+                        <controls:LiveDataSelectionGrid x:Name="SelectionGrid" SelectionMode="None"
+                                        IsVisible="{Binding IsLive, Converter={StaticResource InvertedBoolConverter}}" SelectedItem="{Binding PIDToEdit, Mode=OneWayToSource}" 
+                                                                Margin="0" Padding="0" EmptyGridString="{Binding EmptyGridMessage}"  MonitorTitle="{Binding MonitorGridTitle}" ItemsSource="{Binding UserPIDs}"/>
+                        </ContentView>-->
+                    </Grid>
+                </ScrollView>
+            </Grid>
+                
+            <StackLayout IsVisible="{Binding IsBusy}" BackgroundColor="#80FFFFFF" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" >
+                <ActivityIndicator IsRunning="{Binding IsBusy}"  VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+                
+        </AbsoluteLayout>
+    </Frame>
+</ContentPage>

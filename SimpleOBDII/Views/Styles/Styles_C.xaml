@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                             xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+                             xmlns:vm="clr-namespace:OS.OBDII.ViewModels"
+                            x:Class="OS.OBDII.Views.Styles.Styles_C">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="./Styles.xaml" />-->
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="HEXEntry" TargetType="Entry" BaseResourceKey="base-entry">
+        <Style.Setters>
+            <Setter Property="Behaviors:HexValidationBehavior.AttachBehavior" Value="true" />
+            <!--<Setter Property="Behaviors:HexValidationBehavior.DefaultTextColor" Value="{StaticResource OffWhiteText}" />-->
+            <Setter Property="TextTransform" Value="Uppercase" />
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="blue-label" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource LightBlueAccent}"/>
+        <Setter Property="LineBreakMode" Value="WordWrap"/>
+        <Setter Property="HorizontalTextAlignment" Value="Start"/>
+    </Style>
+
+
+</ResourceDictionary>

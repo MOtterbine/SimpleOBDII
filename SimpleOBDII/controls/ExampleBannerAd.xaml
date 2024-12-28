@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:OBD2Common="clr-namespace:OS.OBDII"
+             x:Class="OS.OBDII.Controls.ExampleBannerAd"
+             HeightRequest="60">
+
+
+    <ContentView.Resources>
+        <Style x:Key="ad-label1" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold"></Setter>
+            <Setter Property="FontSize" Value="28"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+            <!--<Setter Property="HeightRequest" Value="15"></Setter>-->
+        </Style>
+    </ContentView.Resources>
+
+
+    <ContentView.Content>
+        <Frame Padding="0" BorderColor="#AA000000" BackgroundColor="Thistle">
+            <StackLayout Spacing="0" HeightRequest="55">
+                <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Style="{DynamicResource ad-label1}">*** Advertisement ***</Label>
+            </StackLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Converters="clr-namespace:OS.OBDII.Converters"
+             mc:Ignorable="d"
+             xmlns:controls="clr-namespace:OS.OBDII.Controls"
+             x:Class="OS.OBDII.Controls.DTCGrid"
+             x:Name="DTCDataGrid">
+    <Grid.Resources>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
+            <Setter Property="BackgroundColor" Value="{DynamicResource DarkBlue}" />
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="3" />
+            <!--<Setter Property="HeightRequest" Value="38" />
+            <Setter Property="WidthRequest" Value="85" />-->
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="TextTransform" Value="None"/>
+        </Style>
+
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="1*" />
+    </Grid.RowDefinitions>
+    
+    <StackLayout Grid.Row="0" Orientation="Vertical" Spacing="0" >
+        <Frame Padding="0" Margin="0" IsVisible="{Binding Source={RelativeSource Mode=FindAncestor, 
+                        AncestorType={x:Type controls:DTCGrid}}, Path=ShowHeader}" BackgroundColor="#88FFFFFF">
+            <Grid IsVisible="{Binding Source={RelativeSource Mode=FindAncestor, 
+                        AncestorType={x:Type controls:DTCGrid}}, Path=ShowHeader}" ColumnSpacing="0" >
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Label Grid.Row="0"  Text="{Binding VIN, StringFormat='VIN: {0}'}" Margin="0"  CharacterSpacing=".0001" 
+                       Style="{DynamicResource grid-title-label}" TextColor="{DynamicResource Dark}"/>
+            </Grid>
+        </Frame>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" 
+                         IsVisible="{Binding Source={RelativeSource Mode=TemplatedParent, AncestorType={x:Type controls:DTCGrid}}, Path=SourceIsEmpty}"          >
+
+                <Label HeightRequest="70" FontSize="{OnPlatform Large, WinUI=Medium}" VerticalOptions="Fill" FontAttributes="Bold" HorizontalTextAlignment="Center" 
+                                            Text="{Binding Source={RelativeSource Mode=TemplatedParent, 
+                                            AncestorType={x:Type controls:DTCGrid} }, Path=NoDataString}"
+                                            HorizontalOptions="CenterAndExpand" TextColor="{DynamicResource OffWhiteText}"></Label>
+            </StackLayout>
+            <StackLayout Padding="0" Spacing="0">
+                <ListView SelectionMode="None" 
+                    Margin="1"
+                    HasUnevenRows="True"  
+                    CachingStrategy="RecycleElement"  
+                    IsGroupingEnabled="True" 
+                    IsVisible="{Binding Source={RelativeSource Mode=TemplatedParent,  AncestorType={x:Type controls:DTCGrid}}, Path=SourceIsEmpty, Converter={StaticResource InvertedBoolConverter}}"
+                    ItemsSource="{Binding Source={RelativeSource Mode=TemplatedParent, AncestorType={x:Type controls:DTCGrid} }, Path=ItemsSource}">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="0" Spacing="0" Margin="0">
+                                <Label IsVisible="{Binding Count, Converter={StaticResource IntToInvertedBoolConverter}}"
+                                    HorizontalOptions="CenterAndExpand" Text="{Binding Name, StringFormat='** {0} **'}" TextColor="{DynamicResource PrimaryTextLight}"
+                                       Padding="{OnPlatform '5,15,5,5', WinUI='5,5,5,5'}" FontSize="Title" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                                <Grid ColumnSpacing="-1" RowSpacing="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<StackLayout Grid.Column="0" Grid.ColumnSpan="2">
+                                    </StackLayout>-->
+
+                                        <Frame Grid.Column="0" Grid.ColumnSpan="2" Margin="2,0" BorderColor="{DynamicResource LightTextColor}" BackgroundColor="Transparent" Padding="3">
+                                        </Frame>
+                                        <!--<Frame Grid.Column="1" BorderColor="#AA000000" BackgroundColor="Transparent" Padding="3">
+                                        </Frame>-->
+                                    <Frame Grid.Column="0" Padding="0" Margin="0"  Background="#1DFFFFFF">
+                                        </Frame>
+
+                                        <Button CornerRadius="2" Margin="3" IsVisible="{Binding IsFreezeFramePID}" Text="{Binding PIDName, StringFormat='{0} &#x2746;'}" Command="{Binding FreezeFrameClicked, Source={RelativeSource Mode=FindAncestor, 
+                                            AncestorType={x:Type controls:DTCGrid}}}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                                        <Label IsVisible="{Binding IsFreezeFramePID, Converter={StaticResource InvertedBoolConverter}}" Padding="5,5" Margin="0" VerticalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" Style="{DynamicResource grid-target-label}" Grid.Column="0" Text="{Binding PIDName}"></Label>
+
+                                        <Label Padding="5,5" Margin="0" VerticalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Start" Style="{DynamicResource grid-label}" Grid.Column="1" Text="{Binding Description}"></Label>
+                                </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</Grid>

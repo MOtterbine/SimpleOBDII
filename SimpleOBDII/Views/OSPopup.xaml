@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               Color="Transparent"
+               xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+               x:Class="OS.OBDII.Views.OSPopup">
+
+    <toolkit:Popup.Resources>
+        <Style TargetType="Button" BaseResourceKey="popup-button">
+            <Setter Property="HeightRequest" Value="{OnPlatform -1, Android=45}"/>
+        </Style>
+
+
+
+
+    </toolkit:Popup.Resources>
+    
+    <AbsoluteLayout BackgroundColor="Transparent">
+        <StackLayout AbsoluteLayout.LayoutBounds=".5,.5,1,1" AbsoluteLayout.LayoutFlags="All" Padding="0" Margin="0" Spacing="0" VerticalOptions="Center" BackgroundColor="#55000000" >
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds=".5,.5,.9,.9" AbsoluteLayout.LayoutFlags="All" Padding="0" Margin="0" Spacing="0" VerticalOptions="Center" MaximumWidthRequest="300" >
+            <Frame Padding="0" CornerRadius="10" BackgroundColor="Silver" BorderColor="#555" WidthRequest="{OnPlatform 300, WinUI=450}">
+                <Frame Padding="0" Margin="2" CornerRadius="10" BorderColor="#000" MaximumWidthRequest="{OnPlatform 300, WinUI=450}">
+                    <Grid Padding="0"  RowSpacing="0" ColumnSpacing="0" BackgroundColor="#eee"  WidthRequest="{OnPlatform 300, WinUI=450}">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="0"  BackgroundColor="#222" Padding="10" VerticalOptions="Start">
+                                <Label HorizontalTextAlignment="Center" x:Name="Title" TextColor="#eee" Grid.Row="0" HorizontalOptions="CenterAndExpand" 
+                                    FontAttributes="Bold" FontSize="Medium" VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                 
+                            <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="0" Margin="10,10,10,0" Padding="0">
+                                <Label  TextColor="#444" x:Name="MessageText" FontSize="Subtitle" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" LineBreakMode="WordWrap"></Label>
+                            </StackLayout>
+                    
+                            <FlexLayout Grid.Row="2" AlignContent="SpaceEvenly" Margin="0,15" Padding="0" HorizontalOptions="CenterAndExpand">
+                                <Button FlexLayout.Basis="110" WidthRequest="90" Grid.Column="0" HorizontalOptions="Center" Text="{Binding OkText}" 
+                                        Clicked="Button_Clicked" Margin="0" FontAttributes="Bold" FontSize="{OnPlatform Medium, WinUI=18}" Behaviors:CursorBehavior.Cursor="Hand"/>
+                                <Button IsVisible="{Binding IsYesNo}" FlexLayout.Basis="110" WidthRequest="90" Grid.Column="1" HorizontalOptions="Center" Text="{Binding CancelText}" Clicked="Button_cancel_Clicked"
+                                        Margin="0" FontAttributes="Bold" FontSize="{OnPlatform Medium, WinUI=18}" Behaviors:CursorBehavior.Cursor="Hand"/>
+                            </FlexLayout>
+
+                    </Grid>
+                </Frame>
+            </Frame>
+        </StackLayout>
+    </AbsoluteLayout>
+
+</toolkit:Popup>

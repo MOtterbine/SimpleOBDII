@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:OS.OBDII.Controls"
+             Title="{Binding Title}"
+             Unloaded="ContentPage_Unloaded"
+             Background="#000"
+             Shell.NavBarIsVisible="False"
+             Shell.NavBarHasShadow="False"
+             Shell.TabBarIsVisible="False"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             
+             xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+             
+             x:Class="OS.OBDII.Views.CodesPage">
+    
+    <ContentPage.Resources>
+
+    </ContentPage.Resources>
+    
+    <!--<ContentPage.BindingContext>
+        <vm:CodesViewModel />
+    </ContentPage.BindingContext>-->
+
+    <Frame Style="{StaticResource page-frame}" >
+        <AbsoluteLayout Background="{StaticResource Dark}" >
+
+            <Grid RowSpacing="0" Padding="0" Margin="0,0,0,0" Background="#00000000"
+                  AbsoluteLayout.LayoutBounds=".5, .5,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0" Margin="0" Padding="0" Spacing="0"  >
+
+                     <!--Header--> 
+                    <controls:HeaderView IsVisible="True" Title="{Binding Title}" ActivityLEDOn="{Binding DataIsTransmitting}" ErrorExists="{Binding ErrorExists}"
+                               NavCommand="{Binding NavigateHomeCommand}"  ConnectedLEDOn="{Binding IsCommunicating}"
+                               ControlTemplate="{DynamicResource HeaderViewControlTemplate}"
+                               NavButtonIsEnabled="{Binding IsCommunicating, Converter={StaticResource InvertedBoolConverter}}"/>
+
+                     <!--Ads--> 
+                    <ContentView x:Name="AdCtrl" Content="{Binding AdContent}" Style="{DynamicResource ad-content}"></ContentView>
+                    
+                </StackLayout>
+
+                <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Orientation="Vertical" Style="{DynamicResource Blue}" Spacing="0" Padding="0" Margin="0"  Background="Transparent">
+
+                    <FlexLayout Wrap="Wrap" AlignItems="Center" AlignContent="Start" JustifyContent="SpaceBetween" HorizontalOptions="StartAndExpand">
+                        <StackLayout  HorizontalOptions="Start" Orientation="Horizontal"  Spacing="0" Padding="0" Margin="0">
+
+                            <StackLayout HorizontalOptions="StartAndExpand" FlexLayout.AlignSelf="Stretch" Orientation="Horizontal" Margin="5" VerticalOptions="Center" >
+                                <Button  Behaviors:CursorBehavior.Cursor="Hand" IsEnabled="{Binding IsCommunicating, Converter={StaticResource InvertedBoolConverter}}" Text="Read" 
+                                         HorizontalOptions="StartAndExpand" Command="{Binding ReadDTCsCommand}" />
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" Margin="5,0,0,0" VerticalOptions="Center" IsVisible="True">
+                                <Button  Behaviors:CursorBehavior.Cursor="Hand" IsEnabled="{Binding CanClearDTCs}" Text="Clear" Command="{Binding ClearDTCsCommand}" />
+                            </StackLayout>
+                            
+                        </StackLayout>
+                        
+                        <StackLayout Orientation="Vertical" Spacing="0" Padding="15,0" Margin="0" VerticalOptions="CenterAndExpand">
+                            <!-- Selected Manufacturer -->
+                            <ContentView ControlTemplate="{StaticResource selected-device-info}" VerticalOptions="CenterAndExpand"
+                                    Margin="0"/>
+                        </StackLayout>
+
+                    </FlexLayout>
+                    
+                <BoxView HorizontalOptions="CenterAndExpand" Color="{DynamicResource LightTextColor}" HeightRequest="3"></BoxView>
+
+                </StackLayout>
+
+
+                <ScrollView Grid.Row="2" Orientation="Vertical" Margin="0" Padding="0,0,0,20" VerticalOptions="StartAndExpand" IsClippedToBounds="True" >
+                    <controls:DTCGrid GridCommand="{Binding GridCommand}" x:Name="DTCGrid" NoDataString="{Binding EmptyGridMessage}" ShowHeader="True"  DTCCount="{Binding DTCCount}" ItemsSource="{Binding DTCCodes}" VIN="{Binding VIN}"/>
+                </ScrollView>
+
+            </Grid>
+
+            <StackLayout IsVisible="{Binding IsBusy}" BackgroundColor="#80FFFFFF" AbsoluteLayout.LayoutBounds="0,.5,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" >
+                <ActivityIndicator IsRunning="{Binding IsBusy}"  VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+
+        </AbsoluteLayout>
+    </Frame>
+
+</ContentPage>

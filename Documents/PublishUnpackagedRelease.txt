@@ -1,0 +1,8 @@
+
+
+## Unpackaged release via VS Studio 2022 developer command prompt
+## find the right versioning from within the *.csproj file
+
+(example)
+dotnet publish MyProject.csproj -f net8.0-windows10.0.22621.0 -c Release -p:RuntimeIdentifierOverride=win10-x64 -p:WindowsPackageType=None
+

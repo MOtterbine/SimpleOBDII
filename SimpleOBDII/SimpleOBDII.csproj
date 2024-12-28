@@ -1,0 +1,281 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net8.0-maccatalyst;net8.0-ios;net8.0-android34.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+        <OutputType Condition="'$(TargetFramework)' != 'net8.0'">Exe</OutputType>
+		<RootNamespace>OS.OBDII</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<!-- Display name -->
+		<ApplicationTitle>Simple OBDII</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.SimpleOBDII</ApplicationId>
+		<ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
+	  <DefaultLanguage>EN</DefaultLanguage>
+	  <AssemblyVersion>1.0.0.0</AssemblyVersion>
+	  <FileVersion>1.0.0.0</FileVersion>
+	</PropertyGroup>
+
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <AndroidLinkTool>r8</AndroidLinkTool>
+	  <RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
+	  <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
+	  <AndroidLinkTool>r8</AndroidLinkTool>
+	  <ApplicationTitle>Simple OBDII</ApplicationTitle>
+	  <ApplicationId>com.OtterbineSolutions.os_MS_full</ApplicationId>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+	  <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
+	  <ApplicationTitle>OS OBDII Interface</ApplicationTitle>
+	  <ApplicationId>com.Simple OBDII</ApplicationId>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+	  <ApplicationTitle>Simple OBDII</ApplicationTitle>
+	  <ApplicationId>com.OtterbineSolutions.os_MS_full</ApplicationId>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+	  <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android34.0|AnyCPU'">
+	  <ApplicationTitle>Simple OBDII</ApplicationTitle>
+	  <ApplicationId>com.OtterbineSolutions.os_MS_full</ApplicationId>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+	  <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.22621.0|AnyCPU'">
+	  <ApplicationTitle>Simple OBDII</ApplicationTitle>
+	  <ApplicationId>com.Simple OBDII</ApplicationId>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+	  <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
+	  <ApplicationTitle>OS OBDII Interface</ApplicationTitle>
+	  <ApplicationId>com.Simple OBDII</ApplicationId>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+	  <ApplicationTitle>Simple OBDII</ApplicationTitle>
+	  <ApplicationId>com.OtterbineSolutions.os_MS_full</ApplicationId>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+	  <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.22621.0|AnyCPU'">
+	  <ApplicationTitle>Simple OBDII</ApplicationTitle>
+	  <ApplicationId>com.Simple OBDII</ApplicationId>
+	  <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+	  <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+	</PropertyGroup>
+
+	 <PropertyGroup>
+		<!-- Manually set via text editor to allow for multiple manifests (normal version and ads version) - M.O. -->
+		<AndroidManifest>Platforms\Android\StandardBuild\AndroidManifest.xml</AndroidManifest>
+		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<PackageCertificateThumbprint>5360C9B127EB2DC2850859CC17C3E17D1B078D0C</PackageCertificateThumbprint>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+	 </PropertyGroup>
+	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
+	   <ApplicationTitle>Simple OBDII</ApplicationTitle>
+	   <ApplicationId>com.OtterbineSolutions.OS.MS</ApplicationId>
+	   <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+	 </PropertyGroup>
+	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
+	   <ApplicationTitle>Simple OBDII</ApplicationTitle>
+	   <ApplicationId>com.OtterbineSolutions.OS.MS</ApplicationId>
+	   <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
+	 </PropertyGroup>
+	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'" />
+	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'" />
+	
+
+
+	<ItemGroup>
+		<!-- App Icon -->
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\app_splash.png" BaseSize="350,350" Condition="'$(DesignTimeBuild)' != 'true'" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+	
+
+
+	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\AboutAssets.txt" />
+	</ItemGroup>
+	
+
+
+	<ItemGroup>
+	  <None Remove="Resources\Raw\Manufacturers.Bajaj125.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.Bajaj150.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.Benelli.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.BMW.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.Generic.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.Hero.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.Jawa.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.KTM.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.RoyalEnfield.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.Suzuki.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.TVS.bin" />
+	  <None Remove="Resources\Raw\Manufacturers.Yamaha.bin" />
+	</ItemGroup>
+
+	
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
+		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.0.3" />
+		<PackageReference Include="Crc32.NET" Version="1.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="OxyPlot.Maui.Skia" Version="1.0.0" />	
+		</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Converters\" />
+	  <Folder Include="Manufacturers\" />
+	  <Folder Include="Platforms\Windows\handlers\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\appicon.png" Color="#333333" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Update="controls\ModelList.xaml.cs">
+	    <DependentUpon>ModelList.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Platforms\Android\ActivityControlService.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Communications\AndroidBluetoothDevice.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Communications\AndroidUSB_Base.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Communications\MAUI_SerialDevice.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Communications\USBSerial_CH34X.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Communications\USBSerial_CP21X.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Communications\USBSerial_FTDI.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Windows\App.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="controls\ModelList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Platforms\Windows\App.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Styles\Styles_C.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android34.0'">
+	  <PackageReference Include="Xamarin.AndroidX.Activity.Ktx">
+	    <Version>1.9.2.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Collection">
+	    <Version>1.4.3.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Collection.Jvm">
+	    <Version>1.4.3.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Collection.Ktx">
+	    <Version>1.4.3.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData">
+	    <Version>2.8.5.1</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionOSOBDIIHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
+	<ItemGroup>
+	  <None Update="Platforms\Windows\Custom.appxmanifest">
+	    <SubType>Designer</SubType>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.90" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.90" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,102 @@
+[
+    {
+        "CommandString": "221154",
+        "Description": "Oil temp",
+        "CANID": "7E0",
+        "Name": "Oil temp",
+        "UnitDescriptor": "°F",
+        "DecimalPlaces": 1,
+        "ResponseByteCount": 1,
+        "CalcExpression": "((A-40)*1.8)+32"
+    },
+    {
+        "CommandString": "0105",
+        "Description": "Engine Coolant",
+        "CANID": "7E0",
+        "Name": "Engine Coolant",
+        "UnitDescriptor": "°F",
+        "DecimalPlaces": 1,
+        "ResponseByteCount": 1,
+        "CalcExpression": "((A-40)*1.8)+32"
+    },
+    {
+        "CommandString": "221940",
+        "Description": "Trans Temp",
+        "CANID": "7E2",
+        "Name": "Trans Temp",
+        "UnitDescriptor": "°F",
+        "DecimalPlaces": 1,
+        "ResponseByteCount": 1,
+        "CalcExpression": "((A-40)*1.8)+32"
+    },
+    {
+        "CommandString": "220005",
+        "Description": "Trans Coolant Temp",
+        "CANID": "7E2",
+        "Name": "Trans Temp",
+        "UnitDescriptor": "°F",
+        "DecimalPlaces": 1,
+        "ResponseByteCount": 1,
+        "CalcExpression": "((A-40)*1.8)+32"
+    },
+    {
+        "CommandString": "010C",
+        "Description": "Engine RPM",
+        "CANID": "7E0",
+        "Name": "Engine RPM",
+        "UnitDescriptor": "",
+        "DecimalPlaces": 0,
+        "ResponseByteCount": 2,
+        "CalcExpression": "((A*256)+B)/4"
+    },
+    {
+        "CommandString": "221940",
+        "Description": "Trans Temp",
+        "CANID": "7E2",
+        "Name": "Trans Temp",
+        "UnitDescriptor": "°F",
+        "DecimalPlaces": 1,
+        "ResponseByteCount": 1,
+        "CalcExpression": "((A-40)*1.8)+32"
+    },
+    {
+        "CommandString": "0142",
+        "Description": "Powertrain ECU Voltage",
+        "CANID": "7E0",
+        "Name": "Powertrain ECU Voltage",
+        "UnitDescriptor": "V",
+        "DecimalPlaces": 2,
+        "ResponseByteCount": 2,
+        "CalcExpression": "((A*256)+B)*.001"
+    },
+    {
+        "CommandString": "0142",
+        "Description": "Trans ECU Voltage",
+        "CANID": "7E2",
+        "Name": "Trans ECU Voltage",
+        "UnitDescriptor": "V",
+        "DecimalPlaces": 2,
+        "ResponseByteCount": 2,
+        "CalcExpression": "((A*256)+B)*.001"
+    },
+    {
+        "CommandString": "0111",
+        "Description": "Throttle Position",
+        "CANID": "7E0",
+        "Name": "Throttle Position",
+        "UnitDescriptor": "%",
+        "DecimalPlaces": 1,
+        "ResponseByteCount": 1,
+        "CalcExpression": "(A*100)/255"
+    },
+    {
+        "CommandString": "22199A",
+        "Description": "GM Current Gear",
+        "CANID": "7E2",
+        "Name": "GM Current Gear",
+        "UnitDescriptor": "",
+        "DecimalPlaces": 1,
+        "ResponseByteCount": 1,
+        "CalcExpression": "A"
+    }
+]

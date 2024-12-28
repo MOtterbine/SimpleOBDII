@@ -1,0 +1,5 @@
+***You'll need to download the current bundletool *.jar file from GIT
+
+java -jar "C:\Visual Studio Projects\VS2022\AutoScannerMobile_Maui\Documents\bundletool-all-1.17.1.jar" build-apks --bundle="com.companyname.aab" --output=output.apks --mode=universal
+
+***output.apks is actually a *.zip file containing the main *.apk file

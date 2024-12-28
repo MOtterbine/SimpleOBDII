@@ -1,0 +1,42 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OS.OBDII"
+             x:Name="MainApp"
+             xmlns:Controls="clr-namespace:OS.OBDII.Controls"
+             xmlns:Converters="clr-namespace:OS.OBDII.Converters"
+             x:Class="OS.OBDII.App">
+
+    <Application.Resources>
+        <Converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <Converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+        <Converters:StdStringCtrlConverter x:Key="StdStringCtrlConverter"/>
+        <Converters:IntToInvertedBoolConverter x:Key="IntToInvertedBoolConverter"/>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+
+                <ResourceDictionary>
+
+                    <!-- here to reserve header space, sent from the platform through events to this object -->
+                    <Style x:Key="HeaderOffset" TargetType="AbsoluteLayout">
+                        <Setter Property="Padding" Value="{Binding Source={x:Reference MainApp}, Path=HeaderPadding}" />
+                    </Style>
+
+                    <!-- here because ad height is calculated at the server and is sent here via events from the platform -->
+                    <Style x:Key="ad-content" TargetType="ContentView">
+                        <Setter Property="HeightRequest" Value="{Binding Source={x:Reference MainApp}, Path=AdHeight}" />
+                        <Setter Property="BackgroundColor" Value="#00001520" />
+                        <Setter Property="VerticalOptions" Value="StartAndExpand" />
+                    </Style>
+
+                </ResourceDictionary>
+
+                <ResourceDictionary Source="Templates/Templates.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

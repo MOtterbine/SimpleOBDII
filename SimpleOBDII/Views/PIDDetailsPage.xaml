@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        Title="{Binding Title}" 
+                        Background="#000"
+                        NavigationPage.HasNavigationBar="False"
+                        NavigationPage.HasBackButton="False"
+                        xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+                        x:Class="OS.OBDII.Views.PIDDetailsPage">
+    
+<!--<ContentPage.BindingContext>
+        <vm:PIDDetailViewModel>
+            --><!--<x:Arguments>
+                <x:Boolean>false</x:Boolean>
+            </x:Arguments>--><!--
+        </vm:PIDDetailViewModel>
+    </ContentPage.BindingContext>-->    
+    
+     <ContentPage.Resources>
+
+
+        <Style x:Key="settings-label" TargetType="Label">
+
+            <!--<Setter Property="TextColor" Value="{StaticResource LightTextColor}" />-->
+            <Setter Property="TextColor" Value="#FFF" />
+
+            <Setter Property="FontAttributes" Value="None" />
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="Padding" Value="0" />
+            <!--<Setter Property="HeightRequest" Value="24"/>-->
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource OffWhiteText}" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style TargetType="Entry" BaseResourceKey="entry-base">
+            <Setter Property="WidthRequest" Value="150" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Background" Value="#33FFFFFF" />
+        </Style>
+
+
+
+        <Style TargetType="Button" BaseResourceKey="transparent-button-light">
+
+            <!--<Setter Property="TextColor" Value="{StaticResource OffWhiteText}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource DarkBlue}" />-->
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="7" />
+            <Setter Property="HeightRequest" Value="45" />
+            <Setter Property="CharacterSpacing" Value=".001" />
+            <Setter Property="TextTransform" Value="None" />
+        </Style>
+
+
+    </ContentPage.Resources>
+    
+    
+
+
+    <Frame Style="{StaticResource page-frame}" >
+        <AbsoluteLayout Background="{StaticResource Dark}" >
+
+            <Grid RowSpacing="0" Padding="0" Margin="0,0,0,0" Background="#00000000"
+                  AbsoluteLayout.LayoutBounds=".5, .5,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0" Margin="0" Padding="0" Spacing="0">
+
+                    <StackLayout Margin="0" Padding="0"   Spacing="0">
+                        <AbsoluteLayout Padding="0" Margin="0,30,0,0">
+                            <!--<Button IsEnabled="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}" Command="{Binding CancelCommand}" Style="{StaticResource nav-back-button}" AbsoluteLayout.LayoutBounds="0,0" AbsoluteLayout.LayoutFlags="PositionProportional"/>-->
+                            <Label LineBreakMode="TailTruncation" TextColor="{StaticResource OffWhiteText}" Text="{Binding Title}" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,1,1" AbsoluteLayout.LayoutFlags="All" Style="{StaticResource page-header-title-label}" FontSize="26" Margin="0,0,0,5"></Label>
+                            <!--<AbsoluteLayout VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" AbsoluteLayout.LayoutBounds="1,.5" AbsoluteLayout.LayoutFlags="PositionProportional">
+                    <Image WidthRequest="35" Source="BlueLED_Off"></Image>
+                    <Image x:Name="CommLED" IsVisible="{Binding IsCommunicating}" WidthRequest="35" Source="BlueLED_On"></Image>
+                    <Image IsVisible="{Binding ErrorExists}" WidthRequest="35" Source="RedLED_On"></Image>
+                </AbsoluteLayout>-->
+                        </AbsoluteLayout>
+                    </StackLayout>
+                    <ContentView x:Name="AdCtrl" Content="{Binding AdContent}" Style="{StaticResource ad-content}"/>
+
+                </StackLayout>
+
+
+                <!--<Frame  BackgroundColor="Black" Padding="1" BorderColor="Black"></Frame>-->
+
+                <ScrollView Grid.Row="1" HeightRequest="-1">
+                    <Frame CornerRadius="0" Margin="5" Padding="0" >
+                        <VerticalStackLayout Padding="0" Margin="0" Spacing="0">
+                            <StackLayout Spacing="0">
+
+                                <!-- Editor -->
+                                <Grid IsVisible="{Binding IsEditing}" BackgroundColor="#00000000" RowSpacing="1" Margin="0" VerticalOptions="FillAndExpand">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <!--<RowDefinition Height="*" />-->
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="115"></ColumnDefinition>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+
+                                    <!--<StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,0" Padding="0" HorizontalOptions="StartAndExpand" Spacing="0">
+                                </StackLayout>-->
+                                    <Label Grid.Row="0" FontAttributes="Bold" VerticalOptions="Center" Margin="0" Padding="0" >Name</Label>
+                                    <Entry Grid.Row="1" WidthRequest="300" Grid.ColumnSpan="3" Text="{Binding Name}" VerticalOptions="Start" HorizontalOptions="StartAndExpand" ></Entry>
+
+                                    <!--<StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,0" Padding="0" HorizontalOptions="StartAndExpand" Spacing="0">
+                                </StackLayout>-->
+                                    <Label Grid.Row="2"  FontAttributes="Bold" VerticalOptions="Center" Margin="0">Calculation</Label>
+                                    <!--<Label FontAttributes="Bold" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" Margin="5,0,0,0" >Calculation</Label>-->
+                                    <Entry Grid.Row="3" WidthRequest="300" Grid.ColumnSpan="3" Text="{Binding CalcExpression}" VerticalOptions="Start" HorizontalOptions="StartAndExpand"  />
+
+                                    <Label Grid.Row="4" FontAttributes="Bold"  VerticalOptions="Center" Margin="10,0,0,0">ECU</Label>
+                                    <Entry Grid.Row="4" Grid.Column="1"  Text="{Binding CANID}" VerticalOptions="Start" MaxLength="8" 
+                                                Style="{StaticResource HEXEntry}"  >
+                                        <Entry.Keyboard>
+                                            <Keyboard x:FactoryMethod="Create">
+                                                <x:Arguments>
+                                                    <KeyboardFlags>Suggestions,CapitalizeCharacter</KeyboardFlags>
+                                                </x:Arguments>
+                                            </Keyboard>
+                                        </Entry.Keyboard>
+                                    </Entry>
+
+                                    <Label Grid.Row="5" FontAttributes="Bold" Grid.Column="0" VerticalOptions="Center" Margin="10,0,0,0" >Unit</Label>
+                                    <Entry MaxLength="5" Text="{Binding UnitDescriptor}" Grid.Row="5" Grid.Column="1" WidthRequest="100" HorizontalOptions="StartAndExpand"/>
+
+                                    <!--<Label Grid.Row="4" Grid.Column="0" FontAttributes="Bold" VerticalOptions="Center" Margin="10,0,0,0" >Monitor</Label>
+                        <CheckBox IsChecked="{Binding IsBroadcast}" Grid.Row="4" Grid.Column="1" Margin="20,0,20,0"></CheckBox>-->
+                                </Grid>
+                                <Grid IsVisible="{Binding IsEditing}" BackgroundColor="#00000000" RowSpacing="0" Margin="0,0,0,0" VerticalOptions="FillAndExpand">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="115"></ColumnDefinition>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label IsVisible="{Binding IsBroadcast, Converter={StaticResource InvertedBoolConverter}}" Grid.Row="0" Grid.Column="0" FontAttributes="Bold" VerticalOptions="Center" Margin="10,0,0,0" >Tx Code</Label>
+                                    <Entry IsVisible="{Binding IsBroadcast, Converter={StaticResource InvertedBoolConverter}}" MaxLength="16" Text="{Binding PIDString}" 
+                                                         Style="{StaticResource HEXEntry}"       Grid.Row="0" Grid.Column="1">
+                                        <Entry.Keyboard>
+                                            <Keyboard x:FactoryMethod="Create">
+                                                <x:Arguments>
+                                                    <KeyboardFlags>Suggestions,CapitalizeCharacter</KeyboardFlags>
+                                                </x:Arguments>
+                                            </Keyboard>
+                                        </Entry.Keyboard>
+                                    </Entry>
+
+                                    <Label FontAttributes="Bold" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" Margin="10,0,0,0" >Rx Count</Label>
+                                    <Entry Text="{Binding ResponseByteCount}" Grid.Row="1" Grid.Column="1" MaxLength="1" Behaviors:Max7IntValidationBehavior.AttachBehavior="true"/>
+
+                                    <Label FontAttributes="Bold" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" Margin="10,0,0,0" >Decimals</Label>
+                                    <Entry Text="{Binding DecimalPlaces}" Grid.Row="2" Grid.Column="1" MaxLength="1" Behaviors:Max5IntValidationBehavior.AttachBehavior="true" />
+
+                                </Grid>
+
+                                <!-- Viewer -->
+                                <Grid IsVisible="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}" 
+                                    BackgroundColor="#00000000" RowSpacing="0" ColumnSpacing="0" Padding="0">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,8" Padding="0" HorizontalOptions="Fill" Spacing="0">
+                                        <Label FontAttributes="Bold" VerticalOptions="Center" Margin="0">Name</Label>
+                                        <Label Text="{Binding Name}" Style="{StaticResource settings-label}" VerticalOptions="Start" HorizontalOptions="Fill"></Label>
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,8" Padding="0" HorizontalOptions="Fill" Spacing="0">
+                                        <Label FontAttributes="Bold" VerticalOptions="Center" Margin="0" >Calculation</Label>
+                                        <Label Text="{Binding CalcExpression}" Style="{StaticResource settings-label}" VerticalOptions="Start" HorizontalOptions="Fill"/>
+                                    </StackLayout>
+
+                                    <Label Grid.Row="2" Grid.Column="0" FontAttributes="Bold" VerticalOptions="Center" Margin="10,8" >ECU</Label>
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding CANID}" Style="{StaticResource settings-label}"  ></Label>
+
+                                    <Label FontAttributes="Bold" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" Margin="10,8" >Unit</Label>
+                                    <Label Text="{Binding UnitDescriptor}" Style="{StaticResource settings-label}" HorizontalOptions="FillAndExpand" Grid.Row="3" Grid.Column="1" ></Label>
+
+                                    <Label FontAttributes="Bold" Grid.Row="4" Grid.Column="0" VerticalOptions="Center" Margin="10,8" >Tx Code</Label>
+                                    <Label IsVisible="{Binding IsBroadcast, Converter={StaticResource InvertedBoolConverter}}" Text="{Binding PIDString}" Style="{StaticResource settings-label}" HorizontalOptions="FillAndExpand" Grid.Row="4" Grid.Column="1" />
+
+                                    <Label FontAttributes="Bold" Grid.Row="5" Grid.Column="0" VerticalOptions="Center" Margin="10,8">Rx Count</Label>
+                                    <Label Text="{Binding ResponseByteCount}" Style="{StaticResource settings-label}" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="1" />
+
+                                    <Label FontAttributes="Bold" Grid.Row="6" Grid.Column="0" VerticalOptions="Center" Margin="10,8" >Decimals</Label>
+                                    <Label Text="{Binding DecimalPlaces}" Style="{StaticResource settings-label}" HorizontalOptions="FillAndExpand" Grid.Row="6" Grid.Column="1" />
+
+
+                                    <!--<StackLayout Grid.Row="7" Grid.ColumnSpan="2" VerticalOptions="End" Orientation="Horizontal" HorizontalOptions="Center"  Margin="10" Padding="0">
+                                    <Button IsVisible="{Binding CanCopy}" HorizontalOptions="Start" VerticalOptions="Center" Text="Copy" Command="{Binding CopyToNewCommand}"></Button>
+                                    <Button IsVisible="true" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding EditSaveButtonText}" Command="{Binding EditSaveCommand}"></Button>
+                                    <Button IsVisible="{Binding CanCancel}" HorizontalOptions="Start" VerticalOptions="Center" Text="{Binding CancelButtonText}" Command="{Binding CancelCommand}"></Button>
+                                </StackLayout>-->
+                                </Grid>
+                                <StackLayout VerticalOptions="End" Orientation="Horizontal" HorizontalOptions="Center"  Margin="10" Padding="0">
+                                    <Button IsVisible="{Binding CanCopy}" HorizontalOptions="Start" VerticalOptions="Center" Text="Copy" Command="{Binding CopyToNewCommand}" Behaviors:CursorBehavior.Cursor="Hand"></Button>
+                                    <Button Margin="10,0" IsVisible="true" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding EditSaveButtonText}" Command="{Binding EditSaveCommand}" Behaviors:CursorBehavior.Cursor="Hand"></Button>
+                                    <Button IsVisible="{Binding CanCancel}" HorizontalOptions="End" VerticalOptions="Center" Text="{Binding CancelButtonText}" Command="{Binding CancelCommand}" Behaviors:CursorBehavior.Cursor="Hand"></Button>
+                                </StackLayout>
+
+
+
+                            </StackLayout>
+                            <StackLayout IsVisible="{Binding IsBusy}" BackgroundColor="#80FFFFFF" AbsoluteLayout.LayoutBounds=".5,.5,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" >
+                                <ActivityIndicator IsRunning="{Binding IsBusy}"  VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </ScrollView>
+
+            </Grid>
+
+        </AbsoluteLayout>
+    </Frame>
+</ContentPage>

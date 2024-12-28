@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:oxy="clr-namespace:OxyPlot.Maui.Skia;assembly=OxyPlot.Maui.Skia" 
+             Margin="0"
+             Padding="0"
+             x:Name="pid_graph"
+             x:Class="OS.OBDII.Controls.PIDGraph">
+
+    <ContentView.Content>
+        <AbsoluteLayout Padding="0" Margin="0" >
+            <oxy:PlotView Margin="0" Model="{Binding Model, Source={x:Reference Name=pid_graph}}"
+                    AbsoluteLayout.LayoutBounds=".5,.5,1,1" AbsoluteLayout.LayoutFlags="All" />
+            <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds=".5,.5,1,1" 
+                    AbsoluteLayout.LayoutFlags="WidthProportional, HeightProportional" >
+                <Label TextColor="{StaticResource OffWhiteText}" FontSize="12" Padding="5,0,3,0" Text="{Binding Title, Source={x:Reference Name=pid_graph}}"></Label>
+                <Label TextColor="{StaticResource OffWhiteText}" HorizontalOptions="EndAndExpand" FontSize="12" Padding="3,0,5,0" Text="{Binding ValueText, Source={x:Reference Name=pid_graph}}"></Label>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentView.Content>
+
+</ContentView>

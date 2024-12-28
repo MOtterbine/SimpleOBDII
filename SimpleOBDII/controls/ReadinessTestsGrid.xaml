@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:xct="clr-namespace:OS.OBDII.Models"
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:OS.OBDII.ViewModels"
+             xmlns:local="clr-namespace:OS.OBDII.Controls"
+             x:Class="OS.OBDII.Controls.ReadinessTestsGrid"
+             xmlns:Converters="clr-namespace:OS.OBDII.Converters"
+             xmlns:localConverters="clr-namespace:OS.OBDII.Converters"
+
+             x:Name="ReadinessGrid">
+
+    <Grid.Resources>
+        <Converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <Converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+        <localConverters:IMTestsCompletedToColorConverter x:Key="IMTestsCompletedToColorConverter" />
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="1*" />
+    </Grid.RowDefinitions>
+     
+    <StackLayout Grid.Row="0" Orientation="Vertical" Spacing="0">
+        <Frame IsVisible="{Binding Source={x:Reference ReadinessGrid}, Path=ShowHeader}" BackgroundColor="SandyBrown" Padding="0" Margin="0">
+
+            <Grid IsVisible="{Binding Source={x:Reference ReadinessGrid}, Path=ShowHeader}" ColumnSpacing="0" RowSpacing="0">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="22*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackLayout  Padding="0,5,0,0" Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+                <Label Text="{Binding VIN, StringFormat='VIN: {0}'}" Style="{DynamicResource title-label}"  HorizontalOptions="Start" />
+                    <Label Text="{Binding Source={RelativeSource Mode=FindAncestor, 
+                                        AncestorType={x:Type local:ReadinessTestsGrid}}, Path=DTCCount, StringFormat='DTCs: {0}'}" Style="{DynamicResource title-label}"  VerticalOptions="Start" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End"/>
+                </StackLayout>
+
+                <Label FontAttributes="Bold" Grid.Row="1" Grid.Column="0" LineHeight="-1" Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ReadinessTestsGrid} }, Path=MonitorTitle}" Style="{DynamicResource grid-label}"  HorizontalOptions="Start" VerticalOptions="End"/>
+                <Label FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Text="Status" Style="{DynamicResource grid-label}"  HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="End"/>
+            </Grid>
+        </Frame>
+        <StackLayout>
+            <ContentView Padding="0" Margin="0"
+                         IsVisible="{Binding Source={RelativeSource Mode=TemplatedParent, AncestorType={x:Type local:ReadinessTestsGrid} }, Path=SourceIsEmpty}" >
+                <Label LineBreakMode="WordWrap" FontSize="{OnPlatform Large, WinUI=Medium}" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalOptions="FillAndExpand"
+                       HeightRequest="150" HorizontalOptions="CenterAndExpand"
+                       TextColor="{Binding Source={RelativeSource Mode=TemplatedParent, AncestorType={x:Type local:ReadinessTestsGrid} }, Path=AllTestsComplete, Converter={StaticResource IMTestsCompletedToColorConverter}}" 
+                                         Text="{Binding Source={RelativeSource Mode=TemplatedParent, AncestorType={x:Type local:ReadinessTestsGrid} }, Path=EmptyGridString}" />
+            </ContentView>
+            <ContentView Padding="1,0" ZIndex="0">
+                <ListView SelectionMode="None" 
+                            HasUnevenRows="True" 
+                            CachingStrategy="RecycleElementAndDataTemplate"
+                            IsVisible="{Binding Source={RelativeSource Mode=TemplatedParent, AncestorType={x:Type local:ReadinessTestsGrid} }, Path=SourceIsEmpty, Converter={StaticResource InvertedBoolConverter}}" 
+                            ItemsSource="{Binding Source={RelativeSource Mode=TemplatedParent, AncestorType={x:Type local:ReadinessTestsGrid} }, Path=ItemsSource}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell >
+                                <Grid ColumnSpacing="0" RowSpacing="0" >
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="22*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Frame Grid.Row="0" Grid.Column="0"  Margin="0" Padding="0" BorderColor="Black" BackgroundColor="Transparent" >
+                                        <Label Grid.Row="0" Grid.Column="0" Padding="5,3" Margin="0" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" Style="{DynamicResource grid-label}"  Text="{Binding Description}" />
+                                    </Frame>
+
+                                    <!--<Label Grid.Row="0" Grid.Column="0" Text="{Binding Description}" />-->
+                                
+                                
+                                
+                                    <Frame Grid.Row="0" Grid.Column="1" Margin="0" Padding="0" BackgroundColor="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}" BorderColor="Black" >
+                                        <Label TextColor="Black" Grid.Row="0" Grid.Column="1" Padding="5,3" Margin="0" VerticalOptions="CenterAndExpand"   HorizontalOptions="Center" HorizontalTextAlignment="Center" Style="{DynamicResource grid-target-label}" Text="{Binding Status}"></Label>
+                                    </Frame>
+
+                                    <!--<Label Grid.Row="0" Grid.Column="1" Text="{Binding Status}"></Label>-->
+                                
+                                </Grid>
+                            </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+            </ContentView>
+        </StackLayout>
+    </StackLayout>
+</Grid>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OS.OBDII.Controls"
+             x:Class="OS.OBDII.Controls.ModelList"
+             xmlns:Converters="clr-namespace:OS.OBDII.Converters"
+             x:Name="ModelListGrid">
+
+    <Grid.Resources>
+
+    </Grid.Resources>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"></RowDefinition>
+    </Grid.RowDefinitions>
+    <ListView Grid.Row="0" ItemsSource="{Binding ItemsSource, Source={x:Reference Name=ModelListGrid}}" >
+    <!--<ListView Grid.Row="0" ItemsSource="{Binding Source={RelativeSource Mode=TemplatedParent,  AncestorType={x:Type local:ModelList}}, Path=ItemsSource}" >-->
+
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell >
+                    <StackLayout>
+                    <Label>Shit</Label>
+                    <Label  TextColor="Black" Text="{Binding Name}"></Label>
+                        
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+
+
+
+
+
+
+        <!--<ListView.Header>
+                <Grid ColumnSpacing="0" RowSpacing="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" HorizontalTextAlignment="Center">PID</Label>
+                    <Label Grid.Column="1" HorizontalTextAlignment="Center">Data</Label>
+                </Grid>
+            </ListView.Header>-->
+
+        </ListView>
+</Grid>

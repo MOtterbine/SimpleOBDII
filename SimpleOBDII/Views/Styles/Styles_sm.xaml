@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+             x:Class="OS.OBDII.Views.Styles.Styles_sm">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="./Styles_C.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="header-area" TargetType="AbsoluteLayout">
+        <Setter Property="HeightRequest" Value="50"/>
+        <Setter Property="Padding" Value="0,0,0,0"></Setter>
+        <!--<Setter Property="Padding" Value="{StaticResource HeaderOffset}"></Setter>-->
+        <Setter Property="Margin" Value="0"></Setter>
+        <!--<Setter Property="BackgroundColor" Value="{DynamicResource Primary}"></Setter>-->
+    </Style>
+
+    <Style x:Key="led-image" TargetType="Image">
+        <Setter Property="WidthRequest" Value="45"/>
+    </Style>
+
+    <Style x:Key="launch-button" TargetType="Button" BaseResourceKey="BaseButton">
+        <Setter Property="TextTransform" Value="None"></Setter>
+        <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}"></Setter>
+        <Setter Property="FontSize" Value="24"></Setter>
+        <Setter Property="FontAttributes" Value="None"></Setter>
+        <Setter Property="CornerRadius" Value="8"></Setter>
+        <Setter Property="HeightRequest" Value="55"></Setter>
+        <Setter Property="Padding" Value="10,5"></Setter>
+        <Setter Property="Margin" Value="0"></Setter>
+        <Setter Property="BackgroundColor" Value="{DynamicResource DarkBlue}"></Setter>
+
+        <!--<Setter Property="Behaviors:CursorBehavior.Cursor" Value="Hand" />-->
+
+        <!--<Setter Property="Behaviors" Value="Behaviors:CursorBehavior.Cursor='Hand'">
+
+        </Setter>-->
+
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    
+                    <VisualState x:Name="Normal" >
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
+                            <Setter Property="BackgroundColor" Value="{DynamicResource DarkBlue}" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray350}, Dark={DynamicResource Gray400}}" />
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray560}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    
+
+    <Style x:Key="nav-back-button" TargetType="Button" BaseResourceKey="BaseButton">
+        <Setter Property="InputTransparent" Value="False" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="WidthRequest" Value="65" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="Padding" Value="0,0,0,0" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <!--<Setter Property="Text" Value="&#x2329;" />-->
+        <Setter Property="FontSize" Value="40" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style x:Key="vin-lookup-button" TargetType="Button" BaseResourceKey="launch-button">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="HeightRequest" Value="28" />
+        <Setter Property="Padding" Value="10,-5,10,-5" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+    </Style>
+
+    <Style TargetType="Image" x:Key="nav-back-image_button">
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="WidthRequest" Value="30" />
+        <Setter Property="HeightRequest" Value="60" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Source" Value="&#x2329;" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
+    <Style TargetType="Button" x:Key="md-button" BaseResourceKey="BaseButton">
+        <Setter Property="FontSize" Value="26" />
+        <Setter Property="WidthRequest" Value="105" />
+        <Setter Property="Padding" Value="10,5" /> 
+        <Setter Property="TextTransform" Value="None" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Smaller version of a launch button -->
+    <Style x:Key="MainOperationButtonStyle"  TargetType="Button" BaseResourceKey="BaseButton">
+        <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource DarkBlue}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="None" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="HeightRequest" Value="45" />
+        <Setter Property="MinimumWidthRequest" Value="80" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="TextTransform" Value="None"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+
+                    <VisualState x:Name="Normal" >
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
+                            <Setter Property="BackgroundColor" Value="{DynamicResource DarkBlue}" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray350}, Dark={DynamicResource Gray400}}" />
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray5600}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Label" BaseResourceKey="base-label">
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    
+    <Style x:Key="micro-text" TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryTextLight}" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontAttributes" Value="None" />
+    </Style>
+
+    <Style x:Key="grid-text" TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryTextLight}" />
+        <Setter Property="Padding" Value="5,0,5,0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="FontAttributes" Value="None" />
+    </Style>
+
+    <Style x:Key="grid-header-label" TargetType="Label" BaseResourceKey="grid-text">
+        <Setter Property="Padding" Value="1,5,1,0" />
+        <Setter Property="BackgroundColor" Value="#ededed" />
+        <Setter Property="TextColor" Value="{DynamicResource GreyTextColor}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="MinimumHeightRequest" Value="20"/>
+    </Style>
+
+    <Style x:Key="grid-label" TargetType="Label" BaseResourceKey="grid-text">
+        <Setter Property="FontSize" Value="{OnPlatform 18, WinUI=22}" />
+        <Setter Property="HeightRequest" Value="-1"/>
+        <Setter Property="CharacterSpacing" Value="-.1" />
+        <Setter Property="LineHeight" Value="-1" />
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+    </Style>
+    
+    <Style x:Key="grid-target-label" TargetType="Label" BaseResourceKey="grid-label">
+        <Setter Property="FontSize" Value="{OnPlatform 16, WinUI=20}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="CharacterSpacing" Value="-.7" />
+    </Style>
+
+    <Style x:Key="title-label" TargetType="Label" BaseResourceKey="grid-text">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HeightRequest" Value="22"/>
+    </Style>
+
+    <Style x:Key="grid-title-label" TargetType="Label" BaseResourceKey="grid-text">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="HeightRequest" Value="24"/>
+        <Setter Property="LineHeight" Value="-1"/>
+        <Setter Property="CharacterSpacing" Value="-.95"/>
+        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="Margin" Value="0"/>
+    </Style>
+
+    <Style x:Key="mini-message" TargetType="Label">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}"/>
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+        <Setter Property="FontAttributes" Value="None"/>
+        <Setter Property="LineBreakMode" Value="WordWrap"/>
+    </Style>
+
+    <Style x:Key="FrontPageLabel"  TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryTextLight}" />
+        <Setter Property="FontSize" Value="{OnPlatform 20, WinUI=18}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="HeightRequest" Value="-1" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="page-header-title-label" TargetType="Label" >
+        <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
+        <Setter Property="FontSize" Value="26" />
+        <Setter Property="FontAttributes" Value="None" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HeightRequest" Value="-1"/>
+        <Setter Property="LineHeight" Value="-1"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <Style x:Key="settings-label" TargetType="Label" >
+        <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="Padding" Value="5,0,5,0" />
+        <Setter Property="HeightRequest" Value="-1"/>
+        <Setter Property="LineHeight" Value="-1"/>
+    </Style>
+
+    <Style x:Key="about-app-name-label" TargetType="Label" >
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="about-app-version-label" TargetType="Label" >
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="None" />
+    </Style>
+    
+    <Style x:Key="alt-label" TargetType="Label" >
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryTextLight}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="Padding" Value="5,0,5,0" />
+        <Setter Property="HeightRequest" Value="-1"/>
+
+        <Setter Property="VerticalOptions" Value="Center"/>
+        
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+
+                            <Setter Property="TextColor" Value="{DynamicResource PrimaryTextLight}" />
+
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Focused">
+                        <VisualState.Setters>
+
+                            <!--<Setter Property="BackgroundColor" Value="Lime" />-->
+
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{DynamicResource DarkTrans}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="Color" Value="{DynamicResource PrimaryTextLight}" />
+        <Setter Property="Scale" Value="1.7"></Setter>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="IsChecked">
+                        <VisualState.Setters>
+                            <Setter Property="Color" Value="{DynamicResource PrimaryTextLight}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+
+                            <Setter Property="Color" Value="{DynamicResource OffWhiteText}" />
+
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Focused">
+                        <VisualState.Setters>
+
+                            <Setter Property="Color" Value="{DynamicResource OffWhiteText}" />
+
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="Color" Value="#22FFFFFF" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Blue" TargetType="StackLayout">
+        <Setter Property="BackgroundColor" Value="{DynamicResource Accent}"></Setter>
+        <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+        <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+        <Setter Property="Orientation" Value="Vertical"></Setter>
+   </Style>
+
+    <!-- Picker -->
+    <Style TargetType="Picker" BasedOn="{StaticResource base-picker}">
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+
+    <Style x:Key="codes-picker" TargetType="Picker" BasedOn="{StaticResource base-picker}">
+    </Style>
+
+    <Style x:Key="settings-picker" TargetType="Picker" BasedOn="{StaticResource base-picker}">
+    </Style>
+
+    <Style x:Key="nested-settings-picker" TargetType="Picker" BasedOn="{StaticResource base-picker}">
+    </Style>
+
+    <!-- Entry -->
+    <Style TargetType="Entry" BasedOn="{StaticResource entry-base}">
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+
+
+    <!-- Button -->
+    <Style TargetType="Button" BaseResourceKey="transparent-button-light">
+        <Setter Property="FontSize" Value="{OnPlatform Large, WinUI=Medium}"></Setter>
+    </Style>
+
+
+</ResourceDictionary>

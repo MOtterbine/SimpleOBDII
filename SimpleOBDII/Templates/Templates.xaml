@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:OS.OBDII.Controls"
+             xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+             x:Class="OS.OBDII.Templates">
+
+
+    <!-- Page Header -->
+    <ControlTemplate x:Key="HeaderViewControlTemplate">
+        <AbsoluteLayout BindingContext="{Binding Source={RelativeSource TemplatedParent}}" Style="{DynamicResource header-area}">
+
+            <Button IsVisible="{Binding NavButtonIsEnabled}" Command="{Binding NavCommand}" 
+                                     Style="{DynamicResource nav-back-button}" AbsoluteLayout.LayoutBounds="0,.5" AbsoluteLayout.LayoutFlags="PositionProportional"
+                                     WidthRequest="40" Behaviors:CursorBehavior.Cursor="Hand" BorderWidth="0"
+                                     ImageSource="{OnPlatform 'prev_sm.png', 
+                                                                                WinUI='prev_sm.png',
+                                                                                Android='prev_sm.png', 
+                                                                                iOS='prev_sm.png'}" />
+
+
+            <Label Text="{Binding Title}" HorizontalTextAlignment="{Binding TitleHorizontalOptions}"
+                               AbsoluteLayout.LayoutBounds=".5,.5" AbsoluteLayout.LayoutFlags="PositionProportional"  
+                               Style="{DynamicResource page-header-title-label}" />
+
+            <AbsoluteLayout Padding="0" Margin="0,8,0,8" IsVisible="{Binding UseIndicator}" HorizontalOptions="EndAndExpand" AbsoluteLayout.LayoutBounds="1,.5" AbsoluteLayout.LayoutFlags="PositionProportional">
+                <!-- Yellow LED -->
+                <Image  Margin="0,0,0,0" Style="{DynamicResource led-image}"
+                        Source="{OnPlatform 'led_off.png', 
+                                                                    WinUI='led_off.png',
+                                                                    Android='led_off.png', 
+                                                                    iOS='led_off.png'}">
+                </Image>
+                <Image  Margin="0,0,0,0" Style="{DynamicResource led-image}" IsVisible="{Binding ConnectedLEDOn}"
+                        Source="{OnPlatform 'yellowled_on.png', 
+                                WinUI='yellowled_on.png',
+                                Android='yellowled_on.png', 
+                                iOS='yellowled_on.png'}">
+                </Image>
+                <!-- Blue LED -->
+                <Image Margin="0,7,0,0" Style="{DynamicResource led-image}" 
+                       Source="{OnPlatform 'led_off.png', 
+                                                        WinUI='led_off.png',
+                                                        Android='led_off.png', 
+                                                        iOS='led_off.png'}">
+                </Image>
+                <Image  Margin="0,7,0,0" Style="{DynamicResource led-image}" x:Name="CommLED" IsVisible="{Binding ActivityLEDOn}"
+                        Source="{OnPlatform 'blueled_on.png', 
+                                                        WinUI='blueled_on.png',
+                                                        Android='blueled_on.png', 
+                                                        iOS='blueled_on.png'}">
+                </Image>
+                <!-- Red LED -->
+                <Image Margin="0,14,0,0" Style="{DynamicResource led-image}"
+                       Source="{OnPlatform 'led_off.png', 
+                                WinUI='led_off.png',
+                                Android='led_off.png', 
+                                iOS='led_off.png'}">
+                </Image>
+                <Image Margin="0,14,0,0" Style="{DynamicResource led-image}" IsVisible="{Binding ErrorExists}"
+                       Source="{OnPlatform 'redled_on.png', 
+                                             WinUI='redled_on.png',
+                                             Android='redled_on.png', 
+                                             iOS='redled_on.png'}">
+                </Image>
+            </AbsoluteLayout>
+
+        </AbsoluteLayout>
+    </ControlTemplate>
+
+    <!-- Sub Header -->
+    <ControlTemplate x:Key="SubHeaderControlTemplate">
+        <StackLayout  Grid.Row="0" Margin="0" Padding="0" Spacing="0">
+
+            <Label FontSize="Title" FontAttributes="Italic,Bold" HorizontalOptions="CenterAndExpand" Margin="15,0,10,0" Padding="0" >Simple OBDII</Label>
+            <Label FontSize="Micro" HorizontalOptions="CenterAndExpand" Margin="{OnPlatform '10,2,10,3', WinUI='10,-3,10,0'}" Padding="0" Text="{Binding VersionString, StringFormat='v {0}'}"></Label>
+            <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal" Margin="10,0,10,5" Spacing="0" HorizontalOptions="CenterAndExpand">
+                <StackLayout Margin="0" Spacing="0" HorizontalOptions="CenterAndExpand">
+                    <ContentView ControlTemplate="{StaticResource selected-device-info}"/>
+                </StackLayout>
+            </StackLayout>
+            <BoxView  HorizontalOptions="FillAndExpand" HeightRequest="2" BackgroundColor="#F2F2F2"  Color="#F2F2F2">
+            </BoxView>
+
+        </StackLayout>
+
+    </ControlTemplate>
+
+    <!-- Selected Device Info -->
+    <ControlTemplate x:Key="selected-device-info">
+        <Grid ColumnSpacing="5" RowSpacing="3" Margin="0" Padding="0" HorizontalOptions="CenterAndExpand">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <!--<RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>-->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0" Style="{DynamicResource blue-label}" FontSize="Medium">Model:</Label>
+            <Label VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="1" FontSize="Medium"  Text="{Binding SelectedManufacturer.Name}"></Label>
+            <!--<Label Grid.Row="1" Grid.Column="0" Style="{StaticResource blue-label}">Protocol</Label>
+                        <Label Grid.Row="1" Grid.Column="1"  Text="{Binding SystemProtocolDescription}"></Label>
+                        <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource blue-label}">Target ID</Label>
+                        <Label Grid.Row="2" Grid.Column="1"  Text="{Binding TargetCANID}"></Label>-->
+        </Grid>
+    </ControlTemplate>
+
+    <!--- Settings Page - WiFi view  -->
+    <ControlTemplate x:Key="WifiView">
+        <Grid RowSpacing="15" Margin="0,0,0,0" Padding="0,0,0,0" ColumnSpacing="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="13*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!-- WiFi -->
+            <!-- Host/IP Address -->
+            <Label FontAttributes="Bold" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Margin="0,0,0,0" 
+                                           VerticalTextAlignment="Center" >Host</Label>
+            <Label Text="{TemplateBinding BindingContext.IPAddress}"  Style="{DynamicResource settings-label}" VerticalOptions="Center" 
+                                           VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,0" ></Label>
+
+            <!-- IP Port -->
+            <Label Margin="0,0,0,0" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" 
+                               VerticalTextAlignment="Center">Port</Label>
+            <Label Text="{TemplateBinding BindingContext.IPPort}"  Style="{DynamicResource settings-label}" VerticalOptions="Center" 
+                                           VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+
+        </Grid>
+    </ControlTemplate>
+
+    <!--- Settings Page - Bluetooth view  -->
+    <ControlTemplate x:Key="BluetoothView">
+        <Grid RowSpacing="0" Margin="0,0,0,0" Padding="0,0,0,0" ColumnSpacing="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="13*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!-- Bluetooth -->
+            <Label FontAttributes="Bold" Grid.Row="0" Grid.Column="0" Margin="0,0,0,0">Device</Label>
+            <Label  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,0" Style="{DynamicResource settings-label}"
+                                Text="{TemplateBinding BindingContext.SelectedBluetoothDevice, Converter={StaticResource StdStringCtrlConverter}}"></Label>
+        </Grid>
+    </ControlTemplate>
+
+
+    
+</ResourceDictionary>

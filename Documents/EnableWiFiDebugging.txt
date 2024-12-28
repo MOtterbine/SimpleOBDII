@@ -1,0 +1,13 @@
+(going to need the IP address of the device)
+Connect your mobile device to your computer with usb cable (You must see your device in the debug start menu before moving past this step).
+Open command prompt with 'run as administrator'.
+Navigate to Android installation folder in command prompt using the following command,
+   "cd C:\Program Files (x86)\Android\android-sdk\platform-tools"
+Type "adb tcpip 5555" command.
+Type "adb connect <ipaddress:5555>".
+Type "adb devices" and it will return this.
+
+    List of devices attached,
+    ipaddress:5555 device  
+	
+Now you can disconnect your usb cable and check if the device name has appeared in the Visual Studio device listing dropdown

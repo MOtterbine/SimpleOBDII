@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:OS.OBDII.Controls"
+             xmlns:views="clr-namespace:OS.OBDII.Views"
+             Title="{Binding Title}" 
+             Background="#000"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
+             xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+             xmlns:converters="clr-namespace:OS.OBDII.Converters"
+             x:Class="OS.OBDII.Views.SettingsPage">
+    
+<!--<ContentPage.BindingContext>
+        <vm:SettingsViewModel />
+    </ContentPage.BindingContext>-->     
+    
+    <ContentPage.Resources>
+
+        <Style TargetType="Label" BaseResourceKey="grid-label">
+            <!--<Setter Property="FontSize" Value="Large" />-->
+        </Style>
+
+    </ContentPage.Resources>
+    
+
+    <Frame Style="{StaticResource page-frame}" >
+        <AbsoluteLayout Background="{StaticResource Dark}">
+
+            <Grid RowSpacing="0" Padding="0" Margin="0,0,0,0" Background="#00000000"
+                  AbsoluteLayout.LayoutBounds=".5, .5,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" Margin="0" Padding="0" Spacing="0">
+
+                    <AbsoluteLayout Margin="0"    Style="{DynamicResource HeaderOffset}">
+                    <StackLayout Orientation="Horizontal" Margin="0" Padding="0" Spacing="0" AbsoluteLayout.LayoutBounds=".5,1" AbsoluteLayout.LayoutFlags="PositionProportional">
+                        <!--<Image Source="os.png" VerticalOptions="Center" HeightRequest="55" />-->
+                            <Label Margin="{OnPlatform '7,20,7,0', WinUI='10,20,10,0'}" VerticalTextAlignment="Center" VerticalOptions="Center" Text="{Binding Title}" Style="{DynamicResource page-header-title-label}"></Label>
+                    </StackLayout>
+                </AbsoluteLayout>
+
+                <!-- Ads -->
+                <!--<views:AdMobView Content="{Binding AdContent}" BackgroundColor="#9a9a9a"/>-->
+                    <ContentView x:Name="AdCtrl" Grid.Row="0" Content="{Binding AdContent}" BackgroundColor="#9a9a9a" Style="{DynamicResource ad-content}"/>
+            </StackLayout>
+
+
+              <!--  <Frame CornerRadius="0" Margin="0" Padding="0" >-->
+            <AbsoluteLayout  Grid.Row="1" >
+                    <ScrollView AbsoluteLayout.LayoutBounds=".5,.5,1,1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout>
+                        <Grid  Padding="0" Margin="0" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <!-- Viewer -->
+                            <Grid Grid.Row="1" VerticalOptions="StartAndExpand" IsVisible="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}" 
+                                      RowSpacing="20" Padding="5,25,5,0">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="13*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="15*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+
+
+                                <!-- Header -->
+                                <Label FontAttributes="Bold" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Margin="0,0,0,0">Header</Label>
+                                <StackLayout Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"  Spacing="0" Margin="0" Padding="0">
+                                    <Label IsVisible="{Binding UseHeader}" HeightRequest="-1" Margin="0" LineBreakMode="WordWrap" 
+                                           VerticalOptions="StartAndExpand" Text="{Binding CANHeader}" Grid.Row="0" Grid.Column="1" Style="{DynamicResource settings-label}"></Label>
+                                    <Label IsVisible="{Binding UseHeader, Converter={StaticResource InvertedBoolConverter}}" HeightRequest="-1" 
+                                           Margin="0" LineBreakMode="WordWrap" Text="Auto" Grid.Row="0" 
+                                           Grid.Column="1" Style="{DynamicResource settings-label}"></Label>
+                                </StackLayout>
+
+                                <!-- Protocol -->
+                                <Label FontAttributes="Bold" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" Margin="0,0,0,0">Protocol</Label>
+                                <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Spacing="0" Margin="0" Padding="0">
+                                    <Label HeightRequest="-1" Margin="0" LineBreakMode="WordWrap"  Text="{Binding SelectedProtocol.Name}"  Style="{DynamicResource settings-label}"></Label>
+                                </StackLayout>
+
+                                <Label FontAttributes="Bold" VerticalOptions="Center" Margin="0,0,0,0" Grid.Row="2" Grid.Column="0" >Units</Label>
+                                <StackLayout Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Spacing="0" Margin="0" Padding="0">
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding UnitTypeDescriptor}" Style="{DynamicResource settings-label}"></Label>
+                                </StackLayout>
+
+                                <!-- RF Type (WiFi vs Bluetooth) -->
+                                <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Spacing="0" Margin="0,0,0,0" Padding="0">
+                                    <Label FontAttributes="Bold" Grid.Row="3"  Grid.Column="0" VerticalOptions="Center" Margin="0">Device Type</Label>
+                                </StackLayout>
+                                
+                                <StackLayout Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Spacing="0" Margin="0,0,0,0" >
+                                    <Label Text="{Binding SelectedCommMethod}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource settings-label}"></Label>
+                                </StackLayout>
+
+                                <!-- Communication Device Details -->
+                                    <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0" Padding="0">
+                                    <ContentView ChildRemoved="ContentView_ChildRemoved">
+                                        <ContentView.Triggers>
+                                            <DataTrigger TargetType="ContentView" Binding="{Binding IsBluetooth}" Value="False">
+                                                <Setter Property="ControlTemplate" Value="{StaticResource WifiView}" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="ContentView" Binding="{Binding IsBluetooth}" Value="True">
+                                                <Setter Property="ControlTemplate" Value="{StaticResource BluetoothView}" />
+                                            </DataTrigger>
+                                        </ContentView.Triggers>
+                                    </ContentView>
+                                </StackLayout>
+                                
+                                <!-- Plot Height -->
+                                <Label Grid.Row="5" Grid.Column="0"  FontAttributes="Bold" Margin="0,0,0,0">Plot Height</Label>
+                                <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Padding="0" Margin="5,0,0,0"  Text="{Binding PlotHeight}"  Style="{DynamicResource settings-label}"/>
+                                
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Row="6" Grid.ColumnSpan="3" Margin="0,35,0,50" Padding="0" >
+                                    <Button HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding EditSaveButtonText}" Command="{Binding EditSaveCommand}" 
+                                            TextTransform="None" Behaviors:CursorBehavior.Cursor="Hand"></Button>
+                                    <Button Margin="10,0,0,0" IsVisible="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}" HorizontalOptions="Center" VerticalOptions="Center" Text="Back" 
+                                            TextTransform="None" Command="{Binding NavigateHomeCommand}" Behaviors:CursorBehavior.Cursor="Hand"></Button>
+
+                                    </StackLayout>
+
+                            </Grid>
+
+                            <!-- Editor -->
+                            <Grid Grid.Row="1" VerticalOptions="StartAndExpand" IsVisible="{Binding IsEditing}" 
+                                RowSpacing="15" ColumnSpacing="0" Padding="0,25,10,0">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="13*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="15*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Header -->
+                                <Label Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Margin="5,0,0,0" >Header</Label>
+                                <StackLayout Grid.Row="0" Grid.Column="1" Spacing="0" Margin="0" Padding="0" >
+                                        <CheckBox Color="#AAefefef" VerticalOptions="CenterAndExpand" IsChecked="{Binding UseHeader}" HorizontalOptions="Start" Margin="{OnPlatform 0,WinUI='10,0,0,0'}"></CheckBox>
+                                </StackLayout>
+
+                                <StackLayout Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Padding="0" Spacing="0" HorizontalOptions="Start">
+                                    <!--<Entry HorizontalOptions="Start"  IsEnabled="{Binding UseHeader}" MaxLength="8" Placeholder="&lt;Header&gt;" Text="{Binding CANHeader}" Behaviors:HexValidationBehavior.AttachBehavior="true"></Entry>-->
+                                        <Entry Text="{Binding CANHeader}" IsEnabled="{Binding UseHeader}" MaxLength="8"  Placeholder="&lt;Header&gt;" Style="{DynamicResource HEXEntry}">
+                                        <Entry.Keyboard>
+                                            <Keyboard x:FactoryMethod="Create">
+                                                <x:Arguments>
+                                                    <KeyboardFlags>Suggestions,CapitalizeCharacter</KeyboardFlags>
+                                                </x:Arguments>
+                                            </Keyboard>
+                                        </Entry.Keyboard>
+                                    </Entry>
+                                </StackLayout>
+
+                                <!-- Protocol Picker -->
+                                <Label VerticalOptions="Center" Margin="5,0,0,0" Grid.Row="1" Grid.Column="0">Protocol</Label>
+                                <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  Spacing="0" Margin="0" Padding="0">
+                                        <Picker VerticalOptions="StartAndExpand" Margin="0"  ItemsSource="{Binding Protocols}" ItemDisplayBinding="{Binding Name}"  
+                                                SelectedItem="{Binding SelectedProtocol}" HorizontalOptions="FillAndExpand" Style="{StaticResource settings-picker}"/>
+                                </StackLayout>
+
+                                <!-- Metric vs English -->
+                                <Label VerticalOptions="Center" Margin="5,0,0,0" Grid.Row="2" Grid.Column="0" >Metric Units</Label>
+                                <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  Spacing="0" Margin="0" Padding="0">
+                                        <CheckBox Color="#AAefefef" IsChecked="{Binding UseMetric}" HorizontalOptions="Start" Margin="{OnPlatform 0,WinUI='10,0,0,0'}"></CheckBox>
+                                </StackLayout>
+
+
+                                <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" RowSpacing="0" Margin="0,0,0,0" Padding="0">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="13*"></ColumnDefinition>
+                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- RF Type (WiFi vs Bluetooth) -->
+                                    <!-- Edit -->
+                                    <Label Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Margin="5,0,0,15">Device Type</Label>
+                                    <Picker Margin="0,0,0,15" ItemsSource="{Binding SerialCommMethods}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"  ItemDisplayBinding="{Binding .}"  SelectedItem="{Binding SelectedCommMethod}" Style="{DynamicResource settings-picker}">
+                                    </Picker>
+
+                                    <!-- Bluetooth -->
+                                    <Label IsVisible="{Binding IsBluetooth}" VerticalOptions="Center" Grid.Row="2" Grid.Column="0" Margin="5,0,0,15">Device</Label>
+                                    <!-- Edit -->
+                                        <Picker Margin="0,0,0,15" IsVisible="{Binding IsBluetooth}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  ItemsSource="{Binding DeviceList}" ItemDisplayBinding="{Binding .}" SelectedItem="{Binding SelectedBluetoothDevice}" Style="{DynamicResource nested-settings-picker}">
+                                    </Picker>
+                                    <Label IsVisible="{Binding IsBluetooth}" VerticalOptions="Center" Grid.Row="3" Grid.Column="0" Margin="5,0,0,0">Serial Baud Rate</Label>
+                                        <Picker IsVisible="{Binding IsBluetooth}" Margin="0,0,0,0"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding BaudRates}"  SelectedItem="{Binding SerialBaudRate}" Style="{DynamicResource nested-settings-picker}">
+                                    </Picker>
+
+
+
+
+                                    <!-- Host/IP Address -->
+                                    <Label IsVisible="{Binding IsBluetooth, Converter={StaticResource InvertedBoolConverter}}" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" Margin="5,0,0,15" >Host</Label>
+                                        <Entry IsVisible="{Binding IsBluetooth, Converter={StaticResource InvertedBoolConverter}}" x:Name="IPAddress" Text="{Binding IPAddress}" Grid.Row="2" Margin="0,0,0,15" Grid.Column="1" Grid.ColumnSpan="2" ></Entry>
+                                    <!-- IP Port -->
+                                    <Label IsVisible="{Binding IsBluetooth, Converter={StaticResource InvertedBoolConverter}}" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" Margin="5,0,0,0" >Port</Label>
+                                        <Entry IsVisible="{Binding IsBluetooth, Converter={StaticResource InvertedBoolConverter}}" x:Name="Port"  Text="{Binding IPPort}" Grid.Row="3" Margin="0,0,0,0" Grid.Column="1" Grid.ColumnSpan="2"/>
+ 
+                                </Grid>
+
+                                <!-- Plot Hieght -->
+                                    <Label  Grid.Row="4" Grid.Column="0" VerticalOptions="CenterAndExpand" Margin="5,0,0,0" >Plot Height (75-500)</Label>
+                                    <Entry Grid.Row="4" Grid.Column="1" VerticalOptions="CenterAndExpand" Margin="0" Text="{Binding PlotHeight}" Grid.ColumnSpan="2" Behaviors:NumbersOnlyValidationBehavior.AttachBehavior="true"/>
+
+                                <Button Grid.Row="5" Grid.ColumnSpan="3" Margin="0,20,0,20" HorizontalOptions="Center" VerticalOptions="Start" Text="{Binding EditSaveButtonText}" 
+                                        Command="{Binding EditSaveCommand}" TextTransform="None" Behaviors:CursorBehavior.Cursor="Hand"></Button>
+
+                            </Grid>
+
+
+                        </Grid>
+
+                    </StackLayout>
+                </ScrollView>
+
+            </AbsoluteLayout>
+                <!--</Frame>-->
+        </Grid>
+            
+        <StackLayout IsVisible="{Binding IsBusy}" BackgroundColor="#80FFFFFF" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" >
+            <ActivityIndicator IsRunning="{Binding IsBusy}"  VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+            
+        </AbsoluteLayout>
+    </Frame>
+
+</ContentPage>

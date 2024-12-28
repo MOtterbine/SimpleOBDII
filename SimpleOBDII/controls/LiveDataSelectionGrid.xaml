@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:xct="clr-namespace:OS.OBDII.Models"
+             ColumnSpacing="0" RowSpacing="0" Padding="0" 
+             xmlns:local="clr-namespace:OS.OBDII"
+             x:Class="OS.OBDII.Controls.LiveDataSelectionGrid"
+             xmlns:controls="clr-namespace:OS.OBDII.Controls"
+             x:Name="LiveSelections" 
+             Margin="0,0,0,0">
+
+    <Grid.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource PrimaryTextLight}" />
+        </Style>
+    </Grid.Resources>
+
+    <StackLayout Grid.Row="0" Orientation="Vertical" Spacing="0" Margin="0,0,0,0" Padding="0,0,0,0">
+            <StackLayout IsVisible="{Binding Source={RelativeSource Mode=FindAncestor, 
+                                        AncestorType={x:Type controls:LiveDataSelectionGrid}}, Path=SourceIsEmpty}" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Label HeightRequest="70" FontSize="{OnPlatform Large, WinUI=Medium}" FontAttributes="Bold" HorizontalTextAlignment="Center" 
+                                        Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LiveDataSelectionGrid} }, Path=EmptyGridString}" 
+                    HorizontalOptions="Center" VerticalOptions="FillAndExpand"></Label>
+            </StackLayout>
+
+            <controls:OSListView x:Name="PIDListView"  
+                      SelectionMode="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LiveDataSelectionGrid} }, Path=SelectionMode}"
+                      SelectedItem="{Binding Mode=TwoWay, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LiveDataSelectionGrid} }, Path=SelectedItem}"
+                      BackgroundColor="Transparent" IsVisible="{Binding Source={RelativeSource Mode=FindAncestor, 
+                      AncestorType={x:Type controls:LiveDataSelectionGrid}}, Path=SourceIsEmpty, Converter={StaticResource InvertedBoolConverter}}" 
+                      ItemsSource="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LiveDataSelectionGrid} }, Path=ItemsSource}"
+                      HasUnevenRows="True" 
+                      Scrolled="PIDListView_Scrolled"
+                      Margin="0" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Appearing="ViewCell_Appearing" Disappearing="ViewCell_Disappearing">
+                                <Grid ColumnSpacing="0" RowSpacing="3" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Frame Grid.Row="0" Grid.Column="0" Padding="10,5" BorderColor="#52000000" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" >
+                            </Frame>-->
+                            <CheckBox IsEnabled="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:LiveDataSelectionGrid} }, Path=IsEnabled}"
+                                     Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsSelected}"  Margin="{OnPlatform '5', WinUI='10,5,0,5'}"/>
+
+                                    <!--<Frame Grid.Row="0" Grid.Column="1" Padding="0" BorderColor="#52000000" BackgroundColor="Transparent">
+                                    </Frame>-->
+                                    <Label Grid.Row="0" Grid.Column="1" Margin="0" Padding="5,0" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" Style="{DynamicResource grid-label}" Text="{Binding Description}"></Label>
+                                </Grid>
+                            </ViewCell>
+                    </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </controls:OSListView>
+    </StackLayout>
+</Grid>
