@@ -12,8 +12,8 @@ namespace OS.OBDII
     {
 
         private string userUnit = String.Empty;
-        private const string tosup1 = "50EF5D0A-F009-4E99-AAE7-2C25A4317D88";
-        private const string tosup2 = "F0FE389E-A91E-4FE9-BC67-55E331E26BFF";
+        private const string tosup1 = "93E97359-111A-472E-97A6-FDCF3FC246D6";
+        private const string tosup2 = "90920B4C-7584-4B32-9E53-4215ADD9FA56";
 
         public SecurityManager(String input)
         {
