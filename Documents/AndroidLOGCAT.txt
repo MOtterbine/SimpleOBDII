@@ -1,4 +1,4 @@
-To pull out a crash log after the fact
+To pull out a logged entries or crash log after the fact
 
 find adb.exe (ex. C:\Program Files (x86)\Android\android-sdk\platform-tools\adb.exe)
 
@@ -8,5 +8,5 @@ adb logcat --clear
 
 adb logcat --help
 
-// filter by tag, set in the application - tag might be any name (here is MYAPPTAG)
-adb logcat MYAPPTAG *:S
+// filter by tag, set in the application - tag might be any name (here is SIMPLE_OBDII)
+adb logcat SIMPLE_OBDII *:S

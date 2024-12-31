@@ -8,10 +8,9 @@ using Constants = OS.OBDII.Constants;
 public partial class LogService : ILogService
 {
 
-    ILogger logger;// = factory.CreateLogger("Program");
+    ILogger logger;
     public LogService()
     {
-      //  this.logFileName = Path.Combine(Android.App.Application.Context.GetExternalFilesDir("").AbsolutePath, Constants.LOG_FILE_PATH);
     }
 
     public void AppendLog(LogLevel level, string logText)
@@ -38,12 +37,9 @@ public partial class LogService : ILogService
 
             }
 
-           // AppendFile($"[{DateTime.Now.ToString("MM/dd/yyyy hh:mmtt")}] {level}: {logText}");
-
         }
         catch (Exception e)
         {
-            // File.AppendAllText(logFileName, $"[{DateTime.Now.ToString("MM/dd/yyyy hh:mmtt")}] Error: {e.Message}{Environment.NewLine}", Encoding.UTF8);
             Android.Util.Log.Error(Constants.STRING_LOG_TAG, $"LogService.AppendLog(...) - {e.Message}");
         }
     }

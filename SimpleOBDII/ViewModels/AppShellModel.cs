@@ -2,15 +2,6 @@
 using OS.OBDII.Communication;
 using OS.OBDII.Models;
 using OS.OBDII.Views;
-using OS.OBDII.ViewModels;
-using OS.OBDII.Manufacturers;
-using Constants = OS.OBDII.Constants;
-using OS.OBDII;
-using Newtonsoft.Json;
-using System.Reflection;
-using System.Resources;
-using Microsoft.Maui.Storage;
-using System.Formats.Tar;
 
 namespace OS.OBDII.ViewModels;
 
@@ -61,7 +52,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
 
         var t = new OS.OBDII.PartialClasses.DeviceIdentifier();
 
-        // this._AdService = DependencyService.Get<IAdService>();
         this._AdService = new OS.OBDII.PartialClasses.AdService() as IAdService;
 
         this.LogService?.AppendLog(Microsoft.Extensions.Logging.LogLevel.Debug, "**** APP START **** (AppShellModel..ctor)");
@@ -87,25 +77,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         return this.ActivityControl.ShowLicensePopupAsync();
     }
 
-
-    private async Task<bool> ShowPopup(PopupInfo popupInfo)
-    {
-        var popupPage = Application.Current.MainPage as ICustomPopup;
-        if(popupPage == null)
-        {
-            this.LogService.AppendLog(Microsoft.Extensions.Logging.LogLevel.Error, "Main page is not an 'ICustomPopup' and cannot support the popup request.");
-            return false;
-        }
-        var result = await popupPage.ShowPopupAsync(popupInfo);
-        //var popup = new OSPopup(popupInfo);
-        //var result = await App.Current.MainPage.ShowPopupAsync(popup);
-        
-        if (result is bool boolResult) return boolResult;
-        return false;
-
-        // return await AppShellModel.Instance.ShowPopupAsync(popupInfo);
-    }
-
     public void CloseApp()
     {
         this.ActivityControl.Close();
@@ -124,8 +95,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     {
         this.ActivityControl.ConfigureUI();
     }
-
-
 
     public void SetupAnimation(Image img)
     {
@@ -162,7 +131,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     }
 
     public int HeaderPadding { get; private set; } = 0;
-    //public bool DeviceIsInitialized { get; set; }
     public static AppShellModel Instance
     {
         get
@@ -194,74 +162,9 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         return this.ActivityControl.CheckSelfPermission(permission);
     }
 
-    //public List<IManufacturer> Manufacturers { get; } = new List<IManufacturer>() {
-    //            new OBD2FaultCodes_generic(),
-    //            new Bajaj125(),
-    //            new Bajaj150(),
-    //            new Benelli(),
-    //            new HERO_GEN5(),
-    //            new Jawa(),
-    //            new Suzuki(),
-    //            new Yamaha()
-    //};
     public List<IVehicleModel> Manufacturers { get; set; }
 
-    //public List<IManufacturer> Manufacturers { get; private set; } = new List<IManufacturer>();
-
-    //private async Task LoadManufacturersData()
-    //{
-    //    try
-    //    {
-
-    //        List<string> modelNames = new List<string>()
-    //        {
-    //            "Manufacturers.Bajaj125.json",
-    //            "Manufacturers.Bajaj150.json",
-    //            "Manufacturers.Benelli.json",
-    //            "Manufacturers.Ford.json",
-    //            "Manufacturers.HERO_GEN5.json",
-    //            "Manufacturers.Jawa.json",
-    //            "Manufacturers.RoyalEnfield.json",
-    //            "Manufacturers.Suzuki.json",
-    //            "Manufacturers.US_Generic.json",
-    //            "Manufacturers.Yamaha.json"
-    //        };
-
-    //        OBD2FaultCodes model = null;
-
-    //        foreach (var m in modelNames)
-    //        {
-    //            var stream0 = await FileSystem.OpenAppPackageFileAsync(m);
-    //            var reader0 = new StreamReader(stream0);
-    //            var jsonString0 = reader0.ReadToEnd();
-    //            model = JsonConvert.DeserializeObject<OBD2FaultCodes>(jsonString0);
-
-    //            if (model != null && model.FaultCodes.Count() > 0)
-    //            {
-    //                this.Manufacturers.Add(model);
-    //            }
-    //        }
-
-    //    }
-    //    catch (Exception e)
-    //    {
-    //        this.LogService?.AppendLog(Microsoft.Extensions.Logging.LogLevel.Error,
-    //                    $"AppShellModel.LoadManufacturersData() - {e.Message}");
-
-    //    }
-    //}
-    //async Task LoadMauiAsset(string fileName)
-    //{
-    //    using var stream = await FileSystem.OpenAppPackageFileAsync(fileName);
-    //    using var reader = new StreamReader(stream);
-
-    //    var fucktard =  reader.ReadToEnd();
-    //}
-
-
     private IDataService _dataService = null;
-
-
 
 
     private bool tabsEnabled = true;
@@ -270,8 +173,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         get { return tabsEnabled; }
         set { SetProperty(ref tabsEnabled, value); }
     }
-
-
 
     public int SelectedProtocolIndex
     {
@@ -341,10 +242,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         }
     }
 
-
-
-
-
     public bool UseHeader
     {
         get { return useHeader; }
@@ -392,9 +289,7 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     }
     private bool useMetric = Preferences.Get(Constants.PREFS_USE_METRIC, false);
 
-
     public bool IsBluetooth => selectedCommMethod == null ? true : String.Compare(selectedCommMethod, Constants.PREFS_BLUETOOTH_TYPE_DESCRIPTOR) == 0;
-
 
     private string selectedCommMethod = Preferences.Get(Constants.PREFS_KEY_DEVICE_COMM_TYPE, Constants.PREFS_BLUETOOTH_TYPE_DESCRIPTOR);
     public string SelectedCommMethod
@@ -404,18 +299,10 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         {
             SetProperty(ref selectedCommMethod, value);
             Preferences.Set(Constants.PREFS_KEY_DEVICE_COMM_TYPE, value);
-            // this.IsBluetooth = (value == Constants.PREFS_BLUETOOTH_TYPE_DESCRIPTOR);
-
             this.SetCommMethod();
-            //this.DeviceIsInitialized = false;
             if (this._CommunicationService == null) return;
-            //this.CommunicationChannel = this._CommunicationService.DeviceName;
-            //this.communicationChannel.Name = this._CommunicationService.DeviceName;
-            //this.communicationChannel.BaseType = this._CommunicationService.GetType();
-
         }
     }
-
 
 
     private string selectedBluetoothDevice = Preferences.Get(Constants.PREFS_KEY_BLUETOOTH_DEVICE, string.Empty);
@@ -424,10 +311,7 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         get => selectedBluetoothDevice;
         set
         {
-            //Android.Util.Log.Info(Constants.STRING_LOG_TAG, $"AppShellModel.SelectedBluetoothDevice.set({value}) ");
-
             SetProperty(ref selectedBluetoothDevice, value);
-            //this.DeviceIsInitialized = false;
             if (this._CommunicationService != null) this._CommunicationService.DeviceName = value;
         }
     }
@@ -436,7 +320,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
 
     public bool StoreBluetoothDevicePreset(string device)
     {
-        //if(string.IsNullOrEmpty(device)) return false;
         Preferences.Set(Constants.PREFS_KEY_BLUETOOTH_DEVICE, device);
         return true;
     }
@@ -450,7 +333,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         set
         {
             SetProperty(ref communicationChannel, value);
-            //this.DeviceIsInitialized = false;
             this._CommunicationService.DeviceName = value;
         }
     }
@@ -479,11 +361,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
 
             this._CommunicationService = this._DevicesService as ICommunicationDevice;
             this.SelectedBluetoothDevice = Preferences.Get(Constants.PREFS_KEY_BLUETOOTH_DEVICE, "");
-            //if(string.IsNullOrEmpty(this.SelectedBluetoothDevice))
-            //{
-            //    // First run...
-            //    Preferences.Clear();
-            //}
             this.CommunicationService.DeviceName = this.SelectedBluetoothDevice;
             var sp = (this.CommunicationService as ISerialDevice);
             if (sp != null)
@@ -493,20 +370,11 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         }
         else
         {
-            //  if (this._CommunicationService is IBlueToothService)
-            //  {
             this._CommunicationService = new TCPSocket(this.IPAddress, this.IPPort, ConnectMethods.Client);
             this.communicationChannel = this.CommunicationService.ToString();
-            //    }
         }
 
-        // device hardware is stateful (as is the ICommunicationService)
-        //this.DeviceIsInitialized = false;
-
         this._CommunicationService?.Initialize();
-
-        // Ensure communication object starts as closed
-        //this.CommunicationService?.Close();
 
     }
 

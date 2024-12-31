@@ -40,7 +40,7 @@ public const bool ADS_ARE_ACTIVE = false;
 
     public const string USER_PIDS_JSON_FILE = "userpids.json";
     public const string USER_TESTS_JSON_FILE = "usertests.json";
-    public const string LOG_FILE_PATH = "log.txt";
+    public const string LOG_FILE_PATH = "SimpleOBDII_log.txt";
     public const int MAX_LOG_FILE_LENGTH = 10000;
 
     public const int LAUNCH_BUTTON_RESIZE_MAX_WINDOW_WIDTH = 2000;
