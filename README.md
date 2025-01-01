@@ -7,5 +7,5 @@
 <div style="align:center;display:block">
   <img src='https://www.otterbinesolutions.com/downloads/home.png' style="text-align:center;width:250px;margin:1em" />
   <img src='https://www.otterbinesolutions.com/downloads/thumb.png' style="width:250px;margin:1em" />
-  <img src='https://www.otterbinesolutions.com/downloads/thumb1.png' style="width:250px;margin:1em" />
+  <img src='https://www.otterbinesolutions.com/downloads/graph.png' style="width:250px;margin:1em" />
  </div>
