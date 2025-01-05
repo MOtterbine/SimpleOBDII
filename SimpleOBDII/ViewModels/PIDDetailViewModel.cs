@@ -28,15 +28,15 @@ namespace OS.OBDII.ViewModels
                 if (adding == true)
                 {
 
-                    if (AppShellModel.Instance.tempIPid == null)
+                    if (_appShellModel.tempIPid == null)
                     {
                         this.TargetPID = new UserPID(0);
                     }
                     else
                     {
-                        this.TargetPID = new UserPID(AppShellModel.Instance.tempIPid.Code);
+                        this.TargetPID = new UserPID(_appShellModel.tempIPid.Code);
                     }
-                    AppShellModel.Instance.tempIPid = null; // throw away temp data
+                    _appShellModel.tempIPid = null; // throw away temp data
                     this.OriginalCalculation = this.CalcExpression = "A";
                     this.Description = this.Name = this.GenerateNewPIDName("New PID");
                     OnPropertyChanged("PIDString");
@@ -76,7 +76,7 @@ namespace OS.OBDII.ViewModels
 
         //private void LoadUserPIDs()
         //{
-        //    this.UserPids = new ObservableCollection<UserPID>(AppShellModel.Instance.LoadUserPIDs().ToList());
+        //    this.UserPids = new ObservableCollection<UserPID>(_appShellModel.LoadUserPIDs().ToList());
         //    // assign index values to 'Code' field..
         //    uint i = 0;
         //    foreach (UserPID pid in UserPids)
@@ -498,12 +498,12 @@ namespace OS.OBDII.ViewModels
             }
 
             // View/edit an existing pid, so we need to load it
-            if (AppShellModel.Instance.tempIPid != null && !this.Add)
+            if (_appShellModel.tempIPid != null && !this.Add)
             {
-                LoadTargetPID(AppShellModel.Instance.tempIPid.Code);
+                LoadTargetPID(_appShellModel.tempIPid.Code);
 
                 // Remove the temp pid object
-                AppShellModel.Instance.tempIPid = null;
+                _appShellModel.tempIPid = null;
             }
 
             this.IsBusy = false;
@@ -518,7 +518,7 @@ namespace OS.OBDII.ViewModels
         public void CloseCommService()
         {
 
-            AppShellModel.Instance.SendHapticFeedback();
+            _appShellModel.SendHapticFeedback();
 
         }
         public void Stop()

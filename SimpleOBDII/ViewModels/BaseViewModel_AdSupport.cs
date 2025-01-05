@@ -15,7 +15,7 @@ namespace OS.OBDII.ViewModels;
 
 public class BaseViewModel_AdSupport : OS.OBDII.ViewModels.BaseViewModel
 {
-    public virtual string VersionString => VersionInfo.AppVersion;
+    public virtual string VersionString => VersionInfo.AssemblyVersion;
 
     protected Queue<Task> ActionQueue = new Queue<Task>();
     protected IAdService adService => this._appShellModel.AdService;
@@ -66,7 +66,7 @@ public class BaseViewModel_AdSupport : OS.OBDII.ViewModels.BaseViewModel
         
     }
 
-    private IOBDIICommonUI _appShellModel = null;
+    protected IOBDIICommonUI _appShellModel = null;
 
     public BaseViewModel_AdSupport(IOBDIICommonUI appShell)
     {

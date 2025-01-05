@@ -32,8 +32,8 @@
 	<PropertyGroup>
 	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
 	  <DefaultLanguage>EN</DefaultLanguage>
-	  <AssemblyVersion>1.0.1.0</AssemblyVersion>
-	  <FileVersion>1.0.1.0</FileVersion>
+	  <AssemblyVersion>1.0.0.0</AssemblyVersion>
+	  <FileVersion>1.0.0.0</FileVersion>
 	</PropertyGroup>
 
 
@@ -116,37 +116,19 @@
 	 <PropertyGroup>
 		<!-- Manually set via text editor to allow for multiple manifests (normal version and ads version) - M.O. -->
 		<AndroidManifest>Platforms\Android\StandardBuild\AndroidManifest.xml</AndroidManifest>
-		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-		<PackageCertificateThumbprint>5360C9B127EB2DC2850859CC17C3E17D1B078D0C</PackageCertificateThumbprint>
-		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-		<AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-		<GenerateTestArtifacts>True</GenerateTestArtifacts>
-		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
 	 </PropertyGroup>
 	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
 	   <ApplicationTitle>Simple OBDII</ApplicationTitle>
 	   <ApplicationId>com.OtterbineSolutions.OS.MS</ApplicationId>
 	   <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
-	   <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-	   <ApplicationVersion>1</ApplicationVersion>
 	 </PropertyGroup>
 	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
 	   <ApplicationTitle>Simple OBDII</ApplicationTitle>
 	   <ApplicationId>com.OtterbineSolutions.OS.MS</ApplicationId>
 	   <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
-	   <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-	   <ApplicationVersion>1</ApplicationVersion>
 	 </PropertyGroup>
-	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
-	   <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-	   <ApplicationVersion>1</ApplicationVersion>
-	 </PropertyGroup>
-	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
-	   <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-	   <ApplicationVersion>1</ApplicationVersion>
-	 </PropertyGroup>
+	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'" />
+	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'" />
 	
 
 
@@ -167,11 +149,10 @@
 	</ItemGroup>
 	
 
-
 	<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\AboutAssets.txt" />
-	</ItemGroup>
-	
+	</ItemGroup>	
+
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.0.3" />
@@ -192,7 +173,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\OS.Communication\OS.Communication.csproj" />
+	  <ProjectReference Include="..\..\MAUI Communication\MAUI Communication.csproj" />
 	</ItemGroup>
 
 

@@ -73,7 +73,7 @@
         <StackLayout  Grid.Row="0" Margin="0" Padding="0" Spacing="0">
 
             <Label FontSize="Title" FontAttributes="Italic,Bold" HorizontalOptions="CenterAndExpand" Margin="15,0,10,0" Padding="0" >Simple OBDII</Label>
-            <Label FontSize="Micro" HorizontalOptions="CenterAndExpand" Margin="{OnPlatform '10,2,10,3', WinUI='10,-3,10,0'}" Padding="0" Text="{Binding VersionString, StringFormat='v {0}'}"></Label>
+            <Label FontSize="Micro" HorizontalOptions="CenterAndExpand" Margin="{OnPlatform '10,2,10,3', WinUI='10,-3,10,0'}" Padding="0" Text="{Binding VersionString, StringFormat='v{0}'}"></Label>
             <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal" Margin="10,0,10,5" Spacing="0" HorizontalOptions="CenterAndExpand">
                 <StackLayout Margin="0" Spacing="0" HorizontalOptions="CenterAndExpand">
                     <ContentView ControlTemplate="{StaticResource selected-device-info}"/>

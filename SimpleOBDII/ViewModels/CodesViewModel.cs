@@ -1,16 +1,9 @@
-﻿using OS.OBDII;
+﻿using OS.Communication;
 using OS.OBDII.Models;
 using OS.OBDII.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using OS.OBDII.Communication;
 using OS.OBDII.Manufacturers;
 
 namespace OS.OBDII.ViewModels
@@ -193,7 +186,7 @@ namespace OS.OBDII.ViewModels
 
         StringBuilder sb = new StringBuilder();
 
-        protected override async Task OnCommunicationEvent(object sender, ChannelEventArgs e)
+        protected override async Task OnCommunicationEvent(object sender, DeviceEventArgs e)
         {
             try 
             { 

@@ -1,5 +1,5 @@
 ﻿using OS.OBDII.Interfaces;
-using OS.OBDII.Communication;
+using OS.Communication;
 using OS.OBDII.Models;
 using OS.OBDII.Views;
 
@@ -16,9 +16,9 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     private IWiFiService _WiFiService = null;
     public ILogService LogService { get; }
 
-    public IPid tempIPid = null;
+    public IPid tempIPid { get; set; } = null;
 
-    public string VersionString => OS.OBDII.VersionInfo.AppVersion;
+    public string VersionString => OS.OBDII.VersionInfo.AssemblyVersion;
     public IVehicleModel SelectedManufacturer
     {
         get => OBD2Device.SystemReport.SelectedManufacturer;
@@ -41,6 +41,11 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     #endregion ILicenseManager
 
 
+    bool IOBDIICommonUI.OpenCommunicationChannel()
+    {
+        if (this.CommunicationService == null) return false;
+        return this.CommunicationService.Open(this.CommunicationChannel);
+    }
 
     private AppShellModel()
     {
@@ -340,7 +345,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     public IList<string> DeviceList => this._DevicesService.GetDeviceList();
 
 
-
     public void SetCommMethod()
     {
 
@@ -353,7 +357,7 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
 
         if (this._DevicesService == null)
         {
-            this._DevicesService = new OS.OBDII.PartialClasses.MAUI_SerialDevice() as IDevicesService;
+            this._DevicesService = new OS.PlatformShared.MAUI_SerialDevice() as IDevicesService;
         }
 
         if (this.IsBluetooth)
@@ -374,12 +378,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
             this.communicationChannel = this.CommunicationService.ToString();
         }
 
-        this._CommunicationService?.Initialize();
-
     }
-
-
-
-
 
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace OS.OBDII;
 
-public class Constants
+public class Constants: OS.Communication.Constants
 {
 #if WINDOWS
 public const bool ADS_ARE_ACTIVE = false;
@@ -21,7 +21,7 @@ public const bool ADS_ARE_ACTIVE = false;
 
     public const string STRING_LOG_TAG = "SIMPLE_OBDII";
 
-    // these currently only apply to Windows platform
+    // these are fore Windows platform UIs
     public const int MIN_WINDOW_WIDTH_WINDOWS = 600;
     public const int MIN_WINDOW_HEIGHT_WINDOWS = 750;
 
@@ -52,11 +52,6 @@ public const bool ADS_ARE_ACTIVE = false;
 
     public const char CARRIAGE_RETURN = '\r';
 
-    public const string DEFAULTS_WIFI_IPADDRESS = "192.168.0.10";
-    public const int DEFAULTS_WIFI_PORT = 35000;
-    public const int DEFAULT_COMM_NO_RESPONSE_TIMEOUT = 1500;
-    public const int DEFAULT_COMM_NO_RESPONSE_RETRY_COUNT = 5;
-    public const int DEFAULT_COMM_CONNECT_RETRY_COUNT = 3;
     public const int DEFAULTS_PLOT_HEIGHT = 150;
 
     public const string DTC_CODES_GROUP_CONFIRMED = "Confirmed";
@@ -70,27 +65,14 @@ public const bool ADS_ARE_ACTIVE = false;
     public const string PREFS_KEY_PLATFORM_DESCRIPTION_ANDROID = "Android";
     public const string PREFS_KEY_PLATFORM_DESCRIPTION_WINDOWS = "Windows";
     public const string PREFS_KEY_SELECTED_PROTOCOL = "SelectedProtocol";
-    public const string PREFS_KEY_DEVICE_WIFI_MODE = "DeviceWifiType";
-    public const string PREFS_KEY_BLUETOOTH_DEVICE = "BluetoothDevice";
-    public const string PREFS_KEY_IP_ADDRESS = "IPAddress";
-    public const string PREFS_KEY_IP_PORT = "IPPort";
-    public const string PREFS_KEY_DEVICE_COMM_TYPE = "CommunicationType";
-    public const string PREFS_SERIAL_BAUD_RATE = "SerialBaudRate";
-    public const string PREFS_BLUETOOTH_TYPE_DESCRIPTOR = @"Bluetooth/USB";
     public const string PREFS_USE_HEADER = "USE_HEADER";
     public const string PREFS_USE_METRIC = "USE_METRIC";
     public const string PREFS_REMEMBER_VIN = "RememberVIN";
-    public const string PREFS_WIFI_TYPE_DESCRIPTOR = "WiFi/Network";
     public const string PREFS_KEY_PLOT_HEIGHT = "PLOT_HEIGHT";
     public const string PREFS_KEY_LAST_VALID_VIN = "LAST_VALID_VIN";
-    public const string PREFS_KEY_CANID = "CANDID";
     public const string PREFS_KEY_MANUFACTURER = "Code Descriptions";
     public const string PREFS_KEY_APPLICATION_REGISTRATION_ANSWER = "AppInstallationHash";
     public const string PREFS_KEY_SHOW_CODES = "ShowActiveTestCodes";
-
-
-    //public const string DEFAULT_DIAG_FUNCADDR_CAN_ID_11 = "7DF";
-    //public const string DEFAULT_TEST_CAN_ID_29 = "18DB33F1";
 
     public const int MAX_PLOT_HEIGHT = 500;
     public const int MIN_PLOT_HEIGHT = 75;
@@ -106,12 +88,6 @@ public const bool ADS_ARE_ACTIVE = false;
     public const string MSG_NO_RESPONSE_VEHICLE = "No Response From Vehicle";
     public const string MSG_NO_RESPONSE_SYSTEM = "No Response From System";
     public const string MSG_NOT_SELECTED = "Not Selected";
-    public const string MSG_SENDING = "Sending...";
-    public const string MSG_CONNECTING = "Connecting...";
-    public const string MSG_QUERYING = "Querying";
-    public const string MSG_COMMUNICATING = "Communicating...";
-    public const string MSG_DATA_RECEIVED = "Data Received";
-    public const string MSG_DEVICE_FOUND = "Device Found";
     public const string MSG_OK = "Ok";
     public const string MSG_SUCCESS = "Success";
     public const string MSG_ERROR = "** ERROR **";
@@ -137,7 +113,6 @@ public const bool ADS_ARE_ACTIVE = false;
     public const string STRING_CONTINUE = "Continue";
     public const string STRING_GO = "Go";
     public const string STRING_BUSY = "Device Busy, Try Again";
-    public const string COMMUNICATION_DEVICE_NOT_SETUP = "*** Device Not Set ***";
 
     public const double STYLES_BREAKPOINT_0 = 340;
     public const int COMM_IDLE_TIMEOUT = 5000;

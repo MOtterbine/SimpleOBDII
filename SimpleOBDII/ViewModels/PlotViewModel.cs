@@ -67,7 +67,7 @@ namespace OS.OBDII.ViewModels
         public void CloseCommService()
         {
 
-            AppShellModel.Instance.SendHapticFeedback();
+            _appShellModel.SendHapticFeedback();
 
         }
         public void Stop()

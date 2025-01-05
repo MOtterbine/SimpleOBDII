@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
+using OS.Communication;
 using OS.OBDII.Interfaces;
 using OS.OBDII.Models;
-using OS.OBDII;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 
 

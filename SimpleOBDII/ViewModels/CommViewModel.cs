@@ -1,5 +1,5 @@
 ﻿using OS.OBDII.Models;
-using OS.OBDII.Communication;
+using OS.Communication;
 using OS.OBDII.Interfaces;
 
 namespace OS.OBDII.ViewModels
@@ -29,7 +29,7 @@ namespace OS.OBDII.ViewModels
 
         protected abstract OBD2DeviceAdapter OBD2Adapter { get; }
         protected abstract void OnAdapterEvent(object sender, OBD2AdapterEventArgs e); 
-        protected abstract Task OnCommunicationEvent(object sender, ChannelEventArgs e);
+        protected abstract Task OnCommunicationEvent(object sender, DeviceEventArgs e);
 
         /// <summary>
         /// Returns true if a connect attempt was started
@@ -43,8 +43,7 @@ namespace OS.OBDII.ViewModels
             if (ConnectTimeoutCount++ < Constants.DEFAULT_COMM_CONNECT_RETRY_COUNT)
             {
                 descriptor = Constants.STRING_CONNECTING;
-                var success = this._appShellModel.CommunicationService.Open();
-                //descriptor = success ? "Connected" : "Connection Failed";
+                var success = this._appShellModel.OpenCommunicationChannel();
                 
                 return success;
             }
@@ -90,7 +89,6 @@ namespace OS.OBDII.ViewModels
 
                 //this.OBD2Adapter.OBD2AdapterEvent -= OnAdapterEvent;
                 this._appShellModel.CommunicationService.CommunicationEvent -= OnCommunicationEvent;
-             //   AppShellViewModel.Instance.CommunicationService.Close();
 
                 this.OBD2Adapter.OBD2AdapterEvent += OnAdapterEvent;
                 this._appShellModel.CommunicationService.CommunicationEvent += OnCommunicationEvent;

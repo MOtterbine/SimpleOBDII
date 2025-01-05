@@ -1,5 +1,5 @@
 ﻿using OS.OBDII.Interfaces;
-using OS.OBDII.Communication;
+using OS.Communication;
 using OS.OBDII.Models;
 using OS.OBDII.ViewModels;
 using System.Collections.ObjectModel;
@@ -28,7 +28,7 @@ namespace OS.OBDII.ViewModels
         protected StringBuilder rawStringData = new StringBuilder();
         protected override OBD2DeviceAdapter OBD2Adapter { get; } = new OBD2DeviceAdapter();
 
-        public int PlotHeight => AppShellModel.Instance.PlotHeight;
+        public int PlotHeight => _appShellModel.PlotHeight;
 
         void IEditableViewModel.Edit(object editObject)
         {
@@ -335,7 +335,7 @@ namespace OS.OBDII.ViewModels
             {
                 this._CommTimer.Change(Constants.DEFAULT_COMM_NO_RESPONSE_TIMEOUT, Constants.DEFAULT_COMM_NO_RESPONSE_TIMEOUT);
                 // Resend the last command
-                if (AppShellModel.Instance.CommunicationService.IsConnected)
+                if (_appShellModel.CommunicationService.IsConnected)
                 {
                     switch (this.OBD2Adapter.CurrentQueueSet)
                     {
@@ -638,7 +638,7 @@ namespace OS.OBDII.ViewModels
         char[] tmpChArray = null;
         string[] inputStringArray = null;
         StringBuilder sb = new StringBuilder();
-        protected override async Task OnCommunicationEvent(object sender, ChannelEventArgs e)
+        protected override async Task OnCommunicationEvent(object sender, DeviceEventArgs e)
         {
             tmpPid = null; // for live data
             tempVal = null;
@@ -874,7 +874,7 @@ namespace OS.OBDII.ViewModels
                                 //        this.ActionQueue.Dequeue().Start();
                                 //    }
                                 //    // Declare device has been through a basic inititialization
-                                //    //AppShellModel.Instance.DeviceIsInitialized = true;
+                                //    //_appShellModel.DeviceIsInitialized = true;
                                 //}
                                 break;
                             case QueueSets.Initialize:
@@ -895,10 +895,10 @@ namespace OS.OBDII.ViewModels
                                     //        break;
                                     case DeviceRequestType.SetHeader:
 
-                                        if (AppShellModel.Instance.UseHeader)
+                                        if (_appShellModel.UseHeader)
                                         {
                                             // Set the header...
-                                            await this.SendRequest($"ATSH{AppShellModel.Instance.UserCANID}{Constants.CARRIAGE_RETURN}");
+                                            await this.SendRequest($"ATSH{_appShellModel.UserCANID}{Constants.CARRIAGE_RETURN}");
                                             break;
                                         }
                                         else
@@ -916,10 +916,10 @@ namespace OS.OBDII.ViewModels
                                         //}
 
 
-                                        //if (AppShellModel.Instance.UserCANID.Length > 6)
+                                        //if (_appShellModel.UserCANID.Length > 6)
                                         //{
                                         //    sb.Clear();
-                                        //    sb.Append($"ATCP{AppShellModel.Instance.UserCANID.Substring(0, 2).PadLeft(2, '0')}");
+                                        //    sb.Append($"ATCP{_appShellModel.UserCANID.Substring(0, 2).PadLeft(2, '0')}");
                                         //    sb.Append(Constants.CARRIAGE_RETURN);
                                         //    OBD2Adapter.CurrentRequest = DeviceRequestType.SetCANPriorityBits;
                                         //    await this.SendRequest(this.sb.ToString());
@@ -967,14 +967,14 @@ namespace OS.OBDII.ViewModels
                                                 await this.SendRequest(this.sb.ToString());
                                                 return;
                                             }
-                                            //if (AppShellModel.Instance.UserCANID.Length > 6)
+                                            //if (_appShellModel.UserCANID.Length > 6)
                                             //{
-                                            //    var data1 = AppShellModel.Instance.UserCANID.Substring(AppShellModel.Instance.UserCANID.Length - 6).ToString();
+                                            //    var data1 = _appShellModel.UserCANID.Substring(_appShellModel.UserCANID.Length - 6).ToString();
                                             //    await this.SendRequest($"{nextRequest}{data1}{Constants.CARRIAGE_RETURN}");
                                             //}
                                             //else
                                             //{
-                                            //    var data1 = AppShellModel.Instance.UserCANID.PadLeft(6, '0').ToString();
+                                            //    var data1 = _appShellModel.UserCANID.PadLeft(6, '0').ToString();
                                             //    await this.SendRequest($"{nextRequest}{data1}{Constants.CARRIAGE_RETURN}");
                                             //}
                                             //LEDOff();
@@ -1019,7 +1019,7 @@ namespace OS.OBDII.ViewModels
                         case CommunicationEvents.Disconnected:
                             // Reset RX timeout timer
                             CancelCommTimout();
-                            AppShellModel.Instance.CommunicationService.CommunicationEvent -= OnCommunicationEvent;
+                            _appShellModel.CommunicationService.CommunicationEvent -= OnCommunicationEvent;
                            // MainThread.BeginInvokeOnMainThread(() =>
                           //  {
                                 this.RunButtonText = Constants.STRING_START;
@@ -1070,9 +1070,9 @@ namespace OS.OBDII.ViewModels
 
 
                         //   {
-                        //if(!AppShellModel.Instance.CommunicationService.IsConnected)
+                        //if(!_appShellModel.CommunicationService.IsConnected)
                         // {
-                        //    AppShellModel.Instance.CommunicationService.CommunicationEvent -= this.OnCommunicationEvent;
+                        //    _appShellModel.CommunicationService.CommunicationEvent -= this.OnCommunicationEvent;
                         // }
 
                         OnSelectedPIDsChanged(null, null);
@@ -1182,7 +1182,7 @@ namespace OS.OBDII.ViewModels
             //   await Task.Run(() =>
             //   {
 
-            if (AppShellModel.Instance.CommunicationService.IsConnected || this.IsLive)// || this.IsConnecting)
+            if (_appShellModel.CommunicationService.IsConnected || this.IsLive)// || this.IsConnecting)
                 {
                     //this.Stop();
                     if (this.IsLive)
@@ -1280,7 +1280,7 @@ namespace OS.OBDII.ViewModels
                 newPid = new UserPID("New PID", string.Empty, 0, new byte[] { }, "(A*256)+B") { Code = this.UserPIDs.Max(p => p.Code) + 1, ResponseByteCount = 1 };
             }
 
-            AppShellModel.Instance.tempIPid = newPid;
+            _appShellModel.tempIPid = newPid;
 
 
             Preferences.Set(Constants.APP_PROPERTY_KEY_ADD, true);
@@ -1372,7 +1372,7 @@ namespace OS.OBDII.ViewModels
 
             if (this.PIDToEdit == null) return;
             this.IsBusy = true;
-            AppShellModel.Instance.tempIPid = this.PIDToEdit;
+            _appShellModel.tempIPid = this.PIDToEdit;
 
             // remove list items' subscriptions as the list will be reloaded
             //foreach (IPid pid in this.UserPIDs)
@@ -1537,7 +1537,7 @@ namespace OS.OBDII.ViewModels
         //        this.IsConnecting = true;
         //        //this.CloseCommService();
 
-        //        AppShellModel.Instance.CommunicationService.CommunicationEvent += OnCommunicationEvent;
+        //        _appShellModel.CommunicationService.CommunicationEvent += OnCommunicationEvent;
 
         //        var retryCounter = 0;
         //        bool success = false;
@@ -1548,7 +1548,7 @@ namespace OS.OBDII.ViewModels
         //            {
         //                this.IsConnecting = false;
         //            }
-        //            success = AppShellModel.Instance.CommunicationService.Open();
+        //            success = _appShellModel.CommunicationService.Open();
         //            if (success)
         //            {
         //                // set IsCommunicating to true in the connect callback
@@ -1575,10 +1575,10 @@ namespace OS.OBDII.ViewModels
         //        this.IsConnecting = false;
         //    }
         //    // unable to connect
-        //    AppShellModel.Instance.CommunicationService.CommunicationEvent -= OnCommunicationEvent;
+        //    _appShellModel.CommunicationService.CommunicationEvent -= OnCommunicationEvent;
         //    this.IsCommunicating = false;
         //    LEDOff();
-        //    AppShellModel.Instance.SendHapticFeedback();
+        //    _appShellModel.SendHapticFeedback();
         //}
 
 

@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOBDII", "SimpleOBDII\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOBDII_Tests", "Tests\SimpleOBDII_Tests.csproj", "{7BB5A53D-1AC8-4BB2-9598-3532FEAE5CD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Communication", "OS.Communication\OS.Communication.csproj", "{C3A3A767-3F04-491B-8B0F-8888AE4CD235}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{7BB5A53D-1AC8-4BB2-9598-3532FEAE5CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BB5A53D-1AC8-4BB2-9598-3532FEAE5CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BB5A53D-1AC8-4BB2-9598-3532FEAE5CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A3A767-3F04-491B-8B0F-8888AE4CD235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A3A767-3F04-491B-8B0F-8888AE4CD235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A3A767-3F04-491B-8B0F-8888AE4CD235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A3A767-3F04-491B-8B0F-8888AE4CD235}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

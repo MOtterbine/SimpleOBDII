@@ -18,7 +18,6 @@ public class HomeViewModel : BaseViewModel_AdSupport, IViewModel
     public event ViewModelEvent ModelEvent;
     public event RequestPopup NeedYesNoPopup;
 
-    IOBDIICommonUI _appShellModel = null;
     public HomeViewModel(IOBDIICommonUI appShell) : base(appShell)
     {
         if (appShell == null) throw new Exception("HomeViewModel..ctor - appShell cannot be null");
@@ -151,11 +150,11 @@ public class HomeViewModel : BaseViewModel_AdSupport, IViewModel
         });
 
         View1Command = new Command(async () => {
-            await  AppShellModel.Instance.ShowPopupAsync(new Views.PopupInfo("Menu 1 Title", "Some message about menu 1"));
+            await  _appShellModel.ShowPopupAsync(new Views.PopupInfo("Menu 1 Title", "Some message about menu 1"));
         });
 
         View2Command = new Command(async () => {
-            await  AppShellModel.Instance.ShowPopupAsync(new Views.PopupInfo("Menu 2 Title","Some message about menu 2"));
+            await  _appShellModel.ShowPopupAsync(new Views.PopupInfo("Menu 2 Title","Some message about menu 2"));
         });
 
 
@@ -231,7 +230,7 @@ public class HomeViewModel : BaseViewModel_AdSupport, IViewModel
     }
     public void CloseCommService()
     {
-        AppShellModel.Instance.SendHapticFeedback();
+        _appShellModel.SendHapticFeedback();
     }
     public void Stop()
     {

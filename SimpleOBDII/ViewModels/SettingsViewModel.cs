@@ -2,7 +2,7 @@
 using OS.OBDII.Models;
 using OS.OBDII.ViewModels;
 using System.Windows.Input;
-using OS.OBDII.Communication;
+using OS.Communication;
 using Constants = OS.OBDII.Constants;
 using OS.OBDII.Interfaces;
 
@@ -21,8 +21,6 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
 
         Title = "Hardware Setup";
         OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://www.thoughtpill.com/ODB2AppDownload"));
-
-        //Refresh();
 
     }
 
@@ -57,9 +55,9 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
 
     public string SelectedCommMethod
     {
-        get => AppShellModel.Instance.SelectedCommMethod;
+        get => _appShellModel.SelectedCommMethod;
         set {
-            AppShellModel.Instance.SelectedCommMethod = value;
+            _appShellModel.SelectedCommMethod = value;
             OnPropertyChanged("IsBluetooth");
             OnPropertyChanged("PresetBluetoothDevice");
             OnPropertyChanged("EditButtonRow");
@@ -71,10 +69,10 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
 
     public string CANHeader
     {
-        get => AppShellModel.Instance.UserCANID;
+        get => _appShellModel.UserCANID;
         set 
         {
-            AppShellModel.Instance.UserCANID = value;
+            _appShellModel.UserCANID = value;
             OnPropertyChanged("CANHeader");
         }
     }
@@ -89,58 +87,58 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
 
     public bool UseHeader
     {
-        get => AppShellModel.Instance.UseHeader;
+        get => _appShellModel.UseHeader;
         set 
         {
-            AppShellModel.Instance.UseHeader = value;
+            _appShellModel.UseHeader = value;
             OnPropertyChanged("UseHeader");
         }
     }
 
 
-    public List<UInt32> BaudRates => AppShellModel.Instance.BaudRates;
+    public List<UInt32> BaudRates => OS.Communication.BaudRates.Items;
 
 
     public UInt32 SerialBaudRate
     {
-        get => AppShellModel.Instance.SerialBaudRate;
+        get => _appShellModel.SerialBaudRate;
         set
         {
-            AppShellModel.Instance.SerialBaudRate = value;
+            _appShellModel.SerialBaudRate = value;
             OnPropertyChanged("SerialBaudRate");
         }
     }
     public bool IsBluetooth
     {
-        get => AppShellModel.Instance.IsBluetooth;
+        get => _appShellModel.IsBluetooth;
     }
 
     public int IPPort
     {
-        get => AppShellModel.Instance.IPPort;
-        set { AppShellModel.Instance.IPPort = value; }
+        get => _appShellModel.IPPort;
+        set { _appShellModel.IPPort = value; }
     }
     public int EditButtonRow => this.IsBluetooth ? 5 : 6;
 
     public string IPAddress
     {
-        get => AppShellModel.Instance.IPAddress;
-        set { AppShellModel.Instance.IPAddress = value; }
+        get => _appShellModel.IPAddress;
+        set { _appShellModel.IPAddress = value; }
     }
 
     public int PlotHeight
     {
-        get => AppShellModel.Instance.PlotHeight;
+        get => _appShellModel.PlotHeight;
         set 
         {
             //if (value < 75) value = 75;
             //if (value > 300) value = 300;
-            AppShellModel.Instance.PlotHeight = value;
+            _appShellModel.PlotHeight = value;
             OnPropertyChanged("PlotHeight");
         }
     }
 
-    public IList<string> DeviceList => AppShellModel.Instance.DeviceList; 
+    public IList<string> DeviceList => _appShellModel.DeviceList; 
     
     //private IList<string> deviceList = new List<string>();
 
@@ -153,15 +151,15 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
 
     public string SelectedBluetoothDevice
     {
-        get => AppShellModel.Instance.SelectedBluetoothDevice;
+        get => _appShellModel.SelectedBluetoothDevice;
         set
         { 
-            AppShellModel.Instance.SelectedBluetoothDevice = value;
+            _appShellModel.SelectedBluetoothDevice = value;
             OnPropertyChanged("PresetBluetoothDevice");
         }
     }
 
-    public string PresetBluetoothDevice => AppShellModel.Instance.PresetBluetoothDevice;
+    public string PresetBluetoothDevice => _appShellModel.PresetBluetoothDevice;
 
     private string saveCancelButtonText = "Edit";
     public string EditSaveButtonText
@@ -210,15 +208,15 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
         {
             await Task.Run(() =>
             {
-                AppShellModel.Instance.StoreBluetoothDevicePreset(this.SelectedBluetoothDevice);
+                _appShellModel.StoreBluetoothDevicePreset(this.SelectedBluetoothDevice);
                 OnPropertyChanged("PresetBluetoothDevice");
 
                 this.ValidateSettings();
                 this.IsEditing = false;
-                AppShellModel.Instance.SetCommMethod();
+                _appShellModel.SetCommMethod();
                 // Force any permissions
-                //AppShellModel.Instance.CommunicationService.Open();
-                //AppShellModel.Instance.CommunicationService.Close();
+                //_appShellModel.CommunicationService.Open();
+                //_appShellModel.CommunicationService.Close();
             });
         }
         else
@@ -249,7 +247,7 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
         }
 
         this.IsEditing = false;
-        //var tSel = AppShellModel.Instance.PresetBluetoothDevice;
+        //var tSel = _appShellModel.PresetBluetoothDevice;
         //var tSel = this.SelectedBluetoothDevice;
         OnPropertyChanged("DeviceList");
        // this.SelectedBluetoothDevice = tSel;
@@ -273,7 +271,7 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
     public void CloseCommService()
     {
 
-        AppShellModel.Instance.SendHapticFeedback();
+        _appShellModel.SendHapticFeedback();
 
     }
     public void Stop()

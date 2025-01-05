@@ -1,14 +1,9 @@
 ﻿using OS.OBDII.Models;
 using OS.OBDII.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Linq;
-using OS.OBDII.Communication;
+using OS.Communication;
 
 namespace OS.OBDII.ViewModels
 {
@@ -579,7 +574,7 @@ namespace OS.OBDII.ViewModels
         private int LivePIDRequestIndex = 0;
         private IPid tmpPid = null; // for live data
         private Task tsk = null;
-        protected override async Task OnCommunicationEvent(object sender, ChannelEventArgs e)
+        protected override async Task OnCommunicationEvent(object sender, DeviceEventArgs e)
         {
             tmpPid = null;
             tsk = null;
