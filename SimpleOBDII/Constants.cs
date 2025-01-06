@@ -100,7 +100,6 @@ public const bool ADS_ARE_ACTIVE = false;
 
     public const string STRING_ESTABLISHING_LINK = "Establishing Link...";
     public const string STRING_INITIALIZING = "Initializing...";
-    public const string STRING_CONNECTING = "Connecting...";
     public const string STRING_COMM_BLINKING_VISUAL_ELEMENT = "BlinkingVisualElement";
     public const string STRING_NO_DATA = "** No Data **";
     public const string STRING_BLANK_LINE = "-----";

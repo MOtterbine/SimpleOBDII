@@ -127,14 +127,14 @@
 	 </PropertyGroup>
 	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
 	   <ApplicationTitle>Simple OBDII</ApplicationTitle>
-	   <ApplicationId>com.OtterbineSolutions.OS.MS</ApplicationId>
+	   <ApplicationId>com.Simple OBDII</ApplicationId>
 	   <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
 	   <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
 	   <ApplicationVersion>1</ApplicationVersion>
 	 </PropertyGroup>
 	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
 	   <ApplicationTitle>Simple OBDII</ApplicationTitle>
-	   <ApplicationId>com.OtterbineSolutions.OS.MS</ApplicationId>
+	   <ApplicationId>com.Simple OBDII</ApplicationId>
 	   <ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
 	   <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
 	   <ApplicationVersion>1</ApplicationVersion>
