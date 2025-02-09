@@ -681,7 +681,6 @@ namespace OS.OBDII.ViewModels
                             }
                         }
 
-
                         // from elm327 datasheet '>' is end of message
                         else
                         {
@@ -727,13 +726,9 @@ namespace OS.OBDII.ViewModels
 
                                         OBD2Adapter.CurrentRequest = DeviceRequestType.None;
 
-                                        // if (this.LivePIDRequestIndex-- < 0) this.LivePIDRequestIndex = 0; ; 
-
                                         this.SendLivePIDRequest();
                                         return;
 
-
-                                        break;
                                     case DeviceRequestType.SetCANRxAddress:
                                         this.sb.Clear();
                                         this.currentECUAddress = tmpPid.CANID;
@@ -769,15 +764,8 @@ namespace OS.OBDII.ViewModels
                                                 p = this.SelectedPIDS[this.LivePIDRequestIndex];
 
                                                 tempVal = 0x00;
-                                                //if (inputString.CompareTo("NO DATA") == 0)
-                                                //{
-                                                //    p.Parse("0");
-                                                //}
-                                                //else
-                                                //{
-                                                    p.Parse(inputString.Substring(inputString.Length - (p.ResponseByteCount * 2)));
 
-                                                //}
+                                                p.Parse(inputString.Substring(inputString.Length - (p.ResponseByteCount * 2)));
 
                                                 // Parse the data from end of the string - based on the expected response count
                                                 if (this.UsePlots && p.CanPlot)// && this.LivePIDRequestIndex< Constants.PLOT_MAX_COUNT)
@@ -823,18 +811,7 @@ namespace OS.OBDII.ViewModels
                                             }
                                         }
 
-                                        // advance to next selected pid
-                                        //if (this.LivePIDRequestIndex++ > this.SelectedPIDS.Count - 2)
-                                        //{
-                                        //    this.LivePIDRequestIndex = 0;
-
-                                        //    if (UsePlots)
-                                        //    {
-                                        //        this.InvalidatePlots();
-                                        //    }
-                                        //}
                                         this.AdvanceToNextRequest();
-                                    //    if (this.LivePIDRequestIndex-- < 0) this.LivePIDRequestIndex = 0; ;
 
                                         break;
                                 }
@@ -855,27 +832,6 @@ namespace OS.OBDII.ViewModels
                                 // Reset RX timeout timer
                                 this.ResetCommTimout();
 
-                                //nextRequest = this.OBD2Adapter.GetNextQueuedRequest();
-                                //if (nextRequest != null)
-                                //{
-                                //    this.rawStringData.Clear();
-                                //    await this.SendRequest(nextRequest);
-                                //    return;
-                                //}
-                                //else
-                                //{
-                                //    this.rawStringData.Clear();
-                                //    if (this.ActionQueue.Count < 1)
-                                //    {
-                                //        this.CloseCommService();
-                                //    }
-                                //    else
-                                //    {
-                                //        this.ActionQueue.Dequeue().Start();
-                                //    }
-                                //    // Declare device has been through a basic inititialization
-                                //    //_appShellModel.DeviceIsInitialized = true;
-                                //}
                                 break;
                             case QueueSets.Initialize:
                             case QueueSets.InitializeForUserPIDS:
@@ -883,16 +839,7 @@ namespace OS.OBDII.ViewModels
                                 {
                                     case DeviceRequestType.SetCANPriorityBits:
                                         StartListening().Start();
-                                        //// Get VIN.
-                                        //this.OBD2Adapter.CurrentRequest = DeviceRequestType.OBD2_GetVIN;
-                                        //await this.SendRequest($"{OBD2Device.ELM327CommandDictionary[DeviceRequestType.OBD2_GetVIN].Code}{(char)0x0D}");
                                         return;
-                                    //    case DeviceRequestType.OBD2_GetVIN:
-
-                                    //        StartListening().Start();
-                                    //        return;
-                                    //        //var t = OBD2Adapter.ParseResponse(rawStringData.ToString());
-                                    //        break;
                                     case DeviceRequestType.SetHeader:
 
                                         if (_appShellModel.UseHeader)
@@ -906,41 +853,14 @@ namespace OS.OBDII.ViewModels
                                             //    await this.SendRequest($"{nextRequest}{this.currentECUAddress}{Constants.CARRIAGE_RETURN}");
                                             //    break;
                                         }
-                                        //if (this.ActionQueue.Count > 0)
-                                        //{
-                                        //    this.ActionQueue.Dequeue().Start();
-                                        //}
-                                        //else
-                                        //{
-                                        //    this.CloseCommService();
-                                        //}
-
-
-                                        //if (_appShellModel.UserCANID.Length > 6)
-                                        //{
-                                        //    sb.Clear();
-                                        //    sb.Append($"ATCP{_appShellModel.UserCANID.Substring(0, 2).PadLeft(2, '0')}");
-                                        //    sb.Append(Constants.CARRIAGE_RETURN);
-                                        //    OBD2Adapter.CurrentRequest = DeviceRequestType.SetCANPriorityBits;
-                                        //    await this.SendRequest(this.sb.ToString());
-                                        //    return;
-                                        //}
                                         StartListening().Start();
-                                        //// Get VIN.
-                                        //this.OBD2Adapter.CurrentRequest = DeviceRequestType.OBD2_GetVIN;
-                                        //await this.SendRequest($"{OBD2Device.ELM327CommandDictionary[DeviceRequestType.OBD2_GetVIN].Code}{(char)0x0D}");
                                         return;
-                                    //    case DeviceRequestType.GetCurrentProtocolDescription:
-                                    //        var s = this.OBD2Adapter.ParseResponse(this.rawStringData.ToString());
-                                    //        break;
                                     case DeviceRequestType.ForgetEvents:
                                         break;
-                                //    case DeviceRequestType.DeviceReset:
-                                //        break;
 
                                 }
 
-                                nextRequest = this.OBD2Adapter.GetNextQueuedRequest(true, false);
+                                nextRequest = this.OBD2Adapter.GetNextQueuedCommand(true, false);
                                 this.rawStringData.Clear();
                                 if (nextRequest != null)
                                 {
@@ -1106,7 +1026,7 @@ namespace OS.OBDII.ViewModels
             return new Task( () => {
                 this.StatusMessage = this.EmptyGridMessage = "Resetting device...";
                 this.OBD2Adapter.CreateQueue(QueueSets.DeviceReset);
-                var nextRequest = this.OBD2Adapter.GetNextQueuedRequest();
+                var nextRequest = this.OBD2Adapter.GetNextQueuedCommand();
                 if (nextRequest != null)
                 {
                     this.SendRequest(nextRequest);
@@ -1520,7 +1440,7 @@ namespace OS.OBDII.ViewModels
                 this.currentECUAddress = Constants.DEFAULT_DIAG_FUNCADDR_CAN_ID_11.ToString("X");
 
                 this.OBD2Adapter.CreateQueue(QueueSets.InitializeForUserPIDS); ;
-                var nextRequest = this.OBD2Adapter.GetNextQueuedRequest();
+                var nextRequest = this.OBD2Adapter.GetNextQueuedCommand();
                 if (nextRequest != null)
                 {
                     ResetCommTimout();

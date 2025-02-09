@@ -9,6 +9,26 @@ namespace OS.OBDII.Models
     public class InstructionSets
     {
 
+        public static readonly List<OBD2Command> Initialize0 = new List<OBD2Command>()
+        {
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.DeviceReset),
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.EchoOff),
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.SetProtocol),// argument provided in comm event filter
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.MemoryOff),
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.HeadersOff),
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.SpacesOff),
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.LineFeedsOff),
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.CANAutoAddress),
+            new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.ForgetEvents),
+          //    DeviceRequestType.SETAdaptiveTiming,
+             // DeviceRequestType.SET_Timeout,
+          //    DeviceRequestType.ProtocolSearch,
+              //DeviceRequestType.OBD2_GetPIDS_00,
+            //  DeviceRequestType.GetCurrentProtocolDescription,
+            new OBD2Command("Set Header", OBD2Device.ServiceModes[0], DeviceRequestType.SetHeader),
+        };
+
+
         public static readonly List<DeviceRequestType> Initialize = new List<DeviceRequestType>()
         {
               DeviceRequestType.DeviceReset,
@@ -27,7 +47,30 @@ namespace OS.OBDII.Models
             //  DeviceRequestType.GetCurrentProtocolDescription,
               DeviceRequestType.SetHeader,// argument provided in comm event filter
         };
-        public static readonly List<DeviceRequestType> InitializeForUserPIDS = new List<DeviceRequestType>()
+
+        public static readonly List<OBD2Command> InitializeForUserPIDS = new List<OBD2Command>()
+        {
+            new OBD2Command("Device Reset", OBD2Device.ServiceModes[0], DeviceRequestType.DeviceReset),
+            new OBD2Command("Echo Off", OBD2Device.ServiceModes[0], DeviceRequestType.EchoOff),
+            new OBD2Command("Set Protocol", OBD2Device.ServiceModes[0], DeviceRequestType.SetProtocol),// argument provided in comm event filter
+            new OBD2Command("Memory Off", OBD2Device.ServiceModes[0], DeviceRequestType.MemoryOff),
+            new OBD2Command("Headers Off", OBD2Device.ServiceModes[0], DeviceRequestType.HeadersOff),
+            new OBD2Command("Spaces Off", OBD2Device.ServiceModes[0], DeviceRequestType.SpacesOff),
+            new OBD2Command("Line Feeds Off", OBD2Device.ServiceModes[0], DeviceRequestType.LineFeedsOff),
+            //new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.CANAutoAddress),
+            new OBD2Command("Forget Events", OBD2Device.ServiceModes[0], DeviceRequestType.ForgetEvents),
+          //    DeviceRequestType.SETAdaptiveTiming,
+             // DeviceRequestType.SET_Timeout,
+          //    DeviceRequestType.ProtocolSearch,
+              //DeviceRequestType.OBD2_GetPIDS_00,
+            //  DeviceRequestType.GetCurrentProtocolDescription,
+              //DeviceRequestType.SetHeader,// argument provided in comm event filter
+            new OBD2Command("Get VIN", OBD2Device.ServiceModes[9], DeviceRequestType.OBD2_GetVIN),
+        };
+
+
+
+        public static readonly List<DeviceRequestType> InitializeForUserPIDS0 = new List<DeviceRequestType>()
         {
               DeviceRequestType.DeviceReset,
               DeviceRequestType.SetProtocol,// argument provided in comm event filter
@@ -94,9 +137,6 @@ namespace OS.OBDII.Models
              // DeviceRequestType.SetProtocol// arguement provided in comm event filter
         };
 
-
-
-
         public static readonly List<DeviceRequestType> InitializeHeadersOn = new List<DeviceRequestType>()
         {
               DeviceRequestType.DeviceReset,
@@ -122,10 +162,6 @@ namespace OS.OBDII.Models
             new OBD2Command("Get System Protocol ID", OBD2Device.ServiceModes[0], DeviceRequestType.GetSystemProtocolID)
 
         };
-        //public static readonly List<OBD2Command> GetSystemProtocolID = new List<OBD2Command>()
-        //{
-        //    new OBD2Command("Get System Protocol ID", OBD2Device.ServiceModes[0], DeviceRequestType.GetSystemProtocolID)
-        //};
 
         public static readonly List<OBD2Command> GetSupportedPids = new List<OBD2Command>()
         {
@@ -161,12 +197,12 @@ namespace OS.OBDII.Models
 
         public static readonly List<OBD2Command> GetFreezeFrameLocations13_Mode22 = new List<OBD2Command>()
         {
-            new OBD2Command("Get O2 Sensor Locations", OBD2Device.ServiceModes[11], DeviceRequestType.OBD2_GetPIDINFO_13)
+            new OBD2Command("Get O2 Sensor Locations", OBD2Device.ServiceModes[0x22], DeviceRequestType.OBD2_GetPIDINFO_13)
         };
 
         public static readonly List<OBD2Command> GetFreezeFrameLocations1D_Mode22 = new List<OBD2Command>()
         {
-            new OBD2Command("Get O2 Sensor Locations", OBD2Device.ServiceModes[11], DeviceRequestType.OBD2_GetPIDINFO_1D)
+            new OBD2Command("Get O2 Sensor Locations", OBD2Device.ServiceModes[0x22], DeviceRequestType.OBD2_GetPIDINFO_1D)
         };
 
         public static readonly List<DeviceRequestType> DeviceReset = new List<DeviceRequestType>()
@@ -210,29 +246,31 @@ namespace OS.OBDII.Models
 
         public static readonly List<OBD2Command> VINReport = new List<OBD2Command>()
         {
+           // new OBD2Command("Set KWP Wakeup Off,\r\n", OBD2Device.ServiceModes[0], DeviceRequestType.SET_OBD1WakeupOff),
             new OBD2Command("Get VIN", OBD2Device.ServiceModes[9], DeviceRequestType.OBD2_GetVIN),
         };
 
-
-        public static readonly List<DeviceRequestType> DTCReport = new List<DeviceRequestType>()
+        public static readonly List<OBD2Command> DTCReport = new List<OBD2Command>()
         {
-              DeviceRequestType.OBD2_GetVIN,
-              DeviceRequestType.OBD2_StatusSinceCodesLastCleared,
-              // J1979
-              DeviceRequestType.OBD2_GetDTCs,
-              // J2190
-              DeviceRequestType.CAN_GetAllDTC,
-              DeviceRequestType.OBD2_GetPendingDTCs,
-              DeviceRequestType.OBD2_GetPermanentDTCs,
-              DeviceRequestType.CAN_GetDTCByStatus,//,
-              DeviceRequestType.CAN_GetDTCByStatus1,//,
-              DeviceRequestType.OBD2_FreezeFrameDTC,
-              DeviceRequestType.OBD2_FreezeFrameDTC1,
-              DeviceRequestType.OBD2_FreezeFrame22DTC
+           // new OBD2Command("Set KWP Wakeup Off,\r\n", OBD2Device.ServiceModes[0], DeviceRequestType.SET_OBD1WakeupOff),
+            new OBD2Command("Get Vin", OBD2Device.ServiceModes[0x09], DeviceRequestType.OBD2_GetVIN),
+            new OBD2Command("Get Status Since DTCs Cleared", OBD2Device.ServiceModes[0x01], DeviceRequestType.OBD2_StatusSinceCodesLastCleared),
+            new OBD2Command("Get Current Protocol ID", OBD2Device.ServiceModes[0], DeviceRequestType.GetSystemProtocolID),
+            //new OBD2Command("Slow Init", OBD2Device.ServiceModes[0], DeviceRequestType.ISO_SlowInit),
 
-           //   DeviceRequestType.OBD2_StatusThisDriveCycle
-          //     DeviceRequestType.OBD2_Odometer
-        };
+             // J1979
+            new OBD2Command("Get DTCs", OBD2Device.ServiceModes[-1], DeviceRequestType.OBD2_GetDTCs),
+            new OBD2Command("Get Pending DTCs", OBD2Device.ServiceModes[-1], DeviceRequestType.OBD2_GetPendingDTCs),
+            new OBD2Command("Get Permanent DTCs", OBD2Device.ServiceModes[-1], DeviceRequestType.OBD2_GetPermanentDTCs),
+
+              // J2190
+            new OBD2Command("Get All DTCs", OBD2Device.ServiceModes[0x13], DeviceRequestType.CAN_GetAllDTC),
+            new OBD2Command("Get DTC by Status", OBD2Device.ServiceModes[0x18], DeviceRequestType.CAN_GetDTCByStatus),
+            new OBD2Command("Get DTC by Status 1", OBD2Device.ServiceModes[0x18], DeviceRequestType.CAN_GetDTCByStatus1),
+            new OBD2Command("Get Freeze Frame", OBD2Device.ServiceModes[0x01], DeviceRequestType.OBD2_FreezeFrameDTC),
+            new OBD2Command("Get Freeze Frame 1", OBD2Device.ServiceModes[0x2], DeviceRequestType.OBD2_FreezeFrameDTC1),
+            new OBD2Command("Get Freeze Frame mode 22", OBD2Device.ServiceModes[0x22], DeviceRequestType.OBD2_FreezeFrame22DTC)
+       };
 
         public static readonly List<DeviceRequestType> ClearDTCs = new List<DeviceRequestType>()
         {

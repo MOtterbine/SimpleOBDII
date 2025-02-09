@@ -259,7 +259,7 @@ namespace OS.OBDII.ViewModels
                                 this.OBD2Adapter.ParseResponse(this.rawStringData.ToString());
                                 this.rawStringData.Clear();
 
-                                nextRequest = this.OBD2Adapter.GetNextQueuedRequest();
+                                nextRequest = this.OBD2Adapter.GetNextQueuedCommand();
                                 if (nextRequest == null)
                                 {
                                     await MainThread.InvokeOnMainThreadAsync(() =>
@@ -869,7 +869,7 @@ namespace OS.OBDII.ViewModels
                 this.EmptyGridMessage = "Reading DTCs...";
 
                 this.OBD2Adapter.CreateQueue(QueueSets.DTCReport);
-                var nextRequest = this.OBD2Adapter.GetNextQueuedRequest();
+                var nextRequest = this.OBD2Adapter.GetNextQueuedCommand();
                 if (nextRequest != null)
                 {
                     await this.SendRequest(nextRequest);

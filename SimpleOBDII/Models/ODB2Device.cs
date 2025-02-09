@@ -65,6 +65,7 @@ namespace OS.OBDII.Models
         CAN_GetAllDTC,
         CAN_ClearDTCs,
         CAN_ClearDTCs_2,
+        ISO_SlowInit,
         SET_ISOInitAddress_13,
         SET_OBD1WakeupOff,
         SET_Timeout,
@@ -157,22 +158,26 @@ namespace OS.OBDII.Models
         // assigned in App class constructor 
         public static SystemReport SystemReport = null;// new SystemReport(DependencyService.Get<IPIDManager>());
         public static bool UseMetricUnits = false;
-        public static readonly List<OBD2ServiceMode> ServiceModes = new List<OBD2ServiceMode>()
+        public static readonly Dictionary<int, OBD2ServiceMode> ServiceModes = new Dictionary<int, OBD2ServiceMode>
         {
             // J1979
-            new OBD2ServiceMode(0, "AT", "Adapter"),
-            new OBD2ServiceMode(1, "01", "Service Mode 01"),
-            new OBD2ServiceMode(2, "02", "Service Mode 02"),
-            new OBD2ServiceMode(3, "03", "Service Mode 03"),
-            new OBD2ServiceMode(4, "04", "Service Mode 04"),
-            new OBD2ServiceMode(5, "05", "Service Mode 05"),
-            new OBD2ServiceMode(6, "06", "Service Mode 06"),
-            new OBD2ServiceMode(7, "07", "Service Mode 07"),
-            new OBD2ServiceMode(8, "08", "Service Mode 08"),
-            new OBD2ServiceMode(9, "09", "Service Mode 09"),
+            { -1, new OBD2ServiceMode(-1, "", "Direct Mode") },
+            { 0, new OBD2ServiceMode(0, "AT", "Adapter") },
+            { 1, new OBD2ServiceMode(1, "01", "Service Mode 01") },
+            { 2,  new OBD2ServiceMode(2, "02", "Service Mode 02") },
+            { 3,  new OBD2ServiceMode(3, "03", "Service Mode 03") },
+            { 4,  new OBD2ServiceMode(4, "04", "Service Mode 04") },
+            { 5,  new OBD2ServiceMode(5, "05", "Service Mode 05") },
+            { 6,  new OBD2ServiceMode(6, "06", "Service Mode 06") },
+            { 7,  new OBD2ServiceMode(7, "07", "Service Mode 07") },
+            { 8,  new OBD2ServiceMode(8, "08", "Service Mode 08") },
+            { 9, new OBD2ServiceMode(9, "09", "Service Mode 09") },
+           // { 10, new OBD2ServiceMode(10, "0A", "Service Mode 0A") },
             // J2190
-            new OBD2ServiceMode(0x18, "18", "Service Mode 18"),
-            new OBD2ServiceMode(0x22, "22", "Service Mode 22")
+            { 0x13, new OBD2ServiceMode(0x13, "13", "Service Mode 13") },
+            { 0x14, new OBD2ServiceMode(0x14, "14", "Service Mode 14") },
+            { 0x18,  new OBD2ServiceMode(0x18, "18", "Service Mode 18") },
+            { 0x22, new OBD2ServiceMode(0x22, "22", "Service Mode 22") }
         };
         public static int CurrentRequestSize = 2;
         public static int SystemProtocolID
@@ -187,11 +192,16 @@ namespace OS.OBDII.Models
                     case 2:
                         DataPositionOffset = 8; //
                         break;
-                    case 7:
+                    case 3: // ISO 9141
+                    case 4: // ISO 14230 KWP Slow init
+                    case 5: // ISO 14230 KWP 
+                        DataPositionOffset = 6; //
+                        break;
+                    case 7: // 29-bit ISO-15765
                     case 9:
                         DataPositionOffset = 10; //
                         break;
-                    case 6:
+                    case 6: // 11-bit ISO-15765
                     case 8:
                         DataPositionOffset = 5; //
                         break;
@@ -538,91 +548,174 @@ namespace OS.OBDII.Models
             int objectBytesRead = 0;
             int remainingByteCount = 0;
 
-            // Make one long string...
-            foreach (string s in strArray)
+            var dtcList = new List<uint>();
+
+            switch (SystemProtocolID)
             {
-                // multi-line
-                if (s.Length == 3 || s.IndexOf(':') > -1)
-                {
-                    if (s.Length == 3) // this string/line (if 3 chars long) is the number of bytes in the response
+                case 3:
+                case 4:
+                case 5:
+                    // Make one long string...
+                    foreach (string s in strArray)
                     {
-                        int.TryParse(s, System.Globalization.NumberStyles.HexNumber, null, out tmpByteCnt);
-                        byteCnt += tmpByteCnt;
-                        continue;
-                    }
-                    if (s.Length >= 6)
-                    {
-                        // is this the first line?
-                        if (s.Substring(0, 2) == "0:") // is the first line
-                        {
-                            // Get the PID count (four characters a piece)
-                            int.TryParse(s.Substring(4, 2), out tmpObjectCount);
-                            tmpObjectByteCount = objectByteSize * tmpObjectCount;
-                            if (tmpObjectByteCount > 0)
+                        // multi-line
+                        //if (s.Length == 3 || s.IndexOf(':') > -1)
+                        //{
+                            if (s.Length == 3) // this string/line (if 3 chars long) is the number of bytes in the response
                             {
-                                // if this is the first line of a multiline message
-                                // then we can just grab all of the rest of the line
-                                // assuming it's all valid data
-                                sBuf += s.Substring(6);
-                                objectBytesRead += s.Length - 6;
+                                int.TryParse(s, System.Globalization.NumberStyles.HexNumber, null, out tmpByteCnt);
+                                byteCnt += tmpByteCnt;
+                                continue;
                             }
-                            objectCount += tmpObjectCount;
-                            objectByteCount += tmpObjectByteCount;
+                            if (s.Length >= 6)
+                            {
+                                    sBuf += s.Substring(2);
+                                    objectBytesRead += s.Length - 2;
+                                    objectCount += objectBytesRead/4;
+                                    objectByteCount += objectByteSize * objectCount;
+
+                                    //remainingByteCount = objectByteCount - objectBytesRead;
+                                    //// if what's left to read is greater than the string we have - take the whole string
+                                    //if (remainingByteCount >= s.Length - 2)
+                                    //{
+                                    //    sBuf += s.Substring(2);
+                                    //    byteCnt += s.Length;
+                                    //}
+                                    //else
+                                    //{
+                                    //    sBuf += s.Substring(2, remainingByteCount);
+                                    //    byteCnt += remainingByteCount;
+                                    //}
+                              //  }
+                            }
+
+                        //}
+                        //else
+                        //{
+                        //    // Single Line Response (more than 3 characters and no ':' found)
+
+                        //    if (s.Length >= 4)
+                        //    {
+                        //        // Get the number of reported pids in this one line - should be only one or two
+                        //        int.TryParse(s.Substring(2, 2), System.Globalization.NumberStyles.HexNumber, null, out tmpObjectCount);
+                        //        tmpObjectByteCount = objectByteSize * tmpObjectCount;
+
+                        //        if (tmpObjectByteCount > 0)
+                        //        {
+                        //            if (s.Length >= tmpObjectByteCount + 4)
+                        //            {
+                        //                sBuf += s.Substring(4, tmpObjectByteCount);
+                        //            }
+                        //        }
+                        //        objectCount += tmpObjectCount;
+                        //        objectByteCount += tmpObjectByteCount;
+                        //    }
+                        //}
+
+                    }
+
+                    // The return object is a list of dtc values
+                    byteCnt = objectByteCount;
+                    for (int strIdx = 0; strIdx < byteCnt; strIdx += 4)
+                    {
+                        if (sBuf.Length >= strIdx + 4)
+                        {
+                            try
+                            {
+                                var j = uint.Parse(sBuf.Substring(strIdx, 4), System.Globalization.NumberStyles.HexNumber);
+                                if(j > 0) dtcList.Add(j);
+                            }
+                            catch (Exception e) { }
+                        }
+                    }
+                    break;
+                default:
+                    // Make one long string...
+                    foreach (string s in strArray)
+                    {
+                        // multi-line
+                        if (s.Length == 3 || s.IndexOf(':') > -1)
+                        {
+                            if (s.Length == 3) // this string/line (if 3 chars long) is the number of bytes in the response
+                            {
+                                int.TryParse(s, System.Globalization.NumberStyles.HexNumber, null, out tmpByteCnt);
+                                byteCnt += tmpByteCnt;
+                                continue;
+                            }
+                            if (s.Length >= 6)
+                            {
+                                // is this the first line?
+                                if (s.Substring(0, 2) == "0:") // is the first line
+                                {
+                                    // Get the PID count (four characters a piece)
+                                    int.TryParse(s.Substring(4, 2), out tmpObjectCount);
+                                    tmpObjectByteCount = objectByteSize * tmpObjectCount;
+                                    if (tmpObjectByteCount > 0)
+                                    {
+                                        // if this is the first line of a multiline message
+                                        // then we can just grab all of the rest of the line
+                                        // assuming it's all valid data
+                                        sBuf += s.Substring(6);
+                                        objectBytesRead += s.Length - 6;
+                                    }
+                                    objectCount += tmpObjectCount;
+                                    objectByteCount += tmpObjectByteCount;
+                                }
+                                else
+                                {
+                                    // is multiline, and not the first line, so should be data
+
+                                    remainingByteCount = objectByteCount - objectBytesRead;
+                                    // if what's left to read is greater than the string we have - take the whole string
+                                    if (remainingByteCount >= s.Length - 2)
+                                    {
+                                        sBuf += s.Substring(2);
+                                        byteCnt += s.Length;
+                                    }
+                                    else
+                                    {
+                                        sBuf += s.Substring(2, remainingByteCount);
+                                        byteCnt += remainingByteCount;
+                                    }
+                                }
+                            }
+
                         }
                         else
                         {
-                            // is multiline, and not the first line, so should be data
+                            // Single Line Response (more than 3 characters and no ':' found)
 
-                            remainingByteCount = objectByteCount - objectBytesRead;
-                            // if what's left to read is greater than the string we have - take the whole string
-                            if (remainingByteCount >= s.Length - 2)
+                            if (s.Length >= 4)
                             {
-                                sBuf += s.Substring(2);
-                                byteCnt += s.Length;
-                            }
-                            else
-                            {
-                                sBuf += s.Substring(2, remainingByteCount);
-                                byteCnt += remainingByteCount;
+                                // Get the number of reported pids in this one line - should be only one or two
+                                int.TryParse(s.Substring(2, 2), System.Globalization.NumberStyles.HexNumber, null, out tmpObjectCount);
+                                tmpObjectByteCount = objectByteSize * tmpObjectCount;
+
+                                if (tmpObjectByteCount > 0)
+                                {
+                                    if (s.Length >= tmpObjectByteCount + 4)
+                                    {
+                                        sBuf += s.Substring(4, tmpObjectByteCount);
+                                    }
+                                }
+                                objectCount += tmpObjectCount;
+                                objectByteCount += tmpObjectByteCount;
                             }
                         }
+
                     }
 
-                }
-                else
-                {
-                    // Single Line Response (more than 3 characters and no ':' found)
-
-                    if (s.Length >= 4)
+                    // The return object is a list of dtc values
+                    byteCnt = objectByteCount;
+                    for (int strIdx = 0; strIdx < byteCnt; strIdx += 4)
                     {
-                        // Get the number of reported pids in this one line - should be only one or two
-                        int.TryParse(s.Substring(2, 2), System.Globalization.NumberStyles.HexNumber, null, out tmpObjectCount);
-                        tmpObjectByteCount = objectByteSize * tmpObjectCount;
-
-                        if (tmpObjectByteCount > 0)
+                        if (sBuf.Length >= strIdx + 4)
                         {
-                            if (s.Length >= tmpObjectByteCount + 4)
-                            {
-                                sBuf += s.Substring(4, tmpObjectByteCount);
-                            }
+                            var j = uint.Parse(sBuf.Substring(strIdx, 4), System.Globalization.NumberStyles.HexNumber);
+                            dtcList.Add(j);
                         }
-                        objectCount += tmpObjectCount;
-                        objectByteCount += tmpObjectByteCount;
                     }
-                }
-
-            }
-
-            // The return object is a list of dtc values
-            var dtcList = new List<uint>();
-            byteCnt = objectByteCount;
-            for (int strIdx = 0; strIdx < byteCnt; strIdx += 4)
-            {
-                if (sBuf.Length >= strIdx + 4)
-                {
-                    var j = uint.Parse(sBuf.Substring(strIdx, 4), System.Globalization.NumberStyles.HexNumber);
-                    dtcList.Add(j);
-                }
+                    break;
             }
 
             return dtcList;
@@ -987,6 +1080,7 @@ namespace OS.OBDII.Models
             {DeviceRequestType.SetDefaultCANRxAddress, new ELM327Command{ IsUserFunction = false, Code = "CRA7DF", Name = "Set Default CAN receive address (7DF)", Description = "Set Default CAN receive address (7DF)", RequestType = DeviceRequestType.SetDefaultCANRxAddress } },
             {DeviceRequestType.SetCANRxAddress, new ELM327Command{ IsUserFunction = false, Code = "CRA", Name = "Set CAN receive address", Description = "Set CAN receive address", RequestType = DeviceRequestType.SetCANRxAddress } },
 
+            {DeviceRequestType.ISO_SlowInit, new ELM327Command{ IsUserFunction = false, Code = "SI", Name = "Run ISO Slow Init", Description = "Run ISO Slow Init", RequestType = DeviceRequestType.ISO_SlowInit } },
             {DeviceRequestType.SET_ISOInitAddress_13, new ELM327Command{ IsUserFunction = false, Code = "IIA13", Name = "Set ISO Init Address", Description = "Set ISO Init Address", RequestType = DeviceRequestType.SET_ISOInitAddress_13 } },
             {DeviceRequestType.SET_OBD1WakeupOff, new ELM327Command{ IsUserFunction = false, Code = "SW00", Name = "KWP Wakeup messages off", Description = "KWP Wakeup messages off", RequestType = DeviceRequestType.SET_OBD1WakeupOff } },
 
@@ -1316,7 +1410,7 @@ namespace OS.OBDII.Models
 
                                     return 0;
                                 } } },
-            {DeviceRequestType.OBD2_FreezeFrameDTC1, new ELM327Command{ Code = "022", Name = "Freeze Frame Fault", Description = "Gets the fault code that caused a freeze frame to be save", RequestType = DeviceRequestType.OBD2_FreezeFrameDTC1,
+            {DeviceRequestType.OBD2_FreezeFrameDTC1, new ELM327Command{ Code = "02002", Name = "Freeze Frame Fault", Description = "Gets the fault code that caused a freeze frame to be save", RequestType = DeviceRequestType.OBD2_FreezeFrameDTC1,
                                 function = (obj)=>
                                 {
                                     string [] strArray = obj as string[];
@@ -1561,7 +1655,7 @@ namespace OS.OBDII.Models
             {DeviceRequestType.SpacesOff, new ELM327Command{ IsUserFunction = false, Code = "ATS0", Name = "Spaces Off", Description = "Don't return Spaces with responses", RequestType = DeviceRequestType.SpacesOff } },
             {DeviceRequestType.ForgetEvents, new ELM327Command{ IsUserFunction = false, Code = "ATFE", Name = "Forget Events", Description = "Forget Events like fatal can errors", RequestType = DeviceRequestType.ForgetEvents } },
             {DeviceRequestType.GetCurrentProtocolDescription, new ELM327Command{ Code = "ATDP", Name = "Get Protocol", Description = "Gets the currently active OBD2 protocol", RequestType = DeviceRequestType.GetCurrentProtocolDescription } },
-            {DeviceRequestType.GetSystemProtocolID, new ELM327Command{ Code = "DPN", Name = "Get Protocol ID", Description = "Sets device to search for appropriate protocol's ID", RequestType = DeviceRequestType.GetSystemProtocolID} },
+            {DeviceRequestType.GetSystemProtocolID, new ELM327Command{ Code = "ATDPN", Name = "Get Protocol ID", Description = "Sets device to search for appropriate protocol's ID", RequestType = DeviceRequestType.GetSystemProtocolID} },
             {DeviceRequestType.ProtocolSearch, new ELM327Command{ IsUserFunction = false, Code = "ATSP0", Name = "Search for protocol", Description = "Sets device to search for appropriate protocol with vehicle", RequestType = DeviceRequestType.ProtocolSearch } },
             {DeviceRequestType.SetProtocol, new ELM327Command{ IsUserFunction = false, Code = "ATTP", Name = "Set protocol", Description = "Set protocol", RequestType = DeviceRequestType.SetProtocol  } },
             {DeviceRequestType.SetJ1850_PWM, new ELM327Command{ IsUserFunction = false, Code = "ATTP1", Name = "Set J1850 PWM protocol", Description = "Set J1850 PWM protocol", RequestType = DeviceRequestType.SetJ1850_PWM } },

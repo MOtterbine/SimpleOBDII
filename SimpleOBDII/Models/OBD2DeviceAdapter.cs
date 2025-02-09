@@ -144,6 +144,9 @@ namespace OS.OBDII.Models
             {
 
                 // NEW WAY
+                case QueueSets.DTCReport:
+                    commandsToEnqueue = InstructionSets.DTCReport;
+                    break;
                 case QueueSets.GetSupportedPids:
                     commandsToEnqueue = InstructionSets.GetSupportedPids;
                     break;
@@ -166,7 +169,7 @@ namespace OS.OBDII.Models
                     commandsToEnqueue = InstructionSets.DetectSystemProtocol;
                     break;
                 case QueueSets.InitializeForUserPIDS:
-                    requestTypesToEnqueue = InstructionSets.InitializeForUserPIDS;
+                    commandsToEnqueue = InstructionSets.InitializeForUserPIDS;
                     break;
 
 
@@ -188,9 +191,6 @@ namespace OS.OBDII.Models
                     break;
                 case QueueSets.IMMonitorsDriveCyle:
                     requestTypesToEnqueue = InstructionSets.IMMonitorsDriveCyle;
-                    break;
-                case QueueSets.DTCReport:
-                    requestTypesToEnqueue = InstructionSets.DTCReport;
                     break;
                 case QueueSets.ClearDTCs:
                     requestTypesToEnqueue = InstructionSets.ClearDTCs;
@@ -914,6 +914,35 @@ namespace OS.OBDII.Models
                     case QueueSets.DTCReport:
                         switch (CurrentRequest)
                         {
+                            case DeviceRequestType.ISO_SlowInit:
+                                //Task.Delay(3000);
+                                break;
+
+                            case DeviceRequestType.GetSystemProtocolID:
+                                try
+                                {
+                                    int val;
+                                    if (inputStringArray[0].Substring(0, 1) == "A") // if the first value is 'A' then it's auto 
+                                    {
+                                        if (int.TryParse(inputStringArray[0].Substring(1, 1), out val))
+                                        {
+                                            this.FireAdapterUpdateEvent("SystemProtocolID", val);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (int.TryParse(inputStringArray[0].Substring(0, 1), out val))
+                                        {
+                                            this.FireAdapterUpdateEvent("SystemProtocolID", val);
+                                        }
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    //FireAdapterUpdateEvent("StatusText", Constants.MSG_NOT_APPLICABLE);
+                                }
+                                break;
+
                             case DeviceRequestType.OBD2_FreezeFrameDTC:
                             case DeviceRequestType.OBD2_FreezeFrameDTC1:
                             case DeviceRequestType.OBD2_FreezeFrame22DTC:

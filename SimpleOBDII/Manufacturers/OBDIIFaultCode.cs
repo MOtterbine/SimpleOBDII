@@ -1,6 +1,7 @@
 ﻿using OS.OBDII.Interfaces;
 using OS.OBDII.ViewModels;
 using OS.OBDII.Models;
+using Newtonsoft.Json;
 
 namespace OS.OBDII.Manufacturers
 {
@@ -45,13 +46,13 @@ namespace OS.OBDII.Manufacturers
         public uint PIDValue { get; set; }
         public string PIDName { get; set; }
         public char Prefix { get; set; }
-
+        [JsonIgnore]
         public bool IsFreezeFramePID
         {
             get => this.isFreezeFramePID;
             set => SetProperty(ref isFreezeFramePID, value);
         }
-        public bool isFreezeFramePID = false;
+        private bool isFreezeFramePID = false;
 
         public override string ToString()
         {
