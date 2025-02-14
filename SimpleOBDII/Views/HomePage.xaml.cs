@@ -66,6 +66,29 @@ public partial class HomePage : ContentPage
         this.manufacturersManager.ManufacturersLoaded -= OnManufacturersLoaded;
     }
 
+    protected override void OnHandlerChanged()
+    {
+        base.OnHandlerChanged();
+#if WINDOWS
+        /*
+            Because this is the first, default page to be shown, the controls must be instantiated
+            before they can be assigned CursorIcon.Hand behavor - so it's
+        */
+        DTCs.SetCustomCursor(CursorIcon.Hand, DTCs.Handler?.MauiContext);
+        UserPids.SetCustomCursor(CursorIcon.Hand, UserPids.Handler?.MauiContext);
+        Settings.SetCustomCursor(CursorIcon.Hand, Settings.Handler?.MauiContext);
+
+#endif
+
+
+    }
+
+    protected override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+
+    }
+
     private void ContentView_ChildRemoved(object sender, ElementEventArgs e)
     {
         (e.Element as IDisposable)?.Dispose();

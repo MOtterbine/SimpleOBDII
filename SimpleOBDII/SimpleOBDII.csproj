@@ -32,8 +32,8 @@
 	<PropertyGroup>
 	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
 	  <DefaultLanguage>EN</DefaultLanguage>
-	  <AssemblyVersion>1.0.1.0</AssemblyVersion>
-	  <FileVersion>1.0.1.0</FileVersion>
+	  <AssemblyVersion>1.0.1.1</AssemblyVersion>
+	  <FileVersion>1.0.1.1</FileVersion>
 	</PropertyGroup>
 
 

@@ -100,7 +100,7 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
     {
         if (this.CurrentDevice == null)
         {
-            if (String.IsNullOrEmpty(this.DeviceName)) FireErrorEvent("Device not setup");
+            if (String.IsNullOrEmpty(this.DeviceName)) FireErrorEvent("*** Device not setup ***");
             else FireErrorEvent("Device is not connected");
             return false;
         }

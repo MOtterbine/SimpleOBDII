@@ -17,10 +17,10 @@
         
         <!--- Menu 1 -->
         <ControlTemplate x:Key="View1">
-            <StackLayout>
+            <StackLayout >
                 <Label FontSize="20">Menu 1</Label>
                 <Label>Create a custom menu here - maybe</Label>
-                <Button Margin="5,10" Command="{TemplateBinding BindingContext.View1Command}" Text="Command Button 1" TextColor="{StaticResource LightTextColor}"></Button>
+                <Button x:Name="View1" Margin="5,10" Command="{TemplateBinding BindingContext.View1Command}" Text="Command Button 1" TextColor="{StaticResource LightTextColor}"></Button>
             </StackLayout>
         </ControlTemplate>
 
@@ -29,7 +29,7 @@
             <StackLayout>
                 <Label FontSize="20">Menu 2</Label>
                 <Label>Some Other Menu thing going on here</Label>
-                <Button Margin="5,10" Command="{TemplateBinding BindingContext.View2Command}" Text="Command Button 2" TextColor="{StaticResource LightTextColor}"></Button>
+                <Button x:Name="View2" Margin="5,10" Command="{TemplateBinding BindingContext.View2Command}" Text="Command Button 2" TextColor="{StaticResource LightTextColor}"></Button>
             </StackLayout>
         </ControlTemplate>
 
@@ -76,7 +76,7 @@
             <Color x:Key="DarkRadioButtonColor">#9B9A99</Color>
 
             <ControlTemplate x:Key="RadioButtonTemplate1">
-                <Border Stroke="#F3F2F1"
+                <Border Stroke="#F3F2F1" x:Name="RadioButtonTemplate1"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 10"
                     BackgroundColor="#00F3F2F1"
@@ -117,7 +117,7 @@
             </ControlTemplate>
 
             <ControlTemplate x:Key="RadioButtonTemplate2">
-                <Border Stroke="#F3F2F1"
+                <Border Stroke="#F3F2F1" x:Name="RadioButtonTemplate2"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 10"
                     BackgroundColor="#00F3F2F1"
