@@ -277,6 +277,10 @@ namespace OS.OBDII.ViewModels
                     // property 'Code' is used as an index with USER PIDs
                     new UserPID("OBDII Engine Coolant", "°F", 1, Encoding.ASCII.GetBytes("0105"), "((A-40)*1.8)+32")
                         { CANID="7DF", Code=0, ResponseByteCount=1, UnitDescriptor = "°F" },
+                    new UserPID("OBDII Engine Coolant (ISO 9141)", "°F", 1, Encoding.ASCII.GetBytes("0105"), "((A-40)*1.8)+32")
+                        { CANID="686AF1", Code=0, ResponseByteCount=1, UnitDescriptor = "°F" },
+                    new UserPID("OBDII Engine Coolant (ISO 14230)", "°F", 1, Encoding.ASCII.GetBytes("0105"), "((A-40)*1.8)+32")
+                        { CANID="C133F1", Code=0, ResponseByteCount=1, UnitDescriptor = "°F" },
                     new UserPID("7E0 Engine RPM", string.Empty, 0, Encoding.ASCII.GetBytes("010C"), "((A*256)+B)/4")
                         { CANID="7E0", Code=0, ResponseByteCount=2, UnitDescriptor = string.Empty  },
                     new UserPID("GM Trans Temp", "°F", 1, Encoding.ASCII.GetBytes("221940"), "((A-40)*1.8)+32")
@@ -289,24 +293,15 @@ namespace OS.OBDII.ViewModels
                         { CANID="7DF", Code=5, ResponseByteCount=1, UnitDescriptor = "%"  },
                     new UserPID("GM Oil Life", "%", 1, Encoding.ASCII.GetBytes("1A6D"), "A*100/256")
                         {CANID="7E0", Code=7, ResponseByteCount=1, UnitDescriptor = "%"  }
-                    //new UserPID("7E2 GM Current Gear", string.Empty,string.Empty, 1, Encoding.ASCII.GetBytes("22199A"), "A")
-                    //{CANID="7E2", Code=6, ResponseByteCount=1 },
-                   // new UserPID("F150 Trans Temp", "°F","°F", 1, Encoding.ASCII.GetBytes("1A6D"), "((((A*256+B))*1.125)+32)/1000"){CANID="7E0", Code=7, ResponseByteCount=1, DecimalPlaces=0 }//,
-              //      new UserPID("1F1", "", 1, Encoding.ASCII.GetBytes("22199A"), "A"){CANID="1F1", Code=7, ResponseByteCount=1, IsBroadcast=true },
-               //     new UserPID("1F5", "", 1, Encoding.ASCII.GetBytes("22199A"), "A"){CANID="1F5", Code=8, ResponseByteCount=1, IsBroadcast=true }
-                    //new UserPID("Fan Status", "", 0, Encoding.ASCII.GetBytes("22163F"), "(a-128 > 0)"){ Code=5, ResponseByteCount=1 }
                 };
                 OBD2Device.SystemReport.SaveUserPIDs(sPids);
-                // Limits on free version
+                OBD2Device.SystemReport.LoadUserPIDs(0, Constants.FORCE_LIMITS?Constants.APP_LIMIT_MAX_USER_PID_ROWS:0);
 
             }
 
 
             ///TEST******************
-            this.UserPIDs.Clear();
-
-            OBD2Device.SystemReport.LoadUserPIDs(0, Constants.FORCE_LIMITS?Constants.APP_LIMIT_MAX_USER_PID_ROWS:0);
-            //this.
+           // this.UserPIDs.Clear();
 
             foreach (UserPID pid in this.UserPIDs)
             {
