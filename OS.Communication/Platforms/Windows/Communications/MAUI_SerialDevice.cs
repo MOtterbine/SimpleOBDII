@@ -247,7 +247,7 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
 
     Task listenTask = null;
 
-    private async void beginListen(string commChannel)
+    private async Task beginListen(string commChannel)
     {
 
         if (String.IsNullOrEmpty(commChannel))
@@ -294,7 +294,7 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
             openEvent.Reset();
             if (this.listenTask == null || listenTask.IsCompleted)
             {
-                listenTask = new Task(async ()=> { beginListen(commChannel); });
+                listenTask = new Task(async ()=> { await beginListen(commChannel); });
                 listenTask.Start();
             }
             openEvent.WaitOne();
