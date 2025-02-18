@@ -185,6 +185,21 @@
                     <StackLayout Spacing="10">
                         <Label FontSize="Large" FontAttributes="Bold">Main Features</Label>
 
+
+                        <Frame x:Name="Status" Style="{StaticResource action-button-frame}" >
+                            <StackLayout Orientation="Horizontal" Style="{StaticResource action-button}">
+                                <HorizontalStackLayout VerticalOptions="Center">
+                                    <Image Source="car.png" VerticalOptions="Center" WidthRequest="55"  Aspect="AspectFit"/>
+                                </HorizontalStackLayout>
+
+                                <VerticalStackLayout Margin="10,0,0,0" Spacing="0" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                                    <Label Style="{StaticResource title-label-light}">Information</Label>
+                                    <Label Style="{StaticResource blue-label}">Read Basic Vehicle Information</Label>
+                                </VerticalStackLayout>
+                            </StackLayout>
+                        </Frame>
+
+
                         <Frame x:Name="DTCs" Style="{StaticResource action-button-frame}" >
                             <StackLayout Orientation="Horizontal" Style="{StaticResource action-button}">
                                 <HorizontalStackLayout VerticalOptions="Center">

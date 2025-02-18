@@ -206,6 +206,9 @@
 	  <Compile Update="Platforms\Windows\App.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\VehicleInfoPage.xaml.cs">
+	    <DependentUpon>VehicleInfoPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

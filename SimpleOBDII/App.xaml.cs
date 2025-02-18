@@ -84,6 +84,7 @@ public partial class App : Microsoft.Maui.Controls.Application, IAppSizing, IPer
     public FreezeFramePage FreezeFramePage { get; set; } = null;
     public UserPIDSPage UserPIDSPage { get; set; } = null;
     public PIDDetailsPage PIDDetailsPage { get; set; } = null;
+    public VehicleInfoPage VehicleInfoPage { get; set; } = null;
 
 
     #region IManufacturersManager

@@ -184,12 +184,15 @@ namespace OS.OBDII.ViewModels
             this.EmptyGridMessage = this.StatusMessage = Constants.MSG_NO_RESPONSE_VEHICLE;
         }
 
-        StringBuilder sb = new StringBuilder();
 
         protected override async Task OnCommunicationEvent(object sender, DeviceEventArgs e)
         {
-            try 
+
+
+            try
             { 
+
+
                 string nextRequest;
                 switch (e.Event)
                 {
@@ -297,107 +300,6 @@ namespace OS.OBDII.ViewModels
                                     }
                                 }
                                 break;
-                            case QueueSets.Initialize:
-
-                                switch (this.OBD2Adapter.CurrentRequest)
-                                {
-                                    case DeviceRequestType.SetHeader:
-                                        if (this._appShellModel.UserCANID.Length > 6)
-                                        {
-                                            sb.Clear();
-                                            sb.Append($"ATCP{this._appShellModel.UserCANID.Substring(0, 2).PadLeft(2, '0')}");
-                                            sb.Append(Constants.CARRIAGE_RETURN);
-                                            OBD2Adapter.CurrentRequest = DeviceRequestType.SetCANPriorityBits;
-                                            await this.SendRequest(this.sb.ToString());
-                                            OBD2Adapter.CurrentRequest = DeviceRequestType.None;
-                                            return;
-                                        }
-                                        break;
-                                }
-
-                                nextRequest = this.OBD2Adapter.GetNextQueuedRequest(true, false);
-                                this.rawStringData.Clear();
-                                if (nextRequest != null)
-                                {
-                                    switch (this.OBD2Adapter.CurrentRequest)
-                                    {
-                                        case DeviceRequestType.SetProtocol:
-                                            // Set the selected protocol...
-                                            await this.SendRequest($"{nextRequest}{this.SelectedProtocol.Id:X}{Constants.CARRIAGE_RETURN}");
-                                            break;
-                                        case DeviceRequestType.SetHeader: // MUST BE LAST COMMAND....
-                                            if (this._appShellModel.UseHeader)
-                                            {
-
-                                                if (this._appShellModel.UserCANID.Length > 6)
-                                                {
-                                                    var data1 = this._appShellModel.UserCANID.Substring(this._appShellModel.UserCANID.Length - 6).ToString();
-                                                    await this.SendRequest($"{nextRequest}{data1}{Constants.CARRIAGE_RETURN}");
-                                                }
-                                                else
-                                                {
-                                                    var data1 = this._appShellModel.UserCANID.PadLeft(6, '0').ToString();
-                                                    await this.SendRequest($"{nextRequest}{data1}{Constants.CARRIAGE_RETURN}");
-                                                }
-
-
-
-                                                // Set the selected protocol...
-                                               // await this.SendRequest($"{nextRequest}{this._appShellModel.UserCANID}{Constants.CARRIAGE_RETURN}");
-                                                break;
-                                            }
-                                            if (this.ActionQueue.Count > 0)
-                                            {
-                                                this.ActionQueue.Dequeue().Start();
-                                            }
-                                            else
-                                            {
-                                                this.CloseCommService();
-                                            }
-                                            // ????????????????????????????????????????????????????????????????????????  needed?
-                                            // Declare device has been through a basic inititialization
-                                            //this._appShellModel.DeviceIsInitialized = true;
-                                            break;
-                                        case DeviceRequestType.SET_Timeout:
-                                            await this.SendRequest($"{nextRequest}80{Constants.CARRIAGE_RETURN}");
-                                            break;
-                                        //case DeviceRequestType.SET_OBD1WakeupOff:
-                                        //    await this.SendRequest($"{nextRequest}{Constants.CARRIAGE_RETURN}");
-                                        //    break;
-                                        //case DeviceRequestType.SET_ISOInitAddress_13:
-                                        //    await this.SendRequest($"{nextRequest}{Constants.CARRIAGE_RETURN}");
-                                        //    break;
-                                        default:
-                                            //queueIndexed = true;
-                                            await this.SendRequest($"{nextRequest}{Constants.CARRIAGE_RETURN}");
-                                            break;
-                                    }
-
-                                    return;
-                                }
-                                else
-                                {
-                                    switch(this.OBD2Adapter.CurrentRequest)
-                                    {
-                                        case DeviceRequestType.OBD2_GetPIDS_00:
-                                            this.OBD2Adapter.ParseResponse(this.rawStringData.ToString());
-                                            break;
-                                    }
-                                    this.rawStringData.Clear();
-                                    if (this.ActionQueue.Count > 0)
-                                    {
-                                        this.ActionQueue.Dequeue().Start();
-                                    }
-                                    else
-                                    {
-                                        //this.StatusMessage = "Closing...";
-                                        this.CloseCommService();
-                                    }
-                                    // ????????????????????????????????????????????????????????????????????????  needed?
-                                    // Declare device has been through a basic inititialization
-                                    //this._appShellModel.DeviceIsInitialized = true;
-                                }
-                                break;
                         }
                         break;
                     case CommunicationEvents.ConnectedAsClient:
@@ -465,6 +367,10 @@ namespace OS.OBDII.ViewModels
                     default:
                         break;
                 }
+
+                await base.OnCommunicationEvent(sender, e);
+
+
             }
             catch (Exception)
             {
@@ -1075,7 +981,6 @@ namespace OS.OBDII.ViewModels
             this.ResetFields();
         }
 
-        protected StringBuilder rawStringData = new StringBuilder();
 
         protected void SetStatusText(string text = null)
         {

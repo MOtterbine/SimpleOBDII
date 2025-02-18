@@ -39,6 +39,7 @@ public partial class HomePage : ContentPage
         UserPids.GestureRecognizers.Add(tapEvent);
         Menu1.GestureRecognizers.Add(tapEvent);
         Menu2.GestureRecognizers.Add(tapEvent);
+        Status.GestureRecognizers.Add(tapEvent);
 
         // CODE-BEHIND binding (MVVM like)...
         //Binding binding = new Binding("txtValue");
@@ -77,6 +78,7 @@ public partial class HomePage : ContentPage
         DTCs.SetCustomCursor(CursorIcon.Hand, DTCs.Handler?.MauiContext);
         UserPids.SetCustomCursor(CursorIcon.Hand, UserPids.Handler?.MauiContext);
         Settings.SetCustomCursor(CursorIcon.Hand, Settings.Handler?.MauiContext);
+        Status.SetCustomCursor(CursorIcon.Hand, Settings.Handler?.MauiContext);
 
 #endif
 
@@ -98,6 +100,19 @@ public partial class HomePage : ContentPage
     {
 
         var curApp = ((App)Application.Current);
+
+        if (sender.Equals(this.Status))
+        {
+            Application.Current.Dispatcher.Dispatch(async () =>
+            {
+                viewModel.IsBusy = true;
+                Preferences.Set(Constants.APP_PROPERTY_KEY_INITIAL_VIEW, true);
+                if (curApp.VehicleInfoPage == null) curApp.VehicleInfoPage = new VehicleInfoPage();
+                await Navigation.PushAsync(curApp.VehicleInfoPage, false);
+            });
+            //AppShellModel.Instance.ShowPopupAsync(new PopupInfo("*** Test Version ***", $"DTCs Page"));
+            return;
+        }
 
         if (sender.Equals(this.DTCs))
         {

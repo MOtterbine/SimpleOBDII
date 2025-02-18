@@ -1,6 +1,7 @@
 ﻿using OS.OBDII.Models;
 using OS.Communication;
 using OS.OBDII.Interfaces;
+using System.Text;
 
 namespace OS.OBDII.ViewModels
 {
@@ -28,8 +29,143 @@ namespace OS.OBDII.ViewModels
         }
 
         protected abstract OBD2DeviceAdapter OBD2Adapter { get; }
-        protected abstract void OnAdapterEvent(object sender, OBD2AdapterEventArgs e); 
-        protected abstract Task OnCommunicationEvent(object sender, DeviceEventArgs e);
+        protected abstract void OnAdapterEvent(object sender, OBD2AdapterEventArgs e);
+        protected StringBuilder rawStringData = new StringBuilder();
+        protected StringBuilder sb = new StringBuilder();
+
+        protected virtual async Task OnCommunicationEvent(object sender, DeviceEventArgs e)
+        {
+                string nextRequest;
+                switch (e.Event)
+                {
+                    case CommunicationEvents.Receive:
+                    case CommunicationEvents.ReceiveEnd:
+                    switch (this.OBD2Adapter.CurrentQueueSet)
+                    {
+                        case QueueSets.Initialize:
+
+                            switch (this.OBD2Adapter.CurrentRequest)
+                            {
+                                case DeviceRequestType.SetHeader:
+                                    if (this._appShellModel.UserCANID.Length > 6)
+                                    {
+                                        sb.Clear();
+                                        sb.Append($"ATCP{this._appShellModel.UserCANID.Substring(0, 2).PadLeft(2, '0')}");
+                                        sb.Append(Constants.CARRIAGE_RETURN);
+                                        OBD2Adapter.CurrentRequest = DeviceRequestType.SetCANPriorityBits;
+                                        await this.SendRequest(this.sb.ToString());
+                                        OBD2Adapter.CurrentRequest = DeviceRequestType.None;
+                                        return;
+                                    }
+                                    break;
+                            }
+
+                            nextRequest = this.OBD2Adapter.GetNextQueuedRequest(true, false);
+                            this.rawStringData.Clear();
+                            if (nextRequest != null)
+                            {
+                                switch (this.OBD2Adapter.CurrentRequest)
+                                {
+                                    case DeviceRequestType.SetProtocol:
+                                        // Set the selected protocol...
+                                        await this.SendRequest($"{nextRequest}{this.SelectedProtocol.Id:X}{Constants.CARRIAGE_RETURN}");
+                                        break;
+                                    case DeviceRequestType.ISO_SetSlowInitAddress:
+                                        // Set the ISO Init Address...
+                                        await this.SendRequest($"{nextRequest}{this._appShellModel.KWPInitAddress}{Constants.CARRIAGE_RETURN}");
+                                        break;
+                                    case DeviceRequestType.SetISOBaudRate:
+                                        // Set the ISO Init Address...
+                                        await this.SendRequest($"{nextRequest}{ISOBaudRates.Items[this._appShellModel.ISOBaudRate]}{Constants.CARRIAGE_RETURN}");
+                                        break;
+                                    case DeviceRequestType.SET_OBD1Wakeup:
+                                        // Whether to turn on the OBDI/KWP wakeup messagingl...
+                                        // 0x5C, 92 is the default time value according to ELM327 specs - approx. 3 sec
+                                        await this.SendRequest($"{nextRequest}{(this._appShellModel.UseKWPWakeup ? "5C" : "00")}{Constants.CARRIAGE_RETURN}");
+                                        break;
+
+                                    case DeviceRequestType.SetHeader: // MUST BE LAST COMMAND....
+                                        if (this._appShellModel.UseHeader)
+                                        {
+
+                                            if (this._appShellModel.UserCANID.Length > 6)
+                                            {
+                                                var data1 = this._appShellModel.UserCANID.Substring(this._appShellModel.UserCANID.Length - 6).ToString();
+                                                await this.SendRequest($"{nextRequest}{data1}{Constants.CARRIAGE_RETURN}");
+                                            }
+                                            else
+                                            {
+                                                var data1 = this._appShellModel.UserCANID.PadLeft(6, '0').ToString();
+                                                await this.SendRequest($"{nextRequest}{data1}{Constants.CARRIAGE_RETURN}");
+                                            }
+
+
+
+                                            // Set the selected protocol...
+                                            // await this.SendRequest($"{nextRequest}{this._appShellModel.UserCANID}{Constants.CARRIAGE_RETURN}");
+                                            break;
+                                        }
+                                        if (this.ActionQueue.Count > 0)
+                                        {
+                                            this.ActionQueue.Dequeue().Start();
+                                        }
+                                        else
+                                        {
+                                            this.CloseCommService();
+                                        }
+                                        // ????????????????????????????????????????????????????????????????????????  needed?
+                                        // Declare device has been through a basic inititialization
+                                        //this._appShellModel.DeviceIsInitialized = true;
+                                        break;
+                                    case DeviceRequestType.SET_Timeout:
+                                        await this.SendRequest($"{nextRequest}80{Constants.CARRIAGE_RETURN}");
+                                        break;
+                                    //case DeviceRequestType.SET_OBD1WakeupOff:
+                                    //    await this.SendRequest($"{nextRequest}{Constants.CARRIAGE_RETURN}");
+                                    //    break;
+                                    //case DeviceRequestType.SET_ISOInitAddress_13:
+                                    //    await this.SendRequest($"{nextRequest}{Constants.CARRIAGE_RETURN}");
+                                    //    break;
+                                    default:
+                                        //queueIndexed = true;
+                                        await this.SendRequest($"{nextRequest}{Constants.CARRIAGE_RETURN}");
+                                        break;
+                                }
+
+                                return;
+                            }
+                            else
+                            {
+                                switch (this.OBD2Adapter.CurrentRequest)
+                                {
+                                    case DeviceRequestType.OBD2_GetPIDS_00:
+                                        this.OBD2Adapter.ParseResponse(this.rawStringData.ToString());
+                                        break;
+                                }
+                                this.rawStringData.Clear();
+                                if (this.ActionQueue.Count > 0)
+                                {
+                                    this.ActionQueue.Dequeue().Start();
+                                }
+                                else
+                                {
+                                    //this.StatusMessage = "Closing...";
+                                    this.CloseCommService();
+                                }
+                                // ????????????????????????????????????????????????????????????????????????  needed?
+                                // Declare device has been through a basic inititialization
+                                //this._appShellModel.DeviceIsInitialized = true;
+                            }
+                            break;
+                    }
+                    break;
+                }
+
+
+
+
+        }
+        
 
         /// <summary>
         /// Returns true if a connect attempt was started

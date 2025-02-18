@@ -40,8 +40,8 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
 
     #endregion ILicenseManager
 
-
-    bool IOBDIICommonUI.OpenCommunicationChannel()
+    // inherited interface 
+    bool ICommunicatioProfile.OpenCommunicationChannel()
     {
         if (this.CommunicationService == null) return false;
         return this.CommunicationService.Open(this.CommunicationChannel);
@@ -178,6 +178,44 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
         get { return tabsEnabled; }
         set { SetProperty(ref tabsEnabled, value); }
     }
+
+
+
+
+
+    private UInt32 iSOBaudRate = Convert.ToUInt32(Preferences.Get(Constants.PREFS_ISO_BAUD_RATE, (uint)10400));
+    public UInt32 ISOBaudRate
+    {
+        get { return iSOBaudRate; }
+        set
+        {
+            SetProperty(ref iSOBaudRate, value);
+            Preferences.Set(Constants.PREFS_ISO_BAUD_RATE, value);
+
+        }
+    }
+
+    public bool UseKWPWakeup
+    {
+        get { return useKWPWakeup; }
+        set
+        {
+            SetProperty(ref useKWPWakeup, value);
+            Preferences.Set(Constants.PREFS_KWP_WAKEUP_ON, value);
+        }
+    }
+    private bool useKWPWakeup = Preferences.Get(Constants.PREFS_KWP_WAKEUP_ON, true);
+
+    public String KWPInitAddress
+    {
+        get { return kWPInitAddress; }
+        set
+        {
+            SetProperty(ref kWPInitAddress, value);
+            Preferences.Set(Constants.PREFS_KWP_INIT_ADDRESS, value);
+        }
+    }
+    private String kWPInitAddress = Preferences.Get(Constants.PREFS_KWP_INIT_ADDRESS, "33");
 
     public int SelectedProtocolIndex
     {

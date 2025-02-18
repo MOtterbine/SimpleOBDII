@@ -96,7 +96,37 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
     }
 
 
+    public bool UseKWPWakeup
+    {
+        get => this._appShellModel.UseKWPWakeup;
+        set
+        {
+            this._appShellModel.UseKWPWakeup = value;
+            OnPropertyChanged("UseKWPWakeup");
+        }
+    }
+
+    public String KWPInitAddress
+    {
+        get => this._appShellModel.KWPInitAddress;
+        set
+        {
+            this._appShellModel.KWPInitAddress = value;
+            OnPropertyChanged("KWPInitAddress");
+        }
+    }
+    public UInt32 ISOBaudRate
+    {
+        get => this._appShellModel.ISOBaudRate;
+        set
+        {
+            this._appShellModel.ISOBaudRate = value;
+            OnPropertyChanged("ISOBaudRate");
+        }
+    }
+
     public List<UInt32> BaudRates => OS.Communication.BaudRates.Items;
+    public List<UInt32> ISOBaudRates { get; } = OS.Communication.ISOBaudRates.Items.ToList().ConvertAll(x => x.Key);
 
 
     public UInt32 SerialBaudRate

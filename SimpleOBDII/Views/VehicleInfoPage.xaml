@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:OS.OBDII.Controls"
+             Title="{Binding Title}" 
+             Background="#000"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
+             xmlns:Converters="clr-namespace:OS.OBDII.Converters"
+             xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+             x:Class="OS.OBDII.Views.VehicleInfoPage" >
+
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <!--<Setter Property="BackgroundColor" Value="#FFF" />-->
+            <Setter Property="RowSpacing" Value="0" />
+            <Setter Property="ColumnSpacing" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+        <Style TargetType="StackLayout">
+            <Setter Property="Spacing" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+
+
+    </ContentPage.Resources>
+    
+    <!--<ContentPage.BindingContext>
+        <vm:SnapshotViewModel />
+    </ContentPage.BindingContext>-->
+
+    <Frame Style="{StaticResource page-frame}" >
+        <AbsoluteLayout Background="#00000FFF" >
+            
+            <Grid RowSpacing="0" Padding="0" Margin="0,0,0,0" Background="#00000000"
+                  AbsoluteLayout.LayoutBounds=".5, .5,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0" Margin="0" Padding="0" Spacing="0"  >
+
+                    <!-- Header -->
+                    <controls:HeaderView Title="{Binding Title}" ActivityLEDOn="{Binding DataIsTransmitting}" ErrorExists="{Binding ErrorExists}"
+                                NavCommand="{Binding NavigateHomeCommand}" ConnectedLEDOn="{Binding IsCommunicating}"
+                                NavButtonIsEnabled="{Binding IsCommunicating, Converter={StaticResource InvertedBoolConverter}}" 
+                                ControlTemplate="{StaticResource HeaderViewControlTemplate}"/>
+
+                    <!-- Ads -->
+                    <StackLayout Grid.Row="0"  Spacing="0" Padding="0" BackgroundColor="{DynamicResource Accent}">
+                        <ContentView x:Name="AdCtrl"  Content="{Binding AdContent}"  Style="{DynamicResource ad-content}"/>
+                    </StackLayout>
+                
+                </StackLayout>
+
+
+                                        
+                <!-- 'GetStatus' button-->
+                <StackLayout  Grid.Row="1"  Margin="0" Padding="5" Spacing="0" Style="{DynamicResource Blue}" BackgroundColor="#33FFFFFF">
+                    <Button Padding="7,0"  MinimumWidthRequest="100"  HorizontalOptions="CenterAndExpand" Behaviors:CursorBehavior.Cursor="Hand"
+                    IsEnabled="{Binding IsCommunicating, Converter={StaticResource InvertedBoolConverter}}" 
+                            Text="{Binding RunButtonText}" Command="{Binding GetVehicleStatusCommand}" />
+                </StackLayout>
+                                        
+                <!-- Data Display -->
+                <Grid Grid.Row="2" Margin="0" Padding="0" RowSpacing="0" BackgroundColor="#33FFFFFF">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                            
+                                <!-- VIN -->
+                                <StackLayout Padding="5,0" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" >
+                        <Label Style="{DynamicResource FrontPageLabel}"  MinimumWidthRequest="50">VIN:</Label>
+                        <Label Style="{DynamicResource FrontPageLabel}" Margin="5.0" CharacterSpacing=".0001" HorizontalOptions="EndAndExpand"
+                                           TextColor="{DynamicResource DarkBlue}" FontSize="{OnPlatform Large, WinUI=Medium}" Text="{Binding VIN}"></Label>
+                                </StackLayout>
+
+                                <!-- Lookup VIN -->
+                                <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Spacing="0" Padding="0,0,5,0" Orientation="Vertical" 
+                                             HorizontalOptions="EndAndExpand" IsVisible="False">
+                                <Button Style="{DynamicResource vin-lookup-button}" Behaviors:CursorBehavior.Cursor="Hand"
+                                    Margin="0"  HorizontalOptions="EndAndExpand" Text="Lookup VIN" Command="{Binding LookupVINCommand}" />
+                                </StackLayout>
+
+                                <!-- Compression Type -->
+                                <!--<StackLayout Padding="5,0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" >
+                                    <Label Style="{DynamicResource FrontPageLabel}" MinimumWidthRequest="100">Type:</Label>
+                        <Label Style="{DynamicResource FrontPageLabel}" HorizontalOptions="EndAndExpand" TextColor="{DynamicResource DarkBlue}" Text="{Binding SystemDescription}"></Label>
+                                </StackLayout>-->
+
+                                <StackLayout Padding="5,0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" >
+                        <Label Style="{DynamicResource FrontPageLabel}" >Emission DTCs:</Label>
+                        <Label Style="{DynamicResource FrontPageLabel}" TextColor="{DynamicResource DarkBlue}" Text="{Binding DTCCount}" HorizontalOptions="EndAndExpand"></Label>
+                                </StackLayout>
+
+                                <StackLayout Padding="5,0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" >
+                        <Label Style="{DynamicResource FrontPageLabel}" >Distance Since Reset:</Label>
+                        <Label Style="{DynamicResource FrontPageLabel}"  TextColor="{DynamicResource DarkBlue}" Text="{Binding DistSinceReset}"  HorizontalOptions="EndAndExpand"></Label>
+                                </StackLayout>
+
+                                <StackLayout Padding="5,0" Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" >
+                        <Label Style="{DynamicResource FrontPageLabel}" >Distance MIL Light On:</Label>
+                        <Label Style="{DynamicResource FrontPageLabel}" TextColor="{DynamicResource DarkBlue}" Text="{Binding DistWithDTC}" HorizontalOptions="EndAndExpand"></Label>
+                                </StackLayout>
+
+                                <StackLayout Padding="5,0,5,5" Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" >
+                        <Label Style="{DynamicResource FrontPageLabel}" WidthRequest="135" Margin="0">Protocol:</Label>
+                        <Label Margin="0" HeightRequest="-1" Style="{DynamicResource FrontPageLabel}" TextColor="{DynamicResource DarkBlue}" Text="{Binding SystemProtocolDescription}" HorizontalOptions="EndAndExpand"></Label>
+                                </StackLayout>
+
+                                <StackLayout Grid.Row="7" Grid.ColumnSpan="2" VerticalOptions="Start" Margin="0" Padding="0" Spacing="0">
+                                    <Line StrokeThickness="3" BackgroundColor="{DynamicResource Primary}" Stroke="Black"></Line>
+                                    <!--<Frame CornerRadius="0" Padding="0" Margin="0" BorderColor="{DynamicResource Primary}" 
+                                            HeightRequest="1" BackgroundColor="{DynamicResource Primary}" />-->
+                                </StackLayout>
+                                            
+                                <!--<StackLayout  Grid.Row="8" Grid.ColumnSpan="2" VerticalOptions="Start" Margin="0" Padding="0">
+                        <controls:ReadinessTestsGrid BackgroundColor="#FFF" EmptyGridString="{Binding EmptyGridMessage}" ShowHeader="False"  DTCCount="{Binding DTCCount}" ItemsSource="{Binding ReadinessMonitors}" MonitorTitle="Since DTCs Cleared"  VIN="{Binding VIN}"/>
+                                </StackLayout>-->
+
+                </Grid>
+                
+                <ScrollView  Grid.Row="3" Grid.ColumnSpan="2"  Margin="0" Padding="0" Background="#00000000" IsClippedToBounds="True">
+                    <controls:ReadinessTestsGrid  Grid.Row="3" Background="#00000000" BackgroundColor="#FFF" EmptyGridString="{Binding EmptyGridMessage}" ShowHeader="False"  
+                                    DTCCount="{Binding DTCCount}" ItemsSource="{Binding ReadinessMonitors}" MonitorTitle="Since DTCs Cleared"  VIN="{Binding VIN}"/>
+                </ScrollView>
+
+            </Grid>
+            
+            <!--Activity/Busy Indicator-->
+            <StackLayout IsVisible="{Binding IsBusy}" BackgroundColor="#80FFFFFF" AbsoluteLayout.LayoutBounds=".5, .5,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" >
+                <ActivityIndicator IsRunning="{Binding IsBusy}"  VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+            
+        </AbsoluteLayout>
+
+    </Frame>
+
+</ContentPage>

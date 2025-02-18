@@ -22,8 +22,8 @@ public const bool ADS_ARE_ACTIVE = false;
     public const string STRING_LOG_TAG = "SIMPLE_OBDII";
 
     // these are fore Windows platform UIs
-    public const int MIN_WINDOW_WIDTH_WINDOWS = 600;
-    public const int MIN_WINDOW_HEIGHT_WINDOWS = 750;
+    public const int MIN_WINDOW_WIDTH_WINDOWS = 650;
+    public const int MIN_WINDOW_HEIGHT_WINDOWS = 800;
 
     public const bool SPECIAL_EDITION = false;
     public const bool DEV_EDITION = false;
@@ -60,6 +60,9 @@ public const bool ADS_ARE_ACTIVE = false;
     public const string DTC_CODES_GROUP_STORED = "Stored";
     public const string USER_PIDS_VM_CODE = "UserPIDSViewModel_code";
 
+    public const string PREFS_KWP_WAKEUP_ON = "KWP_WAKEUP_ON";
+    public const string PREFS_KWP_INIT_ADDRESS = "PREFS_KWP_INIT_ADDRESS";
+    public const string PREFS_ISO_BAUD_RATE = "PREFS_ISO_BAUD_RATE";
 
     public const string PREFS_KEY_PLATFORM_DESCRIPTION_IOS = "IOS";
     public const string PREFS_KEY_PLATFORM_DESCRIPTION_ANDROID = "Android";

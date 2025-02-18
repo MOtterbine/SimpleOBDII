@@ -16,7 +16,6 @@ namespace OS.OBDII.ViewModels
 
         public List<ECU> ECUs => this.OBD2Adapter.ECUList;
 
-        protected StringBuilder rawStringData = new StringBuilder();
 
         protected override OBD2DeviceAdapter OBD2Adapter { get; } = new OBD2DeviceAdapter();
 
@@ -567,8 +566,6 @@ namespace OS.OBDII.ViewModels
             });
         }
 
-
-        StringBuilder sb = new StringBuilder();
 
         private int RequestCount = 0;
         private int LivePIDRequestIndex = 0;

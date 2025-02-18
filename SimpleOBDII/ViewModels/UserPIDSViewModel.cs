@@ -25,7 +25,6 @@ namespace OS.OBDII.ViewModels
         public event ViewModelEvent ModelEvent;
         public event RequestPopup NeedYesNoPopup;
 
-        protected StringBuilder rawStringData = new StringBuilder();
         protected override OBD2DeviceAdapter OBD2Adapter { get; } = new OBD2DeviceAdapter();
 
         public int PlotHeight => _appShellModel.PlotHeight;
@@ -632,7 +631,6 @@ namespace OS.OBDII.ViewModels
         IPid p = null;
         char[] tmpChArray = null;
         string[] inputStringArray = null;
-        StringBuilder sb = new StringBuilder();
         protected override async Task OnCommunicationEvent(object sender, DeviceEventArgs e)
         {
             tmpPid = null; // for live data
@@ -828,7 +826,6 @@ namespace OS.OBDII.ViewModels
                                 this.ResetCommTimout();
 
                                 break;
-                            case QueueSets.Initialize:
                             case QueueSets.InitializeForUserPIDS:
                                 switch (this.OBD2Adapter.CurrentRequest)
                                 {
@@ -899,8 +896,19 @@ namespace OS.OBDII.ViewModels
 
                                             OBD2Adapter.CurrentRequest = DeviceRequestType.None;
 
-
-
+                                            break;
+                                        case DeviceRequestType.ISO_SetSlowInitAddress:
+                                            // Set the ISO Init Address...
+                                            await this.SendRequest($"{nextRequest}{this._appShellModel.KWPInitAddress}{Constants.CARRIAGE_RETURN}");
+                                            break;
+                                        case DeviceRequestType.SetISOBaudRate:
+                                            // Set the ISO Init Address...
+                                            await this.SendRequest($"{nextRequest}{ISOBaudRates.Items[this._appShellModel.ISOBaudRate]}{Constants.CARRIAGE_RETURN}");
+                                            break;
+                                        case DeviceRequestType.SET_OBD1Wakeup:
+                                            // Whether to turn on the OBDI/KWP wakeup messagingl...
+                                            // 0x5C, 92 is the default time value according to ELM327 specs - approx. 3 sec
+                                            await this.SendRequest($"{nextRequest}{(this._appShellModel.UseKWPWakeup ? "5C" : "00")}{Constants.CARRIAGE_RETURN}");
                                             break;
                                         case DeviceRequestType.SET_Timeout:
                                             await this.SendRequest($"{nextRequest}80{Constants.CARRIAGE_RETURN}");
@@ -1004,6 +1012,9 @@ namespace OS.OBDII.ViewModels
                         default:
                             break;
                     }
+
+                await base.OnCommunicationEvent(sender, e);
+
             }
             catch (Exception)
             {

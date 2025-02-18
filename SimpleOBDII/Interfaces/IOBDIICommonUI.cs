@@ -4,35 +4,21 @@ using OS.OBDII.Models;
 using OS.OBDII.Views;
 
 namespace OS.OBDII.Interfaces;
-
-public interface IOBDIICommonUI 
+/// <summary>
+/// Defines the requirements of objects passed into most view models, typically instantiated in a page's code behind constructor.
+/// </summary>
+public interface IOBDIICommonUI: ICommunicatioProfile 
 {
-    // Yes, this interface is way too large - it's a 'catch all' .
-    // It's main function is to provide a reference to a centralized class instance which holds persistent and runtime data
-    // ...for xaml view models, passed in the view model's constructor typically instantiated in the code-behind constructor.
  
     int PlotHeight { get; set; }
-    IList<string> DeviceList { get; }
-    string SelectedBluetoothDevice { get; set; }
-    string PresetBluetoothDevice { get; }
-
-    UInt32 SerialBaudRate { get; set; }
     IPid tempIPid { get; set; }
 
-    void SetCommMethod();
-    bool StoreBluetoothDevicePreset(string device);
-    string SelectedCommMethod { get; set; }
-    string IPAddress { get; set; }
-    int IPPort { get; set; }
-    bool IsBluetooth { get; }
-    string UserCANID { get; set; }
-    ICommunicationDevice CommunicationService { get; }
-
-    Task<bool> ShowPopupAsync(PopupInfo popupInfo);
-    bool OpenCommunicationChannel();
 
     Protocol SelectedProtocol { get; set; }
     int SelectedProtocolIndex { get; set; }
+    ICommunicationDevice CommunicationService { get; }
+
+    Task<bool> ShowPopupAsync(PopupInfo popupInfo);
 
     IAdService AdService { get; }
 

@@ -40,6 +40,10 @@ namespace OS.OBDII.Models
               DeviceRequestType.LineFeedsOff,
               DeviceRequestType.CANAutoAddress,
               DeviceRequestType.ForgetEvents,
+              DeviceRequestType.ISO_SetSlowInitAddress,      // argument provided in comm event filter
+              DeviceRequestType.SetISOBaudRate,                 // argument provided in comm event filter
+              DeviceRequestType.SET_OBD1Wakeup,             // argument provided in comm event filter
+             // DeviceRequestType.SET_OBD1WakeupOff,
           //    DeviceRequestType.SETAdaptiveTiming,
              // DeviceRequestType.SET_Timeout,
           //    DeviceRequestType.ProtocolSearch,
@@ -57,38 +61,16 @@ namespace OS.OBDII.Models
             new OBD2Command("Headers Off", OBD2Device.ServiceModes[0], DeviceRequestType.HeadersOff),
             new OBD2Command("Spaces Off", OBD2Device.ServiceModes[0], DeviceRequestType.SpacesOff),
             new OBD2Command("Line Feeds Off", OBD2Device.ServiceModes[0], DeviceRequestType.LineFeedsOff),
-            //new OBD2Command("", OBD2Device.ServiceModes[0], DeviceRequestType.CANAutoAddress),
             new OBD2Command("Forget Events", OBD2Device.ServiceModes[0], DeviceRequestType.ForgetEvents),
-          //    DeviceRequestType.SETAdaptiveTiming,
-             // DeviceRequestType.SET_Timeout,
-          //    DeviceRequestType.ProtocolSearch,
-              //DeviceRequestType.OBD2_GetPIDS_00,
-            //  DeviceRequestType.GetCurrentProtocolDescription,
-              //DeviceRequestType.SetHeader,// argument provided in comm event filter
-            new OBD2Command("Get VIN", OBD2Device.ServiceModes[9], DeviceRequestType.OBD2_GetVIN),
-        };
 
+            new OBD2Command("Set ISO Baud Rate", OBD2Device.ServiceModes[0], DeviceRequestType.SetISOBaudRate),// argument provided in comm event filter
+            new OBD2Command("Set OBDI Wakeup", OBD2Device.ServiceModes[0], DeviceRequestType.SET_OBD1Wakeup),// argument provided in comm event filter
 
+            //new OBD2Command("Get VIN", OBD2Device.ServiceModes[9], DeviceRequestType.OBD2_GetVIN),
+            // Forces the hardware to search of the vehicle's protocol
+            new OBD2Command("Get Supported PIDs 00", OBD2Device.ServiceModes[1], DeviceRequestType.OBD2_GetPIDS_00),
+      };
 
-        public static readonly List<DeviceRequestType> InitializeForUserPIDS0 = new List<DeviceRequestType>()
-        {
-              DeviceRequestType.DeviceReset,
-              DeviceRequestType.SetProtocol,// argument provided in comm event filter
-              DeviceRequestType.EchoOff,
-              DeviceRequestType.MemoryOff,
-              DeviceRequestType.HeadersOff,
-              DeviceRequestType.SpacesOff,
-              DeviceRequestType.LineFeedsOff,
-              //DeviceRequestType.CANAutoAddress,
-              DeviceRequestType.ForgetEvents,
-          //    DeviceRequestType.SETAdaptiveTiming,
-             // DeviceRequestType.SET_Timeout,
-          //    DeviceRequestType.ProtocolSearch,
-              //DeviceRequestType.OBD2_GetPIDS_00,
-            //  DeviceRequestType.GetCurrentProtocolDescription,
-              //DeviceRequestType.SetHeader,// argument provided in comm event filter
-              DeviceRequestType.OBD2_GetVIN
-        };
 
         public static readonly List<DeviceRequestType> InitializeCAN = new List<DeviceRequestType>()
         {

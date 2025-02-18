@@ -19,6 +19,7 @@ public class Constants
     public const string PREFS_KEY_IP_PORT = "IPPort";
     public const string PREFS_KEY_DEVICE_COMM_TYPE = "CommunicationType";
     public const string PREFS_SERIAL_BAUD_RATE = "SerialBaudRate";
+    public const string PREFS_ISO_BAUD_RATE = "ISOBaudRate";
     public const string STRING_CONNECTING = "Connecting...";
 
     public const string COMMUNICATION_DEVICE_NOT_SETUP = "*** Device Not Set ***";

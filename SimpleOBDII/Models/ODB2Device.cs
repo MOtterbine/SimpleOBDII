@@ -33,6 +33,7 @@ namespace OS.OBDII.Models
         SupplyVoltage,
         BaudRateFastTimeout,
         BaudRateFastDivisor,
+        SetISOBaudRate, // argument is dynamic
         SetHeader,
         SetDefaultHeader, // Sets header to default tester addresss 7DF
         HeadersOn,
@@ -66,7 +67,9 @@ namespace OS.OBDII.Models
         CAN_ClearDTCs,
         CAN_ClearDTCs_2,
         ISO_SlowInit,
+        ISO_SetSlowInitAddress,
         SET_ISOInitAddress_13,
+        SET_OBD1Wakeup,
         SET_OBD1WakeupOff,
         SET_Timeout,
         SETAdaptiveTiming,
@@ -1068,6 +1071,7 @@ namespace OS.OBDII.Models
             {DeviceRequestType.SetCAN_11_500, new ELM327Command{ IsUserFunction = false, Code = "TP6", Name = "Set CAN 11-bit, 500k protocol", Description = "Set CAN 11-bit, 500k protocol", RequestType = DeviceRequestType.SetCAN_11_500 } },
             {DeviceRequestType.SetHeader, new ELM327Command{ IsUserFunction = false, Code = "SH", Name = "Set device obd2 header value", Description = "Set device obd2 protocol header value", RequestType = DeviceRequestType.SetHeader } },
             {DeviceRequestType.BaudRateFastTimeout, new ELM327Command{ IsUserFunction = false, Code = "BRT10", Name = "Set device obd2 baud rate fast timeout", Description = "Set device obd2 baud rate fast timeout", RequestType = DeviceRequestType.BaudRateFastTimeout } },
+            {DeviceRequestType.SetISOBaudRate, new ELM327Command{ IsUserFunction = false, Code = "IB", Name = "Set ISO baud rate", Description = "Set ISO baud rate", RequestType = DeviceRequestType.SetISOBaudRate } },
             {DeviceRequestType.BaudRateFastDivisor, new ELM327Command{ IsUserFunction = false, Code = "BRDFF", Name = "Set device obd2 baud rate fast divisor", Description = "Set device obd2 baud rate fast divisor", RequestType = DeviceRequestType.BaudRateFastDivisor } },
             {DeviceRequestType.SetDefaultHeader, new ELM327Command{ IsUserFunction = false, Code = "SH7DF", Name = "Set device can header value (7DF)", Description = "Set device CAN header value (7DF)", RequestType = DeviceRequestType.SetDefaultHeader } },
             {DeviceRequestType.HeadersOn, new ELM327Command{ IsUserFunction = false, Code = "H1", Name = "Headers On", Description = "Headers On", RequestType = DeviceRequestType.HeadersOn } },
@@ -1081,7 +1085,9 @@ namespace OS.OBDII.Models
             {DeviceRequestType.SetCANRxAddress, new ELM327Command{ IsUserFunction = false, Code = "CRA", Name = "Set CAN receive address", Description = "Set CAN receive address", RequestType = DeviceRequestType.SetCANRxAddress } },
 
             {DeviceRequestType.ISO_SlowInit, new ELM327Command{ IsUserFunction = false, Code = "SI", Name = "Run ISO Slow Init", Description = "Run ISO Slow Init", RequestType = DeviceRequestType.ISO_SlowInit } },
+            {DeviceRequestType.ISO_SetSlowInitAddress, new ELM327Command{ IsUserFunction = false, Code = "IIA", Name = "Set ISO Slow Init Address", Description = "Set ISO Slow Init Address", RequestType = DeviceRequestType.ISO_SetSlowInitAddress } },
             {DeviceRequestType.SET_ISOInitAddress_13, new ELM327Command{ IsUserFunction = false, Code = "IIA13", Name = "Set ISO Init Address", Description = "Set ISO Init Address", RequestType = DeviceRequestType.SET_ISOInitAddress_13 } },
+            {DeviceRequestType.SET_OBD1Wakeup, new ELM327Command{ IsUserFunction = false, Code = "SW", Name = "KWP Wakeup messages", Description = "KWP Wakeup messages", RequestType = DeviceRequestType.SET_OBD1Wakeup } },
             {DeviceRequestType.SET_OBD1WakeupOff, new ELM327Command{ IsUserFunction = false, Code = "SW00", Name = "KWP Wakeup messages off", Description = "KWP Wakeup messages off", RequestType = DeviceRequestType.SET_OBD1WakeupOff } },
 
             {DeviceRequestType.SET_Timeout, new ELM327Command{ IsUserFunction = false, Code = "ST", Name = "Set timeouts", Description = "Set timeouts", RequestType = DeviceRequestType.SET_Timeout } },
@@ -1663,6 +1669,7 @@ namespace OS.OBDII.Models
             {DeviceRequestType.Set9141_2, new ELM327Command{ IsUserFunction = false, Code = "ATTP3", Name = "Set 9141-2 protocol", Description = "Set 9141-2 protocol", RequestType = DeviceRequestType.Set9141_2 } },
             {DeviceRequestType.SetCAN_11_500, new ELM327Command{ IsUserFunction = false, Code = "ATTP6", Name = "Set CAN 11-bit, 500k protocol", Description = "Set CAN 11-bit, 500k protocol", RequestType = DeviceRequestType.SetCAN_11_500 } },
             {DeviceRequestType.SetHeader, new ELM327Command{ IsUserFunction = false, Code = "ATSH", Name = "Set device obd2 header value", Description = "Set device obd2 protocol header value", RequestType = DeviceRequestType.SetHeader } },
+            {DeviceRequestType.SetISOBaudRate, new ELM327Command{ IsUserFunction = false, Code = "ATIB", Name = "Set ISO baud rate", Description = "Set ISO baud rate", RequestType = DeviceRequestType.SetISOBaudRate } },
             {DeviceRequestType.BaudRateFastTimeout, new ELM327Command{ IsUserFunction = false, Code = "ATBRT10", Name = "Set device obd2 baud rate fast timeout", Description = "Set device obd2 baud rate fast timeout", RequestType = DeviceRequestType.BaudRateFastTimeout } },
             {DeviceRequestType.BaudRateFastDivisor, new ELM327Command{ IsUserFunction = false, Code = "ATBRDFF", Name = "Set device obd2 baud rate fast divisor", Description = "Set device obd2 baud rate fast divisor", RequestType = DeviceRequestType.BaudRateFastDivisor } },
             {DeviceRequestType.SetDefaultHeader, new ELM327Command{ IsUserFunction = false, Code = "ATSH7DF", Name = "Set device can header value (7DF)", Description = "Set device CAN header value (7DF)", RequestType = DeviceRequestType.SetDefaultHeader } },
@@ -1676,7 +1683,10 @@ namespace OS.OBDII.Models
             {DeviceRequestType.SetDefaultCANRxAddress, new ELM327Command{ IsUserFunction = false, Code = "ATCRA7DF", Name = "Set Default CAN receive address (7DF)", Description = "Set Default CAN receive address (7DF)", RequestType = DeviceRequestType.SetDefaultCANRxAddress } },
             {DeviceRequestType.SetCANRxAddress, new ELM327Command{ IsUserFunction = false, Code = "ATCRA", Name = "Set CAN receive address", Description = "Set CAN receive address", RequestType = DeviceRequestType.SetCANRxAddress } },
 
+            {DeviceRequestType.ISO_SlowInit, new ELM327Command{ IsUserFunction = false, Code = "ATSI", Name = "Set ISO Init Address", Description = "Set ISO Init Address", RequestType = DeviceRequestType.ISO_SlowInit } },
+            {DeviceRequestType.ISO_SetSlowInitAddress, new ELM327Command{ IsUserFunction = false, Code = "ATIIA", Name = "Set ISO Slow Init Address", Description = "Set ISO Slow Init Address", RequestType = DeviceRequestType.ISO_SetSlowInitAddress } },
             {DeviceRequestType.SET_ISOInitAddress_13, new ELM327Command{ IsUserFunction = false, Code = "ATIIA13", Name = "Set ISO Init Address", Description = "Set ISO Init Address", RequestType = DeviceRequestType.SET_ISOInitAddress_13 } },
+            {DeviceRequestType.SET_OBD1Wakeup, new ELM327Command{ IsUserFunction = false, Code = "ATSW", Name = "KWP Wakeup messages", Description = "KWP Wakeup messages", RequestType = DeviceRequestType.SET_OBD1Wakeup } },
             {DeviceRequestType.SET_OBD1WakeupOff, new ELM327Command{ IsUserFunction = false, Code = "ATSW00", Name = "KWP Wakeup messages off", Description = "KWP Wakeup messages off", RequestType = DeviceRequestType.SET_OBD1WakeupOff } },
 
             {DeviceRequestType.SET_Timeout, new ELM327Command{ IsUserFunction = false, Code = "ATST", Name = "Set timeouts", Description = "Set timeouts", RequestType = DeviceRequestType.SET_Timeout } },
