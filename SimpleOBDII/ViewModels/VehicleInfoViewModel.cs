@@ -173,7 +173,6 @@ namespace OS.OBDII.ViewModels
             this.EmptyGridMessage = this.StatusMessage = Constants.MSG_NO_RESPONSE_VEHICLE;
         }
 
-        StringBuilder sb = new StringBuilder();
         protected override async Task OnCommunicationEvent(object sender, DeviceEventArgs e)
         {
             try
@@ -190,6 +189,7 @@ namespace OS.OBDII.ViewModels
                         return;
                     case CommunicationEvents.Receive:
                     case CommunicationEvents.ReceiveEnd:
+
                         ActivityLEDOff();
                         this.rawStringData.Append(Encoding.UTF8.GetString(e.data));
 
@@ -213,6 +213,12 @@ namespace OS.OBDII.ViewModels
                         //this._CommTimer.Change(Constants.DEFAULT_COMM_NO_RESPONSE_TIMEOUT, Constants.DEFAULT_COMM_NO_RESPONSE_TIMEOUT);
                         this.ResetCommTimout();
 
+                        switch (this.OBD2Adapter.CurrentRequest)
+                        {
+                            case DeviceRequestType.GetSystemProtocolID:
+                                this.OBD2Adapter.ParseResponse(this.rawStringData.ToString());
+                                break;
+                        }
 
                         switch (this.OBD2Adapter.CurrentQueueSet)
                         {
@@ -223,10 +229,19 @@ namespace OS.OBDII.ViewModels
                                 nextRequest = this.OBD2Adapter.GetNextQueuedCommand();
                                 if (nextRequest == null)
                                 {
-                                     await Application.Current.Dispatcher.DispatchAsync(() => 
-                                    //await MainThread.InvokeOnMainThreadAsync(() =>
-                                    {
+                                     await Application.Current.Dispatcher.DispatchAsync(async () => 
+                                     {
                                         CancelCommTimout();
+                                        switch(this._appShellModel.SelectedProtocolIndex)
+                                        {
+                                            case 2: // iso 9142
+                                            case 3: // iso 14230 slow
+                                            case 4:// iso 14230 fast
+                                                // set the ISO wakeup timer
+                                                await this.SendRequest($"ATSW{(this._appShellModel.UseKWPWakeup ? "5C" : "00")}{Constants.CARRIAGE_RETURN}");
+                                                break;
+                                        }
+
                                         this.CloseCommService();
                                     });
                                 }
@@ -826,13 +841,6 @@ namespace OS.OBDII.ViewModels
         }
 
 
-
-
-
-
-
-
-        protected StringBuilder rawStringData = new StringBuilder();
 
         protected void SetStatusText(string text = null)
         {

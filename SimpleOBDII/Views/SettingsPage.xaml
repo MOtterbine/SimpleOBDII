@@ -10,7 +10,7 @@
              NavigationPage.HasBackButton="False"
              xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
              xmlns:converters="clr-namespace:OS.OBDII.Converters"
-             x:Class="OS.OBDII.Views.SettingsPage">
+             x:Class="OS.OBDII.Views.SettingsPage" >
     
 <!--<ContentPage.BindingContext>
         <vm:SettingsViewModel />
@@ -193,10 +193,10 @@
                                 <!-- Header -->
                                 <Label Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Margin="5,0,0,0" >Header</Label>
                                 <StackLayout Grid.Row="0" Grid.Column="1" Spacing="0" Margin="0" Padding="0" >
-                                        <CheckBox Color="#AAefefef" VerticalOptions="CenterAndExpand" IsChecked="{Binding UseHeader}" HorizontalOptions="Start" Margin="10,0,0,0"></CheckBox>
+                                        <CheckBox Color="#AAefefef" VerticalOptions="CenterAndExpand" IsChecked="{Binding UseHeader}" HorizontalOptions="Start" Margin="{OnPlatform 0,WinUI='10,0,0,0'}"></CheckBox>
                                 </StackLayout>
 
-                                <StackLayout Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Padding="0" Spacing="0" HorizontalOptions="Start">
+                                <StackLayout Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Padding="0" Spacing="0" HorizontalOptions="Start" WidthRequest="120">
                                     <!--<Entry HorizontalOptions="Start"  IsEnabled="{Binding UseHeader}" MaxLength="8" Placeholder="&lt;Header&gt;" Text="{Binding CANHeader}" Behaviors:HexValidationBehavior.AttachBehavior="true"></Entry>-->
                                         <Entry Text="{Binding CANHeader}" IsEnabled="{Binding UseHeader}" MaxLength="8"  Placeholder="&lt;Header&gt;" Style="{DynamicResource HEXEntry}">
                                         <Entry.Keyboard>
@@ -222,8 +222,8 @@
                                     <VerticalStackLayout Grid.Row="2" Margin="5,0,0,0" VerticalOptions="Center" >
                                         <Label VerticalOptions="Center" Grid.Column="0">ISO Init Address</Label>
                                     </VerticalStackLayout>
-                                    <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
-                                        <Entry Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  Text="{Binding KWPInitAddress}"  MaxLength="2"  Placeholder="&lt;KWP Init Addr&gt;" Style="{DynamicResource HEXEntry}">
+                                    <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" HorizontalOptions="FillAndExpand">
+                                        <Entry Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" WidthRequest="80" Text="{Binding KWPInitAddress}"  MaxLength="2"  Placeholder="&lt;KWP Init Addr&gt;" Style="{DynamicResource HEXEntry}">
                                             <Entry.Keyboard>
                                                 <Keyboard x:FactoryMethod="Create">
                                                     <x:Arguments>
@@ -238,7 +238,7 @@
                                     <!--ISO Baud Rate -->
                                     <Label Grid.Row="3" Margin="5,0,0,0" VerticalOptions="Center" Grid.Column="0">ISO Baud Rate</Label>
                                     <HorizontalStackLayout Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
-                                        <Picker VerticalOptions="Center" Margin="0"  ItemsSource="{Binding ISOBaudRates}"  
+                                        <Picker VerticalOptions="Center" Margin="0"  ItemsSource="{Binding ISOBaudRates}"  WidthRequest="80"
                                                     SelectedItem="{Binding ISOBaudRate}" HorizontalOptions="StartAndExpand" Style="{DynamicResource settings-picker}"/>
                                     </HorizontalStackLayout>
                                     <Label Grid.Row="3" Grid.Column="2" HorizontalTextAlignment="End" HorizontalOptions="End" Margin="0,0,20,0" VerticalOptions="Center"  FontSize="Small">(default 10400)</Label>
@@ -248,7 +248,7 @@
                                         <Label VerticalOptions="Center" Grid.Column="0">OBDI Wakeup On</Label>
                                     </VerticalStackLayout>
                                     <StackLayout Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  Spacing="0" Margin="0" Padding="0">
-                                        <CheckBox IsChecked="{Binding UseKWPWakeup}" HorizontalOptions="Start" Margin="10,0,0,0"></CheckBox>
+                                        <CheckBox Color="#AAefefef" IsChecked="{Binding UseKWPWakeup}" HorizontalOptions="Start" Margin="{OnPlatform 0,WinUI='10,0,0,0'}"></CheckBox>
                                     </StackLayout>
                                     <Label HorizontalOptions="EndAndExpand" Margin="0,0,20,0" Grid.Row="4" Grid.Column="2"  VerticalOptions="Center"  FontSize="Small" >(default On)</Label>
 

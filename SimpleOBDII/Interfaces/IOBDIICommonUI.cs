@@ -16,6 +16,8 @@ public interface IOBDIICommonUI: ICommunicatioProfile
 
     Protocol SelectedProtocol { get; set; }
     int SelectedProtocolIndex { get; set; }
+    int DetectedProtocolID { get; }
+
     ICommunicationDevice CommunicationService { get; }
 
     Task<bool> ShowPopupAsync(PopupInfo popupInfo);

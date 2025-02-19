@@ -314,37 +314,39 @@ namespace OS.OBDII.Models
             int i = 0;
             try
             {
+                // Regardless or Queue set
+                switch (CurrentRequest)
+                {
+                    case DeviceRequestType.GetSystemProtocolID:
+                        try
+                        {
+                            int val;
+                            if (inputStringArray[0].Substring(0, 1) == "A") // if the first value is 'A' then then 
+                            {
+                                if (int.TryParse(inputStringArray[0].Substring(1, 1), out val))
+                                {
+                                    this.FireAdapterUpdateEvent("SystemProtocolID", val);
+                                }
+                            }
+                            else
+                            {
+                                if (int.TryParse(inputStringArray[0].Substring(0, 1), out val))
+                                {
+                                    this.FireAdapterUpdateEvent("SystemProtocolID", val);
+                                }
+                            }
+                            OBD2Device.SystemProtocolID = val;
+                        }
+                        catch (Exception)
+                        {
+                            //FireAdapterUpdateEvent("StatusText", Constants.MSG_NOT_APPLICABLE);
+                        }
+                        break;
+                }
+
+
                 switch (this.CurrentQueueSet)
                 {
-                    case QueueSets.DetectSystemProtocolID:
-                        switch(CurrentRequest)
-                        {
-                            case DeviceRequestType.GetSystemProtocolID:
-                                try
-                                {
-                                    int val;
-                                    if(inputStringArray[0].Substring(0,1) =="A") // if the first value is 'A' then then 
-                                    {
-                                        if (int.TryParse(inputStringArray[0].Substring(1,1), out val))
-                                        {
-                                            this.FireAdapterUpdateEvent("SystemProtocolID", val);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (int.TryParse(inputStringArray[0].Substring(0,1), out val))
-                                        {
-                                            this.FireAdapterUpdateEvent("SystemProtocolID", val);
-                                        }
-                                    }
-                                }
-                                catch (Exception)
-                                {
-                                    //FireAdapterUpdateEvent("StatusText", Constants.MSG_NOT_APPLICABLE);
-                                }
-                                break;
-                        }
-                        return string.Empty;
                     case QueueSets.GetO2SensorLocations13:
                         foreach (string s in inputStringArray)
                         {

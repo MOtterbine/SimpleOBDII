@@ -58,13 +58,15 @@ namespace OS.OBDII.ViewModels
                                         return;
                                     }
                                     break;
+                                case DeviceRequestType.OBD2_GetPIDS_00:
+                                    break;
                             }
 
                             nextRequest = this.OBD2Adapter.GetNextQueuedRequest(true, false);
                             this.rawStringData.Clear();
                             if (nextRequest != null)
                             {
-                                switch (this.OBD2Adapter.CurrentRequest)
+                                switch (this.OBD2Adapter.CurrentRequest) // CurrentRequest was changed by call to 'GetNextQueuedRequest'
                                 {
                                     case DeviceRequestType.SetProtocol:
                                         // Set the selected protocol...
@@ -78,12 +80,6 @@ namespace OS.OBDII.ViewModels
                                         // Set the ISO Init Address...
                                         await this.SendRequest($"{nextRequest}{ISOBaudRates.Items[this._appShellModel.ISOBaudRate]}{Constants.CARRIAGE_RETURN}");
                                         break;
-                                    case DeviceRequestType.SET_OBD1Wakeup:
-                                        // Whether to turn on the OBDI/KWP wakeup messagingl...
-                                        // 0x5C, 92 is the default time value according to ELM327 specs - approx. 3 sec
-                                        await this.SendRequest($"{nextRequest}{(this._appShellModel.UseKWPWakeup ? "5C" : "00")}{Constants.CARRIAGE_RETURN}");
-                                        break;
-
                                     case DeviceRequestType.SetHeader: // MUST BE LAST COMMAND....
                                         if (this._appShellModel.UseHeader)
                                         {
@@ -98,13 +94,26 @@ namespace OS.OBDII.ViewModels
                                                 var data1 = this._appShellModel.UserCANID.PadLeft(6, '0').ToString();
                                                 await this.SendRequest($"{nextRequest}{data1}{Constants.CARRIAGE_RETURN}");
                                             }
-
-
-
-                                            // Set the selected protocol...
-                                            // await this.SendRequest($"{nextRequest}{this._appShellModel.UserCANID}{Constants.CARRIAGE_RETURN}");
                                             break;
                                         }
+
+                                        //nextRequest = this.OBD2Adapter.GetNextQueuedRequest(true, false);
+                                        //this.rawStringData.Clear();
+                                        //if (nextRequest != null)
+                                        //{
+                                        //    switch (this.OBD2Adapter.CurrentRequest) // CurrentRequest was changed by call to 'GetNextQueuedRequest'
+                                        //    {
+                                        //        case DeviceRequestType.SET_OBD1Wakeup:
+
+                                        //            await this.SendRequest($"{nextRequest}{(this._appShellModel.UseKWPWakeup ? "5C" : "00")}{Constants.CARRIAGE_RETURN}");
+                                        //            break;
+                                        //        default:
+                                        //            await this.SendRequest($"{nextRequest}{Constants.CARRIAGE_RETURN}");
+                                        //            break;
+                                        //    }
+                                        //}
+                                        // if this is the end
+                                        // await this.SendRequest($"{Constants.CARRIAGE_RETURN}");
                                         if (this.ActionQueue.Count > 0)
                                         {
                                             this.ActionQueue.Dequeue().Start();
@@ -113,9 +122,6 @@ namespace OS.OBDII.ViewModels
                                         {
                                             this.CloseCommService();
                                         }
-                                        // ????????????????????????????????????????????????????????????????????????  needed?
-                                        // Declare device has been through a basic inititialization
-                                        //this._appShellModel.DeviceIsInitialized = true;
                                         break;
                                     case DeviceRequestType.SET_Timeout:
                                         await this.SendRequest($"{nextRequest}80{Constants.CARRIAGE_RETURN}");
@@ -152,20 +158,13 @@ namespace OS.OBDII.ViewModels
                                     //this.StatusMessage = "Closing...";
                                     this.CloseCommService();
                                 }
-                                // ????????????????????????????????????????????????????????????????????????  needed?
-                                // Declare device has been through a basic inititialization
-                                //this._appShellModel.DeviceIsInitialized = true;
                             }
                             break;
                     }
                     break;
                 }
 
-
-
-
         }
-        
 
         /// <summary>
         /// Returns true if a connect attempt was started
@@ -273,11 +272,42 @@ namespace OS.OBDII.ViewModels
 
         public virtual void CloseCommService()
         {
+            // used to wait for closing tasks, reset - so it will block
+            ManualResetEvent cWait = new ManualResetEvent(false);
+
             try
             {
+                // Tasks before closing communications with hardware
+                Task.Factory.StartNew(async () => {
+
+                    // Address any wakeups the hardware might apply
+                    if (this._appShellModel.CommunicationService != null && this._appShellModel.CommunicationService.IsConnected)
+                    {
+                        
+                        switch (this._appShellModel.DetectedProtocolID)
+                        {
+                            case 2: // iso 9142
+                            case 3: // iso 14230 slow
+                            case 4:// iso 14230 fast
+                                   //Dispatcher.GetForCurrentThread().DispatchAsync(() => {
+                                   // set the ISO wakeup timer
+                                await this.SendRequest($"ATSW{(this._appShellModel.UseKWPWakeup ? "5C" : "00")}{Constants.CARRIAGE_RETURN}");
+                                // We won't wait for a response, but ensure a reasonable time can pass so the hardware can proc
+                                //});
+                                await Task.Delay(200);
+                                break;
+                        }
+                    }
+
+                    // unblock waiting threads
+                    cWait.Set();
+                });
+
+                // Wait here until closing tasks are complete
+                cWait.WaitOne();
+
                 // Halt timeouts...
                 CancelCommTimout();
-                
 
                 this.OBD2Adapter.OBD2AdapterEvent -= OnAdapterEvent;
                 this._appShellModel.CommunicationService.CommunicationEvent -= OnCommunicationEvent;
@@ -285,8 +315,6 @@ namespace OS.OBDII.ViewModels
 
                 this.OBD2Adapter?.ClearQueue();
                 this.ActionQueue?.Clear();
-                //  if(!AppShellViewModel.Instance.CommunicationService.IsConnected)
-                //   {
 
                 this.IsCommunicating = false;
                 this.IsBusy = false;
@@ -294,12 +322,12 @@ namespace OS.OBDII.ViewModels
                 if (!this.ErrorExists)
                 {
                     this.StatusMessage = string.Empty;
-                    //this.EmptyGridMessage = Constants.NO_DATA_STRING;
                 }
                 ActivityLEDOff();
-                //this._appShellModel.SendHapticFeedback();
+
             }
-            catch(Exception) { 
+            catch (Exception)
+            {
             }
         }
 

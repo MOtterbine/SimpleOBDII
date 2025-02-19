@@ -42,14 +42,13 @@ namespace OS.OBDII.Models
               DeviceRequestType.ForgetEvents,
               DeviceRequestType.ISO_SetSlowInitAddress,      // argument provided in comm event filter
               DeviceRequestType.SetISOBaudRate,                 // argument provided in comm event filter
-              DeviceRequestType.SET_OBD1Wakeup,             // argument provided in comm event filter
              // DeviceRequestType.SET_OBD1WakeupOff,
           //    DeviceRequestType.SETAdaptiveTiming,
              // DeviceRequestType.SET_Timeout,
-          //    DeviceRequestType.ProtocolSearch,
-              //DeviceRequestType.OBD2_GetPIDS_00,
             //  DeviceRequestType.GetCurrentProtocolDescription,
-              DeviceRequestType.SetHeader,// argument provided in comm event filter
+              DeviceRequestType.OBD2_GetPIDS_00, // forces a protocol detection
+              DeviceRequestType.GetSystemProtocolID,
+              DeviceRequestType.SetHeader,//  argument provided in comm event filter 
         };
 
         public static readonly List<OBD2Command> InitializeForUserPIDS = new List<OBD2Command>()
@@ -141,7 +140,8 @@ namespace OS.OBDII.Models
         public static readonly List<OBD2Command> DetectSystemProtocol = new List<OBD2Command>()
         {
             new OBD2Command("Get Supported PIDs 00", OBD2Device.ServiceModes[1], DeviceRequestType.OBD2_GetPIDS_00),
-            new OBD2Command("Get System Protocol ID", OBD2Device.ServiceModes[0], DeviceRequestType.GetSystemProtocolID)
+            new OBD2Command("Get System Protocol ID", OBD2Device.ServiceModes[0], DeviceRequestType.GetSystemProtocolID),
+            new OBD2Command("Set System ISO Wakeup", OBD2Device.ServiceModes[0], DeviceRequestType.SET_OBD1Wakeup)
 
         };
 
@@ -221,14 +221,12 @@ namespace OS.OBDII.Models
             new OBD2Command("Distance Since Cleared", OBD2Device.ServiceModes[1], DeviceRequestType.OBD2_KmSinceDTCCleared),
             new OBD2Command("Distance with MIL light on", OBD2Device.ServiceModes[1], DeviceRequestType.OBD2_KmWithMilOn),
             new OBD2Command("I/M since codes cleared", OBD2Device.ServiceModes[1], DeviceRequestType.OBD2_StatusSinceCodesLastCleared),
-            new OBD2Command("Get Current Protocol ID", OBD2Device.ServiceModes[0], DeviceRequestType.GetSystemProtocolID),
-            new OBD2Command("Get Current Protocol Description", OBD2Device.ServiceModes[0], DeviceRequestType.GetCurrentProtocolDescription)
+            new OBD2Command("Get Current Protocol Description", OBD2Device.ServiceModes[0], DeviceRequestType.GetCurrentProtocolDescription),
        };
 
 
         public static readonly List<OBD2Command> VINReport = new List<OBD2Command>()
         {
-           // new OBD2Command("Set KWP Wakeup Off,\r\n", OBD2Device.ServiceModes[0], DeviceRequestType.SET_OBD1WakeupOff),
             new OBD2Command("Get VIN", OBD2Device.ServiceModes[9], DeviceRequestType.OBD2_GetVIN),
         };
 

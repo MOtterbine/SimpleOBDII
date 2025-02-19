@@ -64,6 +64,13 @@ namespace OS.OBDII.Views
             }
         }
 
-
+#if WINDOWS || ANDROID
+        protected override bool OnBackButtonPressed()
+        {
+            viewModel?.Back();
+            // returning true means the event has been handled
+            return true;
+        }
+#endif
     }
 }

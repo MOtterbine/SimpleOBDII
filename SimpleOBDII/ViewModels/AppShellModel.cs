@@ -217,6 +217,8 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     }
     private String kWPInitAddress = Preferences.Get(Constants.PREFS_KWP_INIT_ADDRESS, "33");
 
+    public int DetectedProtocolID => OBD2Device.SystemProtocolID;
+
     public int SelectedProtocolIndex
     {
         get { return selectedProtocolIndex; }

@@ -1724,8 +1724,10 @@ namespace OS.OBDII.Models
             {DeviceRequestType.DeviceDescription, new ELM327Command{ Code = "AT@1", Name = "Get Description", Description = "Gets a description from the device", RequestType = DeviceRequestType.DeviceDescription } },
             {DeviceRequestType.SerialNumber, new ELM327Command{ Code = "AT@2", Name = "Get Serial Number", Description = "Gets the permanent serial number (if programmed)", RequestType = DeviceRequestType.SerialNumber } },
             {DeviceRequestType.SupplyVoltage, new ELM327Command{ Code = "ATRV", Name = "Get Voltage", Description = "Gets the voltage of the connected vehicle", RequestType = DeviceRequestType.SupplyVoltage } },
-            //{DeviceRequestType.OBD2_GetPIDS_00, new ELM327Command{ Code = "0100", Name = "Supported PIDs", Description = "Ask vehicle for supported PIDS", RequestType = DeviceRequestType.OBD2_GetPIDS_00,
-            //                    function = (obj)=>
+            // special case of non-AT command, used for inititalization and protocol detection
+            {DeviceRequestType.OBD2_GetPIDS_00, new ELM327Command{ Code = "0100", Name = "Supported PIDs", Description = "Ask vehicle for supported PIDS", RequestType = DeviceRequestType.OBD2_GetPIDS_00 } },
+             //{DeviceRequestType.OBD2_GetPIDS_00, new ELM327Command{ Code = "0100", Name = "Supported PIDs", Description = "Ask vehicle for supported PIDS", RequestType = DeviceRequestType.OBD2_GetPIDS_00,
+           //                    function = (obj)=>
             //                    {
             //                        int i = 0;
             //                        var x = 0;

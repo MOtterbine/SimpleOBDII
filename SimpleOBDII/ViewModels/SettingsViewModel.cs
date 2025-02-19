@@ -308,6 +308,12 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
     {
         this.CloseCommService();
     }
+    public override void Back()
+    {
+        if (this.isEditing) EditSaveCommand.Execute(null);
+        else NavigateHomeCommand.Execute(null);
+        base.Back();
+    }
 
 }
 
