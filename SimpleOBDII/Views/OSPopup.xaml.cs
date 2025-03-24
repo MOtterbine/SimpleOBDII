@@ -20,7 +20,6 @@ public partial class OSPopup : Popup////<bool>
         // user must click button to dismiss dialog
         this.CanBeDismissedByTappingOutsideOfPopup = false;
 
-        // PopupInfo bDat = new PopupInfo() { Title = "shit", Message = "shit sticken" };
         this.Title.Text = popupInfo.Title;
         this.MessageText.Text = popupInfo.Message;
         this.IsYesNo = popupInfo.IsYesNo;

@@ -25,7 +25,7 @@
                 <!--<ListView.HeaderTemplate>
                     <DataTemplate>
                             <ContentView Background="AliceBlue" HeightRequest="20">
-                                <Label>Eat Shit</Label>
+                                <Label>Title of the Day</Label>
                             </ContentView>
                             --><!--<Grid ColumnSpacing="0" RowSpacing="0" >
 

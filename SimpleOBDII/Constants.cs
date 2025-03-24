@@ -34,8 +34,6 @@ public const bool ADS_ARE_ACTIVE = false;
     public const string BANNER_AD_ID = TEST_BANNER_AD_ID;
 
 
-
-
     public const int UI_RADIUS_STD = 10;
 
     public const string USER_PIDS_JSON_FILE = "userpids.json";
@@ -100,7 +98,7 @@ public const bool ADS_ARE_ACTIVE = false;
     public const string STRING_NO_PROTOCOL = "<None Detected>";
     public const string STRING_NOT_SET = "<Not Set>";
 
-
+    public const string STRING_CONNECTING = "Connecting...";
     public const string STRING_ESTABLISHING_LINK = "Establishing Link...";
     public const string STRING_INITIALIZING = "Initializing...";
     public const string STRING_COMM_BLINKING_VISUAL_ELEMENT = "BlinkingVisualElement";

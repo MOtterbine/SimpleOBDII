@@ -129,7 +129,7 @@ public class AndroidUSB_Base
                 FireErrorEvent("Please set device in Setup page");
                 return false;
             }
-            //if (!this.bManager.DeviceList.ContainsKey("shit"))
+
             if (!this.bManager.DeviceList.ContainsKey(this.DeviceName))
             {
                 FireErrorEvent($"Device '{this.DeviceName}' is not attached.");

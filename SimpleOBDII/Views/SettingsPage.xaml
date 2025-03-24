@@ -187,16 +187,17 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="13*"></ColumnDefinition>
                                     <ColumnDefinition Width="5*"></ColumnDefinition>
-                                    <ColumnDefinition Width="15*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
                                 <!-- Header -->
                                 <Label Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Margin="5,0,0,0" >Header</Label>
-                                <StackLayout Grid.Row="0" Grid.Column="1" Spacing="0" Margin="0" Padding="0" >
+                                <StackLayout Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Spacing="0" Margin="0" Padding="0" >
                                         <CheckBox Color="#AAefefef" VerticalOptions="CenterAndExpand" IsChecked="{Binding UseHeader}" HorizontalOptions="Start" Margin="{OnPlatform 0,WinUI='10,0,0,0'}"></CheckBox>
                                 </StackLayout>
 
-                                <StackLayout Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Padding="0" Spacing="0" HorizontalOptions="Start" WidthRequest="120">
+                                <StackLayout Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,0,0" Padding="0" Spacing="0" HorizontalOptions="Start" WidthRequest="120">
                                     <!--<Entry HorizontalOptions="Start"  IsEnabled="{Binding UseHeader}" MaxLength="8" Placeholder="&lt;Header&gt;" Text="{Binding CANHeader}" Behaviors:HexValidationBehavior.AttachBehavior="true"></Entry>-->
                                         <Entry Text="{Binding CANHeader}" IsEnabled="{Binding UseHeader}" MaxLength="8"  Placeholder="&lt;Header&gt;" Style="{DynamicResource HEXEntry}">
                                         <Entry.Keyboard>
@@ -211,7 +212,7 @@
 
                                 <!-- Protocol Picker -->
                                 <Label VerticalOptions="Center" Margin="5,0,0,0" Grid.Row="1" Grid.Column="0">Protocol</Label>
-                                <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  Spacing="0" Margin="0" Padding="0">
+                                <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  Spacing="0" Margin="0" Padding="0">
                                         <Picker VerticalOptions="StartAndExpand" Margin="0"  ItemsSource="{Binding Protocols}" ItemDisplayBinding="{Binding Name}"  
                                                 SelectedItem="{Binding SelectedProtocol}" HorizontalOptions="FillAndExpand" Style="{StaticResource settings-picker}"/>
                                 </StackLayout>
@@ -222,8 +223,8 @@
                                     <VerticalStackLayout Grid.Row="2" Margin="5,0,0,0" VerticalOptions="Center" >
                                         <Label VerticalOptions="Center" Grid.Column="0">ISO Init Address</Label>
                                     </VerticalStackLayout>
-                                    <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" HorizontalOptions="FillAndExpand">
-                                        <Entry Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" WidthRequest="80" Text="{Binding KWPInitAddress}"  MaxLength="2"  Placeholder="&lt;KWP Init Addr&gt;" Style="{DynamicResource HEXEntry}">
+                                    <HorizontalStackLayout Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand">
+                                        <Entry Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" WidthRequest="80" Text="{Binding KWPInitAddress}"  MaxLength="2"  Placeholder="&lt;KWP Init Addr&gt;" Style="{DynamicResource HEXEntry}">
                                             <Entry.Keyboard>
                                                 <Keyboard x:FactoryMethod="Create">
                                                     <x:Arguments>
@@ -233,15 +234,15 @@
                                             </Entry.Keyboard>
                                         </Entry>
                                     </HorizontalStackLayout>
-                                    <Label Grid.Row="2" Grid.Column="2"  HorizontalOptions="EndAndExpand" Margin="0,0,20,0" VerticalOptions="Center"  FontSize="Small">(default 33)</Label>
+                                    <Label Grid.Row="2" Grid.Column="3"  HorizontalOptions="EndAndExpand" Margin="0,0,20,0" VerticalOptions="Center"  FontSize="Small">(default 33)</Label>
 
                                     <!--ISO Baud Rate -->
                                     <Label Grid.Row="3" Margin="5,0,0,0" VerticalOptions="Center" Grid.Column="0">ISO Baud Rate</Label>
                                     <HorizontalStackLayout Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
-                                        <Picker VerticalOptions="Center" Margin="0"  ItemsSource="{Binding ISOBaudRates}"  WidthRequest="80"
+                                        <Picker VerticalOptions="Center" Margin="0"  ItemsSource="{Binding ISOBaudRates}"  
                                                     SelectedItem="{Binding ISOBaudRate}" HorizontalOptions="StartAndExpand" Style="{DynamicResource settings-picker}"/>
                                     </HorizontalStackLayout>
-                                    <Label Grid.Row="3" Grid.Column="2" HorizontalTextAlignment="End" HorizontalOptions="End" Margin="0,0,20,0" VerticalOptions="Center"  FontSize="Small">(default 10400)</Label>
+                                    <Label Grid.Row="3" Grid.Column="3" HorizontalTextAlignment="End" HorizontalOptions="End" Margin="0,0,20,0" VerticalOptions="Center"  FontSize="Small">(default 10400)</Label>
                                 
                                     <!-- KWP/OBDI Wakeup Message On/Off -->
                                     <VerticalStackLayout Grid.Row="4" Margin="5,0,0,0" VerticalOptions="Center" >
@@ -250,7 +251,7 @@
                                     <StackLayout Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  Spacing="0" Margin="0" Padding="0">
                                         <CheckBox Color="#AAefefef" IsChecked="{Binding UseKWPWakeup}" HorizontalOptions="Start" Margin="{OnPlatform 0,WinUI='10,0,0,0'}"></CheckBox>
                                     </StackLayout>
-                                    <Label HorizontalOptions="EndAndExpand" Margin="0,0,20,0" Grid.Row="4" Grid.Column="2"  VerticalOptions="Center"  FontSize="Small" >(default On)</Label>
+                                    <Label HorizontalOptions="EndAndExpand" Margin="0,0,20,0" Grid.Row="4" Grid.Column="3"  VerticalOptions="Center"  FontSize="Small" >(default On)</Label>
 
 
                                     <!-- Metric vs English -->
@@ -260,7 +261,7 @@
                                     </StackLayout>
 
 
-                                    <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" RowSpacing="0" Margin="0,0,0,0" Padding="0">
+                                    <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" RowSpacing="0" Margin="0,0,0,0" Padding="0">
 
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -307,7 +308,7 @@
                                     <Label  Grid.Row="7" Grid.Column="0" VerticalOptions="CenterAndExpand" Margin="5,0,0,0" >Plot Height (75-500)</Label>
                                     <Entry Grid.Row="7" Grid.Column="1" VerticalOptions="CenterAndExpand" Margin="0" Text="{Binding PlotHeight}" Grid.ColumnSpan="2" Behaviors:NumbersOnlyValidationBehavior.AttachBehavior="true"/>
 
-                                <Button Grid.Row="8" Grid.ColumnSpan="3" Margin="0,20,0,20" HorizontalOptions="Center" VerticalOptions="Start" Text="{Binding EditSaveButtonText}" 
+                                <Button Grid.Row="8" Grid.ColumnSpan="4" Margin="0,20,0,20" HorizontalOptions="Center" VerticalOptions="Start" Text="{Binding EditSaveButtonText}" 
                                         Command="{Binding EditSaveCommand}" TextTransform="None" Behaviors:CursorBehavior.Cursor="Hand"></Button>
 
                             </Grid>

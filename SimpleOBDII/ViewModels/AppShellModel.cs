@@ -50,14 +50,18 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     private AppShellModel()
     {
         this.LogService = new OS.OBDII.PartialClasses.LogService() as ILogService;
+        if (this.LogService == null) throw new NullReferenceException("ILogService cannot be null - check platform implementation");
         this._dataService = new OS.OBDII.PartialClasses.DataService() as IDataService;
+        if (this._dataService == null) throw new NullReferenceException("IDataService cannot be null - check platform implementation");
 
         //  Preferences.Clear();
         ActivityControl = new OS.OBDII.PartialClasses.ActivityControlService() as IPlatformAppControl;
+        if (this.ActivityControl == null) throw new NullReferenceException("IPlatformAppControl cannot be null - check platform implementation");
 
         var t = new OS.OBDII.PartialClasses.DeviceIdentifier();
 
         this._AdService = new OS.OBDII.PartialClasses.AdService() as IAdService;
+        if (this._AdService == null) throw new NullReferenceException("IAdService cannot be null - check platform implementation");
 
         this.LogService?.AppendLog(Microsoft.Extensions.Logging.LogLevel.Debug, "**** APP START **** (AppShellModel..ctor)");
 
@@ -270,10 +274,6 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
 
         }
     }
-
-
-    public List<UInt32> BaudRates { get; } = new List<UInt32>()
-    { 1200, 2400, 4800, 9600, 19200, 28800, 38400, 57600, 76800, 115200, 230400 };
 
     private UInt32 serialBaudRate = Convert.ToUInt32(Preferences.Get(Constants.PREFS_SERIAL_BAUD_RATE, (uint)9600));
     public UInt32 SerialBaudRate

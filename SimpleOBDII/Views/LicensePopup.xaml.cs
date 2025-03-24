@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Maui.Views;
-using Microsoft.Extensions.Logging.Abstractions;
+﻿using CommunityToolkit.Maui.Views;
 using OS.OBDII.Interfaces;
-using OS.OBDII.Models;
 
 
 namespace OS.OBDII.Views;
@@ -33,25 +25,8 @@ public partial class LicensePopup : Popup
         this.CanBeDismissedByTappingOutsideOfPopup = false;
 
 
-        // PopupInfo bDat = new PopupInfo() { Title = "shit", Message = "shit sticken" };
         this.Title.Text = "App Installation";
         this.AppId.Text = securityManager.GetAppId();
-        //this.MessageText.Text = SecurityManager.GetAppGuid();
-        //this.IsYesNo = popupInfo.IsYesNo;
-        //if (!String.IsNullOrEmpty(popupInfo.OkText)) this.OkText = popupInfo.OkText;
-        //if (!String.IsNullOrEmpty(popupInfo.CancelText)) this.CancelText = popupInfo.CancelText;
-
-
-
-
-
-        // if(this.AppId.Text.Length < 1)
-        //if (string.IsNullOrEmpty(this.AppId.Text = securityManager.GetAppId()))
-        //{
-        //   // securityManager.CreateFootprint();
-        //    this.AppId.Text = securityManager.GetAppId();
-        //}
-
 
     }
 
@@ -66,7 +41,6 @@ public partial class LicensePopup : Popup
 #endif
 
     }
-
 
 
     void CopyAppId(object sender, EventArgs args)

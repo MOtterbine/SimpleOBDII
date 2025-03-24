@@ -185,6 +185,23 @@ public static class MauiProgram
             }
         });
 
+        Microsoft.Maui.Handlers.CheckBoxHandler.Mapper.AppendToMapping("CheckBoxHandler", (handler, view) =>
+        {
+            if (view is CheckBox)
+            {
+#if ANDROID
+
+#elif IOS || MACCATALYST
+
+#elif WINDOWS
+                // Something changed after this point - suspect is VS 2022 build.
+                if (System.Environment.Version.Build > 8)
+                {
+                    handler.PlatformView.Margin = new Microsoft.UI.Xaml.Thickness(35, 0, -100, 0);
+                }
+#endif
+            }
+        });
 
 
 

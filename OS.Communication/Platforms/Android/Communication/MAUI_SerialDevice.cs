@@ -47,15 +47,11 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
         // Iterate each type of device
         foreach (IDevicesService cdev in this.deviceTypesList)
         {
-            //var l = cdev.GetDeviceList();
             // iterate instances of this type - each device
             foreach(string s in cdev.GetDeviceList())
             {
                 retList.Add(s);
             }
-            //l.ForEach(l => {
-            //    retList.Add(l);
-            //});
         }
         return retList;
     }

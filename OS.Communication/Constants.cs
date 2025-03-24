@@ -7,8 +7,11 @@ public class Constants
     public const string MSG_CONNECTING = "Connecting...";
     public const string MSG_QUERYING = "Querying";
     public const string MSG_COMMUNICATING = "Communicating...";
+    public const string MSG_CONTACTING_ECU = "Contacting ECU...";
     public const string MSG_DATA_RECEIVED = "Data Received";
     public const string MSG_DEVICE_FOUND = "Device Found";
+    public const string MSG_NO_ECU_FOUND = "Unable to contact ECU";
+    public const string MSG_NO_HEADER_FOUND = "No useable header found";
 
     public const string PREFS_KEY_DEVICE_WIFI_MODE = "DeviceWifiType";
     public const string PREFS_BLUETOOTH_TYPE_DESCRIPTOR = @"Bluetooth/USB";
@@ -20,7 +23,6 @@ public class Constants
     public const string PREFS_KEY_DEVICE_COMM_TYPE = "CommunicationType";
     public const string PREFS_SERIAL_BAUD_RATE = "SerialBaudRate";
     public const string PREFS_ISO_BAUD_RATE = "ISOBaudRate";
-    public const string STRING_CONNECTING = "Connecting...";
 
     public const string COMMUNICATION_DEVICE_NOT_SETUP = "*** Device Not Set ***";
 

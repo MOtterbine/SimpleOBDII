@@ -254,7 +254,6 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
     public bool Close()
     {
         if (this.tokenSource == null) return false;
-        //this.IsOpen = false;
         closeEvent.Reset();
         // stops the listen thread...
 
@@ -264,8 +263,6 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
             while (!this.tokenSource.IsCancellationRequested) ;
         }
 
-        //this.bluetoothSocket?.Close();
-        //this.IsOpen = false;
         this.bluetoothSocket?.Close();
         bluetoothSocket?.Dispose();
         bluetoothSocket = null;
@@ -320,7 +317,6 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
     public bool Initialize()
     {
         return true;
-        //throw new NotImplementedException();
     }
 
     public override string ToString()
