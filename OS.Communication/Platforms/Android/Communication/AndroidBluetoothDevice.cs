@@ -2,12 +2,8 @@
 using Java.Util;
 using Android.Bluetooth;
 using OS.Communication;
-using System.Security.Cryptography.X509Certificates;
-using Bumptech.Glide.Load.Resource.Bitmap;
-using Javax.Security.Auth;
 
 namespace OS.PlatformShared;
-
 
 public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDevice
 {
