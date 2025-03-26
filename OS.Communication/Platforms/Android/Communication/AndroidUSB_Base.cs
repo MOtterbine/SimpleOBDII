@@ -18,7 +18,7 @@ public class AndroidUSB_Base
 
     public uint BaudRate { get; set; } = 38400;
 
-    public event ConnectedDeviceEvent DeviceEvent;
+    public event DeviceEvent DeviceEvent;
 
     protected UsbManager bManager = null;
     protected UsbEndpoint _endpoint_rx = null;
@@ -124,22 +124,22 @@ public class AndroidUSB_Base
                 //return true;
             }
 
-            if (String.IsNullOrEmpty(this.DeviceName))
+            if (String.IsNullOrEmpty(deviceName))
             {
                 FireErrorEvent("Please set device in Setup page");
                 return false;
             }
 
-            if (!this.bManager.DeviceList.ContainsKey(this.DeviceName))
+            if (!this.bManager.DeviceList.ContainsKey(deviceName))
             {
-                FireErrorEvent($"Device '{this.DeviceName}' is not attached.");
+                FireErrorEvent($"Device '{deviceName}' is not attached.");
                 return false;
             }
-            this.usbDevice = this.bManager.DeviceList[this.DeviceName];
+            this.usbDevice = this.bManager.DeviceList[deviceName];
 
             if (this.usbDevice == null)
             {
-                FireErrorEvent($"Cannot find Bluetooth device '{this.DeviceName}'");
+                FireErrorEvent($"Cannot find Bluetooth device '{deviceName}'");
                 return false;
             }
 
@@ -157,7 +157,7 @@ public class AndroidUSB_Base
                 }
             }
 
-            //         sb.AppendFormat("usb device found: {0}{1}", DeviceName, Environment.NewLine);
+            //         sb.AppendFormat("usb device found: {0}{1}", deviceName, Environment.NewLine);
 
             string ACTION_USB_PERMISSION = "android.permission.MANAGE_USB";
 
@@ -203,7 +203,7 @@ public class AndroidUSB_Base
             InitUSBSerial(); // throws an exception upon failure
 
             this.FireEvent(CommunicationEvents.ConnectedAsClient);
-
+            this.DeviceName = deviceName;
             return true;
 
         }

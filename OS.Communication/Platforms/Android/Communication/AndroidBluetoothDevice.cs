@@ -2,15 +2,19 @@
 using Java.Util;
 using Android.Bluetooth;
 using OS.Communication;
+using System.Security.Cryptography.X509Certificates;
+using Bumptech.Glide.Load.Resource.Bitmap;
+using Javax.Security.Auth;
 
 namespace OS.PlatformShared;
+
 
 public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDevice
 {
 
     // ELM327 uart rx buffer is 512 bytes
     public const int BUFFER_SIZE = 2048;
-    public event ConnectedDeviceEvent DeviceEvent;
+    public event DeviceEvent DeviceEvent;
 
     private BluetoothDevice bluetoothDevice = null;
     private BluetoothSocket bluetoothSocket = null;
@@ -149,7 +153,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
                 return true;
             }
 
-            if (String.IsNullOrEmpty(this.DeviceName))
+            if (String.IsNullOrEmpty(deviceName))
             {
                 var dd = this.bluetoothAdapter?.BondedDevices;
 
@@ -163,12 +167,12 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
             }
 
             this.bluetoothDevice = (from bd in this.bluetoothAdapter?.BondedDevices
-                                    where bd?.Name == this.DeviceName
+                                    where bd?.Name == deviceName
                                     select bd).FirstOrDefault();
 
             if (this.bluetoothDevice == null)
             {
-                FireErrorEvent($"Cannot find Bluetooth device '{this.DeviceName}'");
+                FireErrorEvent($"Cannot find Bluetooth device '{deviceName}'");
                 return false;
             }
 
@@ -180,6 +184,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
             }
 
             this.bluetoothSocket?.Connect();
+            this.DeviceName = deviceName;
 
             this.FireEvent(CommunicationEvents.ConnectedAsClient);
 
@@ -326,11 +331,8 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
 
     public async Task<bool> Send(string text)
     {
-        await this.Send(Encoding.UTF8.GetBytes(text), 0, text.Length);
-        return false;
+        return await this.Send(Encoding.UTF8.GetBytes(text), 0, text.Length);
     }
-
-    //protected IAsyncResult _WriteAsyncResult = null;
 
     public async Task<bool> Send(byte[] buffer, int offset, int count)
     {
