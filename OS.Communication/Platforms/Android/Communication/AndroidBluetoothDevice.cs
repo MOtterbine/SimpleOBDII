@@ -72,7 +72,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
                 listenTask = new Task(async () => { await beginListen(commChannel); });
                 listenTask.Start();
                 // detect if we actually connected
-                if (!this.waitConnect.WaitOne(2000))
+                if (!this.waitConnect.WaitOne(5000))
                 {
                     // connect timed out, cancel everthing
                     this.tokenSource?.Cancel();

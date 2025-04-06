@@ -167,25 +167,7 @@ public static class MauiProgram
 
 
 
-            Microsoft.Maui.Handlers.CheckBoxHandler.Mapper.AppendToMapping("MyCheckboxCustomization", (handler, view) =>
-        {
-            if (view is Entry)
-            {
-#if ANDROID
-                //    handler.PlatformView.Focusable = false;
-                //handler.PlatformView.ShowSoftInputOnFocus = false;
-                //handler.PlatformView.SetHighlightColor(Android.Graphics.Color.Rgb(256, 0, 0));
-                //handler.PlatformView.SetHintTextColor(Android.Graphics.Color.Rgb(256, 0, 0));
-                //handler.PlatformView.SetPadding(15,15,15,15);  
-#elif IOS || MACCATALYST
-
-#elif WINDOWS
-             //   handler.PlatformView.Padding = new Microsoft.UI.Xaml.Thickness(0);
-#endif
-            }
-        });
-
-        Microsoft.Maui.Handlers.CheckBoxHandler.Mapper.AppendToMapping("CheckBoxHandler", (handler, view) =>
+         Microsoft.Maui.Handlers.CheckBoxHandler.Mapper.AppendToMapping("CheckBoxHandler", (handler, view) =>
         {
             if (view is CheckBox)
             {

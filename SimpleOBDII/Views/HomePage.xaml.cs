@@ -78,7 +78,7 @@ public partial class HomePage : ContentPage
         DTCs.SetCustomCursor(CursorIcon.Hand, DTCs.Handler?.MauiContext);
         UserPids.SetCustomCursor(CursorIcon.Hand, UserPids.Handler?.MauiContext);
         Settings.SetCustomCursor(CursorIcon.Hand, Settings.Handler?.MauiContext);
-        Status.SetCustomCursor(CursorIcon.Hand, Settings.Handler?.MauiContext);
+        Status.SetCustomCursor(CursorIcon.Hand, Status.Handler?.MauiContext);
 
 #endif
 

@@ -12,7 +12,7 @@
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<!-- Display name -->
 		<ApplicationTitle>Simple OBDII</ApplicationTitle>
-
+        <WindowsPackageType>None</WindowsPackageType>
 		<!-- App Identifier -->
 		<ApplicationId>com.SimpleOBDII</ApplicationId>
 		<ApplicationIdGuid>184E8DC0-AF5B-44F9-8CA3-AD75A6B7D797</ApplicationIdGuid>
