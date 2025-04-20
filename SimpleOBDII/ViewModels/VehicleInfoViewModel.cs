@@ -131,11 +131,12 @@ namespace OS.OBDII.ViewModels
             //    new ReadinessMonitor() { Description = "ALfred Newman", IsCompleted = true, Code = 7 },
             //    new ReadinessMonitor() { Description = "Elvis Is Alive", IsCompleted = true, Code = 7 }
             //};
+            //IsCommunicating = false;
 
         }
 
-        
-        
+
+
 
         public override void CloseCommService()
         {
@@ -313,7 +314,10 @@ namespace OS.OBDII.ViewModels
                                     this.IsConnecting && this.ConnectTimeoutCount++ < Constants.DEFAULT_COMM_CONNECT_RETRY_COUNT)
                             {
                                 this.EmptyGridMessage = "Retrying...";
-                                this.prepareGetVehicleStatus(false).Start();
+                                // Fire n' forget
+                                Task.Factory.StartNew(() => BeginVehicleStatusQuery(false));
+
+                                //this.prepareGetVehicleStatus(false).Start();
                                 return;
                             }
                         }
@@ -646,55 +650,41 @@ namespace OS.OBDII.ViewModels
 
             this.IMTestsComplete = false;
             this.EmptyGridMessage = this.StatusMessage = Constants.STRING_CONNECTING;
-            //if (this.adService.DoAdPopup())
-            //{
-
-            //    // assign a method to call after the ad
-            //    this.adService.PostAdTask = this.prepareGetVehicleStatus();
-            //    // the post-ad callback where PostAdAction will be called.
-            //    this.adService.PopupClosed += AdClosed;
-            //    //await Task.Run(this.prepareGetVehicleStatus);
-            //    return;
-            //}
 
             this.IsCommunicating = true;
 
-            //await Task.Factory.StartNew(StartInitDevice);
+            // Fire n' forget
+            Task.Factory.StartNew(()=>BeginVehicleStatusQuery());
 
-            this.prepareGetVehicleStatus().Start();
-           
-        });
+        },()=>!IsCommunicating);
 
-        private Task prepareGetVehicleStatus(bool resetRetries = true)
+
+        private void BeginVehicleStatusQuery(bool resetRetries = true)
         {
-            return new Task(()=>InitStatusCall(resetRetries));
+            Application.Current.Dispatcher.Dispatch(this.ReadinessMonitors.Clear);
 
-            return new Task(()=>{
-                this.IsCommunicating = true;
-                Application.Current.Dispatcher.Dispatch(this.ReadinessMonitors.Clear);
-              //  MainThread.InvokeOnMainThreadAsync(this.ReadinessMonitors.Clear).Wait();
+            this.IsCommunicating = true;
+            this.EmptyGridMessage = this.StatusMessage = $"Connecting to {AppShellModel.Instance.CommunicationService.DeviceName}";
+            this.ErrorExists = false;
+            this.IsVinValid = false;
+            this.ActionQueue.Clear();
+            OnPropertyChanged("ReadinessMonitors");
 
-                base.OnPropertyChanged("ReadinessMonitors");
+            this.ActionQueue.Enqueue(InitializeDevice());
+            this.ActionQueue.Enqueue(GetVehicleStatus());
 
-                //this.EmptyGridMessage = Constants.STRING_NO_DATA;
-                //this.EmptyGridMessage = this.StatusMessage = Constants.STRING_CONNECTING;
-                this.ErrorExists = false;
-                this.IsVinValid = false;
-
-                this.ActionQueue.Clear();
-                //this.ActionQueue.Enqueue(ResetDevice());
-                this.ActionQueue.Enqueue(InitializeDevice());
-                this.ActionQueue.Enqueue(GetVehicleStatus());
-                this.ResetFields();
-                if (resetRetries)
-                {
-                    ConnectTimeoutCount = 0;
-                }
-         
-                this.Open();
-            });
+            Application.Current.Dispatcher.Dispatch(this.ResetFields);
+            if (resetRetries)
+            {
+                ConnectTimeoutCount = 0;
+            }
+            this.Open();
         }
 
+        private async Task StartInitDevice()
+        {
+            BeginVehicleStatusQuery();
+        }
 
         private Task GetVehicleStatus()
         {
@@ -790,8 +780,17 @@ namespace OS.OBDII.ViewModels
 
         public virtual void Start()
         {
-            this.DataIsTransmitting = false;
-            this.ErrorExists = false;
+            //Dispatcher.GetForCurrentThread().Dispatch(() =>
+            //Application.Current.Dispatcher.Dispatch(()=>
+            Task.Factory.StartNew(() =>  
+            {
+                this.DataIsTransmitting = false;
+                this.ErrorExists = false;
+                this.IsCommunicating = false;
+                //IsCommunicating = true;
+                //IsCommunicating = false;
+                //IsCommunicating = true;
+            });
 
             this.EmptyGridMessage = Constants.STRING_NO_DATA;
             if (Preferences.ContainsKey(Constants.APP_PROPERTY_KEY_INITIAL_VIEW))
@@ -807,38 +806,12 @@ namespace OS.OBDII.ViewModels
 
         public void Initialize()
         {
-            Task.Factory.StartNew(StartInitDevice);
+            //Task.Factory.StartNew(StartInitDevice);
+            // Fire n' forget
+            Task.Factory.StartNew(() => BeginVehicleStatusQuery());
+
         }
 
-        private void InitStatusCall(bool resetRetries = true)
-        {
-            Application.Current.Dispatcher.Dispatch(this.ReadinessMonitors.Clear);
-
-            OnPropertyChanged("ReadinessMonitors");
-
-            this.IsCommunicating = true;
-            //this.EmptyGridMessage = Constants.STRING_NO_DATA;
-            this.EmptyGridMessage = this.StatusMessage = $"Connecting to {AppShellModel.Instance.CommunicationService.DeviceName}";
-            this.ErrorExists = false;
-            this.IsVinValid = false;
-            this.ActionQueue.Clear();
-
-            //this.ActionQueue.Enqueue(ResetDevice());
-            this.ActionQueue.Enqueue(InitializeDevice());
-            this.ActionQueue.Enqueue(GetVehicleStatus());
-
-            Application.Current.Dispatcher.Dispatch(this.ResetFields);
-            if (resetRetries)
-            {
-                ConnectTimeoutCount = 0;
-            }
-            this.Open();
-        }
-
-        private async Task StartInitDevice()
-        {
-            InitStatusCall();
-        }
 
 
 

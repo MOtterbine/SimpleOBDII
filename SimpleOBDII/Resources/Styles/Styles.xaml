@@ -5,20 +5,16 @@
 
     <!-- This style targets StackLayout because it is the root element in some lists and is the way to affect the selected item color-->
     <Style TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#00AAAAFF" />
         <!--<Setter Property="BackgroundColor" Value="#FFF" />-->
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor"
-                                        Value="#00AAAAFF" />
-                        </VisualState.Setters>
-                    </VisualState>
+                    <VisualState x:Name="Normal" />
+
                     <VisualState x:Name="Selected">
                         <VisualState.Setters>
-                            <Setter Property="BackgroundColor"
-                                        Value="#88AAAAFF" />
+                            <Setter Property="BackgroundColor" Value="#88AAAAFF" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -127,16 +123,12 @@
     <Style x:Key="entry-base" TargetType="Entry">
         <Setter Property="VerticalTextAlignment" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Background" Value="#22FFFFFF" />
         <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" >
-                        <VisualState.Setters>
-                            <Setter Property="Background" Value="#22FFFFFF" />
-                            <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
-                        </VisualState.Setters>
-                    </VisualState>
+                    <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="Background" Value="#44000000" />
@@ -174,12 +166,12 @@
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" >
-                        <!--<VisualState.Setters>
+                    <VisualState x:Name="Normal" />
+                    <!--<VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray900}, Dark={DynamicResource Gray300}}" />
                             <Setter Property="TitleColor" Value="{AppThemeBinding Light={DynamicResource Gray900}, Dark={DynamicResource Gray300}}" />
                         </VisualState.Setters>-->
-                    </VisualState>
+
                     <VisualState x:Name="Disabled">
                         <!--<VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray300}}" />
@@ -200,13 +192,8 @@
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" >
-                        <VisualState.Setters>
-                            <Setter Property="Background" Value="{DynamicResource LightTrans}"/>
-                            <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
-                            <Setter Property="TitleColor" Value="{DynamicResource OffWhiteText}" />
-                        </VisualState.Setters>
-                    </VisualState>
+                    <VisualState x:Name="Normal" />
+
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray400}, Dark={DynamicResource Gray500}}" />
@@ -343,14 +330,8 @@
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" >
-                        <VisualState.Setters>
-                            <!--<Setter Property="ThumbImageSource" Value="thumb.png" />
-                            <Setter Property="MinimumTrackColor" Value="{AppThemeBinding Light={DynamicResource Primary}, Dark={DynamicResource White}}" />
-                            <Setter Property="MaximumTrackColor" Value="{AppThemeBinding Light={DynamicResource Gray200}, Dark={DynamicResource Gray600}}" />
-                            <Setter Property="ThumbColor" Value="{AppThemeBinding Light={DynamicResource Primary}, Dark={DynamicResource White}}" />-->
-                        </VisualState.Setters>
-                    </VisualState>
+                    <VisualState x:Name="Normal" />
+
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="ThumbImageSource" Value="thumb.png" />
@@ -441,12 +422,8 @@
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" >
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}" />
-                        </VisualState.Setters>
+                    <VisualState x:Name="Normal" />
 
-                    </VisualState>
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray600}}" />
@@ -464,12 +441,9 @@
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" >
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{DynamicResource Dark}" />
-                        </VisualState.Setters>
+                    <VisualState x:Name="Normal" />
 
-                    </VisualState>
+
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={DynamicResource Gray300}, Dark={DynamicResource Gray600}}" />
@@ -489,7 +463,9 @@
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-
+                    
+                    <VisualState x:Name="Normal" />
+                    
                     <VisualState x:Name="PointerOver" >
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="#444"></Setter>
@@ -506,13 +482,6 @@
                         </VisualState.Setters>
                     </VisualState>
 
-                    <VisualState x:Name="Normal" >
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="#444"></Setter>
-                            <Setter Property="Background" Value="#00000000"></Setter>
-                            <Setter Property="BorderColor" Value="#88000000"></Setter>
-                        </VisualState.Setters>
-                    </VisualState>
 
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
@@ -545,13 +514,7 @@
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
 
-                    <VisualState x:Name="Normal" >
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="#444"></Setter>
-                            <Setter Property="Background" Value="#00000000"></Setter>
-                            <Setter Property="BorderColor" Value="#88000000"></Setter>
-                        </VisualState.Setters>
-                    </VisualState>
+                    <VisualState x:Name="Normal" />
 
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
@@ -584,13 +547,18 @@
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
 
-                    <VisualState x:Name="Normal" >
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="PointerOver" />
+                    <VisualState x:Name="Selected" />
+
+                    <VisualState x:Name="Focused" >
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{DynamicResource OffWhiteText}"></Setter>
                             <Setter Property="Background" Value="#00000000"></Setter>
                             <Setter Property="BorderColor" Value="{DynamicResource OffWhiteTextTrans}"></Setter>
                         </VisualState.Setters>
                     </VisualState>
+
 
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>

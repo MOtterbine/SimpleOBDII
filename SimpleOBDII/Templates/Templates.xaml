@@ -110,7 +110,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0" Style="{DynamicResource blue-label}" FontSize="Medium">Model:</Label>
+            <Label VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0" FontSize="Medium">Model:</Label>
             <Label VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="1" FontSize="Medium"  Text="{Binding SelectedManufacturer.Name}"></Label>
             <!--<Label Grid.Row="1" Grid.Column="0" Style="{StaticResource blue-label}">Protocol</Label>
                         <Label Grid.Row="1" Grid.Column="1"  Text="{Binding SystemProtocolDescription}"></Label>
