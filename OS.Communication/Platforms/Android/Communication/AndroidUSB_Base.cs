@@ -8,11 +8,22 @@ using OS.Communication;
 
 namespace OS.PlatformShared;
 
+    public enum FlowControl
+{
+    NONE, RTS_CTS, DTR_DSR,  XON_XOFF, XON_XOFF_INLINE
+}
+
 /// <summary>
 /// AndroidUSB_Base USB to Serial Converter IC devices
 /// </summary>
 public class AndroidUSB_Base 
 {
+    /** XON character used with flow control XON/XOFF */
+    protected char CHAR_XON = (char)17;
+    /** XOFF character used with flow control XON/XOFF */
+    protected char CHAR_XOFF = (char)19;
+    protected FlowControl mFlowControl = FlowControl.NONE;
+
     protected virtual uint VENDOR_ID => 0x0000; 
     public virtual int BUFFER_SIZE => 1024;
 
@@ -49,11 +60,12 @@ public class AndroidUSB_Base
     public virtual string Description => $"USB device: {this.DeviceName}";
 
     public bool IsConnected { get; set; }
+    //public bool IsConnected => this.usbDevice == null ? false : this.usbDevice.InterfaceCount > 1;// cur.deviceConnection.ibluetoothSocket.IsConnected;
 
 
     Task listenTask = null;
-    private ManualResetEvent rcvLock = new ManualResetEvent(true);
-    private ManualResetEvent openEvent = new ManualResetEvent(true);
+    protected ManualResetEvent rcvLock = new ManualResetEvent(true);
+    protected ManualResetEvent openEvent = new ManualResetEvent(true);
     public event DeviceEvent CommunicationEvent;
 
 
@@ -139,7 +151,7 @@ public class AndroidUSB_Base
 
             if (this.usbDevice == null)
             {
-                FireErrorEvent($"Cannot find Bluetooth device '{deviceName}'");
+                FireErrorEvent($"Cannot find USB device '{deviceName}'");
                 return false;
             }
 
@@ -229,7 +241,7 @@ public class AndroidUSB_Base
     /// </summary>
     protected virtual void InitUSBSerial() {   }
 
-    public async Task Listen()
+    public virtual async Task Listen()
     {
         if (this.usbDevice == null)
         {
@@ -287,7 +299,8 @@ public class AndroidUSB_Base
 
     public bool Close()
     {
-
+        // must be set before call to tokenSource.Cancel()
+        this.IsConnected = false;
         if (this.tokenSource != null)
         {
             this.tokenSource.Cancel();
@@ -297,9 +310,7 @@ public class AndroidUSB_Base
         this.openEvent.Set();
 
         this.deviceConnection?.Close();
-        //this.deviceConnection = null;
 
-        this.IsConnected = false;
         this.FireEvent(CommunicationEvents.Disconnected, "Connection Closed");
 
         return true;
@@ -350,7 +361,7 @@ public class AndroidUSB_Base
         {
             evt.data = bytes;
             evt.Event = CommunicationEvents.ReceiveEnd;
-            evt.Description = "Bluetooth Response";
+            evt.Description = "USB Response";
             this.FireDeviceEvent(evt);
         }
     }
@@ -377,7 +388,7 @@ public class AndroidUSB_Base
         {
             //if (!this.IsConnected)
             //{
-            //    this.FireErrorEvent($"Bluetooth device is not open");
+            //    this.FireErrorEvent($"USB device is not open");
             //    return false;
             //}
 
@@ -387,7 +398,7 @@ public class AndroidUSB_Base
         }
         catch (Exception ett)
         {
-            FireErrorEvent($"Bluetooth error - {ett.Message}");
+            FireErrorEvent($"USB error - {ett.Message}");
         }
         return false;
     }

@@ -1,28 +1,20 @@
-using Java.Lang;
-using OS.Communication;
+﻿using OS.Communication;
 using Android.Hardware.Usb;
+using Java.Lang;
 using String = System.String;
 using Exception = System.Exception;
-using Java.Util;
-using IOException = Java.IO.IOException;
 
 namespace OS.PlatformShared;
 
-/// <summary>
-/// CH34X USB to Serial Converter IC devices
-/// </summary>
-public class FTDI : AndroidUSB_Base, IDevicesService, ICommunicationDevice, ISerialDevice
+
+public class USBSerial_FTDI : AndroidUSB_Base, IDevicesService, ICommunicationDevice, ISerialDevice
 {
     protected override uint VENDOR_ID => 0x0403;
 
-    const uint FtdiFt231X = 0x6015;
-    const uint FtdiFt2322 = 0x6010;
-    const uint FtdiFt4232H = 0x6011;
 
-    public static int USB_TYPE_STANDARD = 0x00 << 5;
-    public static int USB_TYPE_CLASS = 0x00 << 5;
-    public static int USB_TYPE_VENDOR = 0x00 << 5;
-    public static int USB_TYPE_RESERVED = 0x00 << 5;
+    private static int USB_WRITE_TIMEOUT_MILLIS = 5000;
+    private static int READ_HEADER_LENGTH = 2; // contains MODEM_STATUS
+
 
     public static int USB_RECIP_DEVICE = 0x00;
     public static int USB_RECIP_INTERFACE = 0x01;
@@ -32,647 +24,450 @@ public class FTDI : AndroidUSB_Base, IDevicesService, ICommunicationDevice, ISer
     public static int USB_ENDPOINT_IN = 0x80;
     public static int USB_ENDPOINT_OUT = 0x00;
 
-    public static int USB_WRITE_TIMEOUT_MILLIS = 5000;
-    public static int USB_READ_TIMEOUT_MILLIS = 5000;
 
-    public static int SIO_SET_RTS_MASK = 0x2;
-    public static int SIO_SET_RTS_HIGH = 2 | (SIO_SET_RTS_MASK << 8);
-    public static int SIO_SET_RTS_LOW = 0 | (SIO_SET_RTS_MASK << 8);
-
-    public static int SIO_SET_DTR_MASK = 0x1;
-    public static int SIO_SET_DTR_HIGH = (1 | (SIO_SET_DTR_MASK << 8));
-    public static int SIO_SET_DTR_LOW = (0 | (SIO_SET_DTR_MASK << 8));
-
-    //    // From ftdi.h
-    //    /**
-    //     * Reset the port.
-    //     */
-    private static int _sioResetRequest = 0;
-
-    //    /**
-    //     * Set the modem control register.
-    //     */
-    private static int _sioModemCtrlRequest = 1;
-
-    //    /**
-    //     * Set flow control register.
-    //     */
-    private static int SIO_SET_FLOW_CTRL_REQUEST = 2;
-
-    private static int SIO_SET_LATENCY_TIMER_REQUEST = 9;
-
-    //    /**
-    //     * Set baud rate.
-    //     */
-    private const int SioSetBaudRateRequest = 3;
-
-    //    /**
-    //     * Set the data characteristics of the port.
-    //     */
-    private const int SioSetDataRequest = 4;
-
-    private const int SioResetSio = 0;
-    private const int SioResetPurgeRx = 1;
-    private const int SioResetPurgeTx = 2;
-
-
-    public static readonly UsbAddressing FtdiDeviceOutReqtype =
+    private static readonly UsbAddressing REQTYPE_HOST_TO_DEVICE =
                 (UsbAddressing)(UsbConstants.UsbTypeVendor | USB_RECIP_DEVICE | USB_ENDPOINT_OUT);
+    private static readonly UsbAddressing REQTYPE_DEVICE_TO_HOST = (UsbAddressing)(UsbConstants.UsbTypeVendor | USB_RECIP_DEVICE | USB_ENDPOINT_IN);
 
-    public static int FTDI_DEVICE_IN_REQTYPE = UsbConstants.UsbTypeVendor | USB_RECIP_DEVICE | USB_ENDPOINT_IN;
+    private static int RESET_REQUEST = 0;
+    private static int MODEM_CONTROL_REQUEST = 1;
+    private static int SET_FLOW_CONTROL_REQUEST = 2;
+    private static int SET_BAUD_RATE_REQUEST = 3;
+    private static int SET_DATA_REQUEST = 4;
+    private static int GET_MODEM_STATUS_REQUEST = 5;
+    private static int SET_LATENCY_TIMER_REQUEST = 9;
+    private static int GET_LATENCY_TIMER_REQUEST = 10;
 
-    private const int ModemStatusHeaderLength = 2;
+    private static int MODEM_CONTROL_DTR_ENABLE = 0x0101;
+    private static int MODEM_CONTROL_DTR_DISABLE = 0x0100;
+    private static int MODEM_CONTROL_RTS_ENABLE = 0x0202;
+    private static int MODEM_CONTROL_RTS_DISABLE = 0x0200;
+    private static int MODEM_STATUS_CTS = 0x10;
+    private static int MODEM_STATUS_DSR = 0x20;
+    private static int MODEM_STATUS_RI = 0x40;
+    private static int MODEM_STATUS_CD = 0x80;
+    private static int RESET_ALL = 0;
+    private static int RESET_PURGE_RX = 1;
+    private static int RESET_PURGE_TX = 2;
 
-    private string TAG = typeof(FtdiSerialDriver).Name;
+    private bool baudRateWithPort = false;
+    private bool dtr = false;
+    private bool rts = false;
+    private int breakConfig = 0;
 
-    private DeviceType _type;
+    private int _index = 0;
 
-    private readonly FtdiSerialDriver _driver;
-
-    private int _index;
-
-    private UsbEndpoint _readEndpoint;
-
-
-    public override int BUFFER_SIZE =>1024;
-
-
-    public FTDI() : base()
-    {
-
-    }
 
     protected override void InitUSBSerial()
     {
+
+        Reset();
+
+        var result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, MODEM_CONTROL_REQUEST,
+                (dtr ? MODEM_CONTROL_DTR_ENABLE : MODEM_CONTROL_DTR_DISABLE) |
+                        (rts ? MODEM_CONTROL_RTS_ENABLE : MODEM_CONTROL_RTS_DISABLE),
+                _index +1 , null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != 0)
+        {
+            throw new IOException("Init RTS,DTR failed: result=" + result);
+        }
+        SetFlowControl(FlowControl.NONE);
+
+        // mDevice.getVersion() would require API 23
+        byte[] rawDescriptors = deviceConnection.GetRawDescriptors();
+        if (rawDescriptors == null || rawDescriptors.Length < 14)
+        {
+            throw new IOException("Could not get device descriptors");
+        }
+        int deviceType = rawDescriptors[13];
+        baudRateWithPort = deviceType == 7 || deviceType == 8 || deviceType == 9 // ...H devices
+                || usbDevice.InterfaceCount > 1; // FT2232C
+
         SetParameters((int)BaudRate, 8, 1, 0);
+
+        setLatencyTimer(250);
+
     }
 
-
-    private int setBaudRate(int baudRate)
-    {
-        var vals = GetBaudRate(baudRate);
-
-        int result = deviceConnection.ControlTransfer(FtdiDeviceOutReqtype,
-            SioSetBaudRateRequest, vals.Value, vals.Index,
-            null, 0, USB_WRITE_TIMEOUT_MILLIS);
-
-        if (result != 0)
-        {
-            throw new Java.IO.IOException($"Setting baudrate failed: result={result}");
-        }
-
-        return vals.BaudRate;
-    }
-
-    public override bool Initialize()
-    {
-        return base.Initialize();
-    }
-
-    public void SetParameters(int baudRate, int dataBits, decimal stopBits, int parity)
-    {
-        setBaudRate(baudRate);
-
-        int config = (int)dataBits;
-
-        switch (parity)
-        {
-            case 0:
-                config |= (0x00 << 8);
-                break;
-            case 1:
-                config |= (0x01 << 8);
-                break;
-            case 2:
-                config |= (0x02 << 8);
-                break;
-            case 3:
-                config |= (0x03 << 8);
-                break;
-            case 4:
-                config |= (0x04 << 8);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown parity value: " + parity);
-        }
-
-        switch (stopBits)
-        {
-            case 1m:
-                config |= (0x00 << 11);
-                break;
-            case 1.5m:
-                config |= (0x01 << 11);
-                break;
-            case 2m:
-                config |= (0x02 << 11);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown stopBits value: " + stopBits);
-        }
-
-        int result = deviceConnection.ControlTransfer(FtdiDeviceOutReqtype,
-            SioSetDataRequest, config, _index,
-            null, 0, USB_WRITE_TIMEOUT_MILLIS);
-
-        if (result != 0)
-        {
-            throw new IOException("Setting parameters failed: result=" + result);
-        }
-    }
-
-
-    private uint H_CLK = 120000000;
-    private uint C_CLK = 48000000;
-
-    private BaudRateResponse GetBaudRate(int baudRate)
-    {
-        int result = 1;
-        int[] divisors = new int[2];
-        int status = 0;
-
-        if (_type != DeviceType.TYPE_4232H)
-        {
-            switch (baudRate)
-            {
-                case 300:
-                    divisors[0] = 10000;
-                    break;
-                case 600:
-                    divisors[0] = 5000;
-                    break;
-                case 1200:
-                    divisors[0] = 2500;
-                    break;
-                case 2400:
-                    divisors[0] = 1250;
-                    break;
-                case 4800:
-                    divisors[0] = 625;
-                    break;
-                case 9600:
-                    divisors[0] = 16696;
-                    break;
-                case 19200:
-                    divisors[0] = 32924;
-                    break;
-                case 38400:
-                    divisors[0] = 49230;
-                    break;
-                case 57600:
-                    divisors[0] = 52;
-                    break;
-                case 115200:
-                    divisors[0] = 26;
-                    break;
-                case 230400:
-                    divisors[0] = 13;
-                    break;
-                case 460800:
-                    divisors[0] = 16390;
-                    break;
-                case 921600:
-                    divisors[0] = 32771;
-                    break;
-                    //default:
-                    //    if ((isHiSpeed()) && (baudRate >= 1200))
-                    //    {
-                    //        result = FT_BaudRate.FT_GetDivisorHi(baudRate, divisors);
-                    //    }
-                    //    else {
-                    //        result = FT_BaudRate.FT_GetDivisor(baudRate, divisors,
-                    //          isBmDevice());
-                    //    }
-                    //    status = 255;
-                    //    break;
-            }
-        }
-        else
-        {
-            divisors[0] = (int)Ftdi2232HBaudToDivisor(baudRate);
-        }
-
-        var urbValue = (UInt16)divisors[0];
-
-        var index = (UInt16)(divisors[0] >> 16);
-
-        if (isMultiIfDevice())
-        {
-            index = (UInt16)((index << 8) | _index);
-        }
-
-        return new BaudRateResponse
-        {
-            Index = index,
-            Value = urbValue
-        };
-    }
-    private uint Ftdi2232HBaudToDivisor(int baud)
-    {
-        return Ftdi2232HBaudBaseToDivisor(baud, 120000000);
-    }
-
-    private uint Ftdi2232HBaudBaseToDivisor(int baud, int @base)
-    {
-        int[] divfrac = { 0, 3, 2, 4, 1, 5, 6, 7 };
-        uint divisor3 = (uint)(@base / 10 / baud) * 8; // hi-speed baud rate is 10-bit sampling instead of 16-bit
-        uint divisor = divisor3 >> 3;
-        divisor |= (uint)divfrac[divisor3 & 0x7] << 14;
-        /* Deal with special cases for highest baud rates. */
-        if (divisor == 1) divisor = 0;
-        else    // 1.0
-        if (divisor == 0x4001) divisor = 1; // 1.5
-        /* Set this bit to turn off a divide by 2.5 on baud rate generator */
-        /* This enables baud rates up to 12Mbaud but cannot reach below 1200 baud with this bit set */
-        divisor |= 0x00020000;
-
-        return divisor;
-    }
-    private bool isHiSpeed()
-    {
-        return _type == DeviceType.TYPE_232H
-            || _type == DeviceType.TYPE_2232H
-            || _type == DeviceType.TYPE_4232H;
-    }
-
-    private bool isBmDevice()
-    {
-        return _type == DeviceType.TYPE_BM;
-        //(isFt232b()) || (isFt2232()) || (isFt232r()) || (isFt2232h()) || (isFt4232h()) || (isFt232h()) || (isFt232ex());
-    }
-
-    bool isMultiIfDevice()
-    {
-        return _type == DeviceType.TYPE_2232H
-               || _type == DeviceType.TYPE_4232H
-               || _type == DeviceType.TYPE_2232C;
-    }
-
-    private BaudRateResponse FtdiConverBaudrate(int baudrate)
-    {
-        int bestBaud;
-        ulong encodedDivisor = 0;
-        ushort index;
-
-        if (baudrate <= 0)
-            throw new ArgumentException($"baudrate cannot be 0 or lower", nameof(baudrate));
-
-        if (_type == DeviceType.TYPE_2232H || _type == DeviceType.TYPE_4232H | _type == DeviceType.TYPE_232H)
-        {
-            if (baudrate * 10 > H_CLK / 0x3fff)
-            {
-                bestBaud = FtdiToClkbits(baudrate, H_CLK, 10, ref encodedDivisor);
-                encodedDivisor |= 0x20000;
-            }
-            else
-            {
-                bestBaud = FtdiToClkbits(baudrate, C_CLK, 16, ref encodedDivisor);
-            }
-        }
-        else if (_type == DeviceType.TYPE_BM || _type == DeviceType.TYPE_2232C || _type == DeviceType.TYPE_R)
-        {
-            bestBaud = FtdiToClkbits(baudrate, C_CLK, 16, ref encodedDivisor);
-        }
-        else
-        {
-            bestBaud = ftdi_to_clkbits_AM(baudrate, ref encodedDivisor);
-        }
-
-        var value = (ushort)(encodedDivisor & 0xffff);
-        if (_type == DeviceType.TYPE_2232H || _type == DeviceType.TYPE_4232H || _type == DeviceType.TYPE_232H)
-        {
-            index = (ushort)(encodedDivisor >> 8);
-            index &= 0xff00;
-            index |= (ushort)(_index + 1);
-        }
-        else
-            index = (ushort)(encodedDivisor >> 16);
-
-        return new BaudRateResponse
-        {
-            Index = index,
-            BaudRate = bestBaud,
-            Value = value
-        };
-    }
-
-    private int FtdiToClkbits(int baudrate, uint clk, int clkDivisor, ref ulong encodedDivisor)
-    {
-        int[] fracCode = { 0, 3, 2, 4, 1, 5, 6, 7 };
-        int bestBaud;
-
-        if (baudrate >= clk / clkDivisor)
-        {
-            encodedDivisor = 0;
-            bestBaud = (int)(clk / clkDivisor);
-        }
-        else if (baudrate >= clk / (clkDivisor + clkDivisor / 2))
-        {
-            encodedDivisor = 1;
-            bestBaud = (int)(clk / (2 * clkDivisor));
-        }
-        else if (baudrate >= clk / (2 * clkDivisor))
-        {
-            encodedDivisor = 2;
-            bestBaud = (int)(clk / (2 * clkDivisor));
-        }
-        else
-        {
-            var divisor = (int)(clk * 16 / clkDivisor / baudrate);
-            int bestDivisor;
-            if ((divisor & 1) > 0)
-            {
-                bestDivisor = divisor / 2 + 1;
-            }
-            else
-            {
-                bestDivisor = divisor / 2;
-            }
-
-            if (bestDivisor > 0x20000)
-                bestDivisor = 0x1ffff;
-
-            bestBaud = (int)(clk * 16 / clkDivisor / bestDivisor);
-            encodedDivisor = (ulong)((bestDivisor >> 1) | (fracCode[bestDivisor & 0x7] << 14));
-        }
-
-        return bestBaud;
-    }
-
-    private static int ftdi_to_clkbits_AM(int baudrate, ref ulong encodedDivisor)
-    {
-        int[] fracCode = { 0, 3, 2, 4, 1, 5, 6, 7 };
-
-        int[] amAdjustUp = { 0, 0, 0, 1, 0, 3, 2, 1 };
-
-        int[] amAdjustDn = { 0, 0, 0, 1, 0, 1, 2, 3 };
-
-        int i;
-
-        var divisor = 24000000 / baudrate;
-
-        divisor -= amAdjustDn[divisor & 7];
-
-        var bestDivisor = 0;
-        var bestBaud = 0;
-        var bestBaudDiff = 0;
-
-        for (i = 0; i < 2; i++)
-        {
-            int tryDivisor = divisor + i;
-
-            int baudDiff;
-
-            if (tryDivisor <= 8)
-            {
-                tryDivisor = 8;
-            }
-            else if (divisor < 16)
-            {
-                tryDivisor = 16;
-            }
-            else
-            {
-                tryDivisor += amAdjustUp[tryDivisor & 7];
-                if (tryDivisor > 0x1fff8)
-                {
-                    tryDivisor = 0x1fff8;
-                }
-            }
-
-            var baudEstimate = (24000000 + (tryDivisor / 2)) / tryDivisor;
-
-            if (baudEstimate < baudrate)
-            {
-                baudDiff = baudrate - baudEstimate;
-            }
-            else
-            {
-                baudDiff = baudEstimate - baudrate;
-            }
-
-            if (i == 0 || baudDiff < bestBaudDiff)
-            {
-                bestDivisor = tryDivisor;
-                bestBaud = baudEstimate;
-                bestBaudDiff = baudDiff;
-                if (baudDiff == 0)
-                    break;
-            }
-        }
-
-        encodedDivisor = (ulong)((bestDivisor >> 3) | (fracCode[bestDivisor & 7] << 14));
-        if (encodedDivisor == 1)
-        {
-            encodedDivisor = 0;
-        }
-        else if (encodedDivisor == 0x4001)
-        {
-            encodedDivisor = 1;
-        }
-
-        return bestBaud;
-    }
-
-    public bool Cd => false;
-
-    private bool _cts;
-    public bool Cts
-    {
-        get { return _cts; }
-        set
-        {
-            if (_cts == value)
-                return;
-
-            _cts = value;
-
-            CtsChanged?.Invoke(this, _cts);
-        }
-    }
-
-    public event EventHandler<bool> CtsChanged;
-
-    public bool Dsr => false;
-
-    public bool Dtr
-    {
-        get { return false; }
-        set { }
-    }
-
-    public bool Ri => false;
-
-    private bool _rts;
-
-    public bool Rts
-    {
-        get { return _rts; }
-        set
-        {
-            if (value == _rts)
-                return;
-
-            _rts = value;
-
-            ushort usbValue = (ushort)SIO_SET_DTR_LOW;
-
-            if (_rts)
-                usbValue |= (ushort)SIO_SET_RTS_HIGH;
-            else
-                usbValue |= (ushort)SIO_SET_RTS_LOW;
-
-            int result = deviceConnection.ControlTransfer(FtdiDeviceOutReqtype, _sioModemCtrlRequest,
-                usbValue, _index + 1, null, 0, USB_WRITE_TIMEOUT_MILLIS);
-
-            if (result != 0)
-            {
-                throw new IOException("Set RTS failed result=" + result);
-            }
-        }
-    }
-
-    public bool PurgeHwBuffers(bool purgeReadBuffers, bool purgeWriteBuffers)
-    {
-        if (purgeReadBuffers)
-        {
-            int result = deviceConnection.ControlTransfer(FtdiDeviceOutReqtype, _sioResetRequest,
-                SioResetPurgeRx, _index + 1, null, 0, USB_WRITE_TIMEOUT_MILLIS);
-
-            if (result != 0)
-            {
-                throw new IOException("Flushing RX failed: result=" + result);
-            }
-        }
-
-        if (purgeWriteBuffers)
-        {
-            int result = deviceConnection.ControlTransfer(FtdiDeviceOutReqtype, _sioResetRequest,
-                SioResetPurgeTx, _index + 1, null, 0, USB_WRITE_TIMEOUT_MILLIS);
-
-            if (result != 0)
-            {
-                throw new IOException("Flushing RX failed: result=" + result);
-            }
-        }
-        return true;
-    }
-
-
-
-
-
-
-
-
-
-    /// <summary>
-    /// Filter FTDI status bytes from buffer
-    /// </summary>
-    /// <param name="src">The source buffer (which contains status bytes)</param>
-    /// <param name="dest">The destination buffer to write the status bytes into (can be src)</param>
-    /// <param name="totalBytesRead">Number of bytes read to src</param>
-    /// <param name="maxPacketSize">The USB endpoint max packet size</param>
-    /// <returns>The number of payload bytes</returns>
-    private int filterStatusBytes(byte[] src, byte[] dest, int totalBytesRead, int maxPacketSize)
-    {
-        int packetsCount = totalBytesRead / maxPacketSize + (totalBytesRead % maxPacketSize == 0 ? 0 : 1);
-        for (int packetIdx = 0; packetIdx < packetsCount; ++packetIdx)
-        {
-            int count = (packetIdx == (packetsCount - 1))
-                ? (totalBytesRead % maxPacketSize) - ModemStatusHeaderLength
-                : maxPacketSize - ModemStatusHeaderLength;
-            if (count > 0)
-            {
-                Buffer.BlockCopy(src,
-                    packetIdx * maxPacketSize + ModemStatusHeaderLength,
-                    dest,
-                    packetIdx * (maxPacketSize - ModemStatusHeaderLength),
-                    count);
-            }
-        }
-
-        return totalBytesRead - (packetsCount * 2);
-    }
 
     public void Reset()
     {
-        int result = deviceConnection.ControlTransfer(FtdiDeviceOutReqtype, _sioResetRequest,
-            SioResetSio, _index, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, RESET_REQUEST,
+            RESET_ALL, _index +1 , null, 0, USB_WRITE_TIMEOUT_MILLIS);
         if (result != 0)
         {
             throw new IOException("Reset failed: result=" + result);
         }
 
-        var productId = usbDevice.ProductId;
+        //var productId = usbDevice.ProductId;
 
-        if (productId == 0x6001)
-            _type = DeviceType.TYPE_BM;
-        else if (productId == 0x6010)
-            _type = DeviceType.TYPE_2232H;
-        else if (productId == 0x6011)
-            _type = DeviceType.TYPE_4232H;
+        //if (productId == 0x6001)
+        //    Type = DeviceType.TYPE_BM;
+        //else if (productId == 0x6010)
+        //    _type = DeviceType.TYPE_2232H;
+        //else if (productId == 0x6011)
+        //    _type = DeviceType.TYPE_4232H;
     }
 
-}
 
-
-
-public class BaudRateResponse
-{
-    public int Value { get; set; }
-    public int Index { get; set; }
-    public int BaudRate { get; set; }
-}
-public class FtdiSerialDriver// : IUsbSerialDriver
-{
-    public UsbDevice Device { get; }
-
-//      public List<IUsbSerialPort> Ports { get; } = new List<IUsbSerialPort>();
-
-    private System.Threading.Thread _receiver;
-
-    private UsbDeviceConnection _connection;
-
-    public FtdiSerialDriver(UsbDevice device)
+    private void SetBaudrate(int baudRate)
     {
-        //Device = device;
+        int divisor, subdivisor, effectiveBaudRate;
+        if (baudRate > 3500000)
+        {
+            throw new UnsupportedOperationException("Baud rate too high");
+        }
+        else if (baudRate >= 2500000)
+        {
+            divisor = 0;
+            subdivisor = 0;
+            effectiveBaudRate = 3000000;
+        }
+        else if (baudRate >= 1750000)
+        {
+            divisor = 1;
+            subdivisor = 0;
+            effectiveBaudRate = 2000000;
+        }
+        else
+        {
+            divisor = (24000000 << 1) / baudRate;
+            divisor = (divisor + 1) >> 1; // round
+            subdivisor = divisor & 0x07;
+            divisor >>= 3;
+            if (divisor > 0x3fff) // exceeds bit 13 at 183 baud
+                throw new UnsupportedOperationException("Baud rate too low");
+            effectiveBaudRate = (24000000 << 1) / ((divisor << 3) + subdivisor);
+            effectiveBaudRate = (effectiveBaudRate + 1) >> 1;
+        }
+        double baudRateError = Java.Lang.Math.Abs(1.0 - (effectiveBaudRate / (double)baudRate));
+        if (baudRateError >= 0.031) // can happen only > 1.5Mbaud
+            throw new UnsupportedOperationException(String.Format("Baud rate deviation %.1f%% is higher than allowed 3%%", baudRateError * 100));
+        int value = divisor;
+        int index = 0;
+        switch (subdivisor)
+        {
+            case 0: break; // 16,15,14 = 000 - sub-integer divisor = 0
+            case 4: value |= 0x4000; break; // 16,15,14 = 001 - sub-integer divisor = 0.5
+            case 2: value |= 0x8000; break; // 16,15,14 = 010 - sub-integer divisor = 0.25
+            case 1: value |= 0xc000; break; // 16,15,14 = 011 - sub-integer divisor = 0.125
+            case 3: value |= 0x0000; index |= 1; break; // 16,15,14 = 100 - sub-integer divisor = 0.375
+            case 5: value |= 0x4000; index |= 1; break; // 16,15,14 = 101 - sub-integer divisor = 0.625
+            case 6: value |= 0x8000; index |= 1; break; // 16,15,14 = 110 - sub-integer divisor = 0.75
+            case 7: value |= 0xc000; index |= 1; break; // 16,15,14 = 111 - sub-integer divisor = 0.875
+        }
+        if (baudRateWithPort)
+        {
+            index <<= 8;
+            index |= _index + 1;
+        }
 
-        //for (int i = 0; i < Device.InterfaceCount; i++)
-        //{
-        //    Ports.Add(new FTDI(Device, i, this));
-        //}
+        //Debug.wr.d(TAG, String.format("baud rate=%d, effective=%d, error=%.1f%%, value=0x%04x, index=0x%04x, divisor=%d, subdivisor=%d",
+        //        baudRate, effectiveBaudRate, baudRateError * 100, value, index, divisor, subdivisor));
+        int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, SET_BAUD_RATE_REQUEST,
+                value, index, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != 0)
+        {
+            throw new IOException("Setting baudrate failed: result=" + result);
+        }
+
     }
 
-//    public static Dictionary<int, int[]> GetSupportedDevices()
-//    {
-//        return new Dictionary<int, int[]>
-//        {
-//            {
-//                UsbId.VendorFtdi, new[]
-//                {
-//                    UsbId.FtdiFt232R,
-//                    UsbId.FtdiFt231X,
-//                    UsbId.FtdiFt2322,
-//                    UsbId.FtdiFt4232H
-//                }
-//            },
-//            {
-//                UsbId.VendorSyncromatics, new[]
-//                {
-//                    UsbId.SyncromaticsCovertAlarm
-//                }
-//            }
-//        };
-//    }
+    public void SetParameters(int baudRate, int dataBits, int stopBits, int parity)
+    {
+        if (baudRate <= 0)
+        {
+            throw new IllegalArgumentException("Invalid baud rate: " + baudRate);
+        }
+        SetBaudrate(baudRate);
+
+        int config = 0 | dataBits;
+        //    switch (dataBits) {
+        //        case DATABITS_5:
+        //case DATABITS_6:
+        //    throw new UnsupportedOperationException("Unsupported data bits: " + dataBits);
+        //case DATABITS_7:
+        //case DATABITS_8:
+        //    config |= dataBits;
+        //    break;
+        //default:
+        //    throw new IllegalArgumentException("Invalid data bits: " + dataBits);
+        //}
+
+        switch (parity)
+        {
+            case 0://PARITY_NONE:
+                break;
+            case 1://PARITY_ODD:
+                config |= 0x100;
+                break;
+            case 2://PARITY_EVEN:
+                config |= 0x200;
+                break;
+            case 3://PARITY_MARK:
+                config |= 0x300;
+                break;
+            case 4://PARITY_SPACE:
+                config |= 0x400;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid parity: " + parity);
+        }
+
+
+        switch (stopBits)
+        {
+            case 1://STOPBITS_1:
+                break;
+            case 3://STOPBITS_1_5:
+                // throw new UnsupportedOperationException("Unsupported stop bits: 1.5");
+            case 2://STOPBITS_2:
+                config |= 0x1000;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid stop bits: " + stopBits);
+        }
+
+        // Set non-baud parameters from above
+        int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, SET_DATA_REQUEST,
+                config, _index , null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != 0)
+        {
+            throw new IOException("Setting parameters failed: result=" + result);
+        }
+        breakConfig = config;
+
+    }
+
+
+    public override async Task Listen()
+    {
+        if (this.usbDevice == null)
+        {
+            this.FireErrorEvent($"ERROR: Unable to access USB device");
+            return;
+        }
+
+        if (!this.IsConnected) return;
+        int bytesRead = 0;
+        try
+        {
+            this.tokenSource = new CancellationTokenSource();
+
+            if (this._endpoint_rx != null)
+            {
+                this.openEvent.Set(); // the device open even is resolved
+
+                while (!this.tokenSource.IsCancellationRequested)
+                {
+                    try
+                    {
+                        rcvLock.WaitOne();
+                        for (int i = 0; i < 40; i++)
+                        {
+                            TmpBuffer[i] = 0x00;
+                        }
+                        rcvLock.Reset();
+                        bytesRead = await deviceConnection.BulkTransferAsync(_endpoint_rx, TmpBuffer, BUFFER_SIZE, 370);
+
+                        // Two modem status bytes must be stripped off
+                        if (bytesRead > 0)
+                        {
+                            // var sbuf = TmpBuffer.Take(bytesRead).ToArray();
+                            byte[] sbuf = new byte[32];
+                            if (bytesRead > 2)
+                            {
+                                FireReceiveEvent(TmpBuffer.Take(new System.Range(2, bytesRead)).ToArray());
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                    finally
+                    {
+                        rcvLock.Set();
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+        }
+        finally
+        {
+            this.tokenSource.Cancel();
+            this.rcvLock.Set();
+        }
+
+    }
+
+
+    private int getStatus()
+    {
+        byte[] data = new byte[2];
+        int result = deviceConnection.ControlTransfer(REQTYPE_DEVICE_TO_HOST, GET_MODEM_STATUS_REQUEST,
+                0, _index + 0, data, data.Length, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != data.Length)
+        {
+            throw new IOException("Get modem status failed: result=" + result);
+        }
+        return data[0];
+    }
+
+    public bool getCD()
+    {
+        return (getStatus() & MODEM_STATUS_CD) != 0;
+    }
+
+    public bool getCTS()
+    {
+        return (getStatus() & MODEM_STATUS_CTS) != 0;
+    }
+
+    public bool getDSR()
+    {
+        return (getStatus() & MODEM_STATUS_DSR) != 0;
+    }
+
+    public bool getDTR()
+    {
+        return dtr;
+    }
+
+    public void setDTR(bool value)
+    {
+        int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, MODEM_CONTROL_REQUEST,
+                value ? MODEM_CONTROL_DTR_ENABLE : MODEM_CONTROL_DTR_DISABLE, _index + 0, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != 0)
+        {
+            throw new IOException("Set DTR failed: result=" + result);
+        }
+        dtr = value;
+    }
+
+    public bool getRI()
+    {
+        return (getStatus() & MODEM_STATUS_RI) != 0;
+    }
+
+    public bool getRTS()
+    {
+        return rts;
+    }
+
+    public void setRTS(bool value)
+    {
+        int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, MODEM_CONTROL_REQUEST,
+                value ? MODEM_CONTROL_RTS_ENABLE : MODEM_CONTROL_RTS_DISABLE, _index + 0, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != 0)
+        {
+            throw new IOException("Set DTR failed: result=" + result);
+        }
+        rts = value;
+    }
+
+    public void SetFlowControl(FlowControl flowControl) 
+    {
+        int value = 0;
+        int index = _index + 1;
+        switch (flowControl) {
+            case FlowControl.NONE:
+                break;
+            case FlowControl.RTS_CTS:
+                index |= 0x100;
+                break;
+            case FlowControl.DTR_DSR:
+                index |= 0x200;
+                break;
+            case FlowControl.XON_XOFF_INLINE:
+                value = CHAR_XON + (CHAR_XOFF << 8);
+                index |= 0x400;
+                break;
+            default:
+                throw new UnsupportedOperationException();
+        }
+
+        int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, SET_FLOW_CONTROL_REQUEST,
+                value, index, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != 0) throw new IOException("Set flow control failed: result=" + result);
+        mFlowControl = flowControl;
+    }
+
+    public void purgeHwBuffers(bool purgeWriteBuffers, bool purgeReadBuffers)
+    {
+        if (purgeWriteBuffers)
+        {
+            int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, RESET_REQUEST,
+                    RESET_PURGE_RX, _index + 0, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+            if (result != 0)
+            {
+                throw new IOException("Purge write buffer failed: result=" + result);
+            }
+        }
+
+        if (purgeReadBuffers)
+        {
+            int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, RESET_REQUEST,
+                    RESET_PURGE_TX, _index + 0, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+            if (result != 0)
+            {
+                throw new IOException("Purge read buffer failed: result=" + result);
+            }
+        }
+    }
+
+    public void setBreak(bool value)
+    {
+        int config = breakConfig;
+        if (value) config |= 0x4000;
+        int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, SET_DATA_REQUEST,
+                config, _index + 0, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != 0)
+        {
+            throw new IOException("Setting BREAK failed: result=" + result);
+        }
+    }
+
+    public void setLatencyTimer(int latencyTime)
+    {
+        int result = deviceConnection.ControlTransfer(REQTYPE_HOST_TO_DEVICE, SET_LATENCY_TIMER_REQUEST,
+                latencyTime, _index + 0, null, 0, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != 0)
+        {
+            throw new IOException("Set latency timer failed: result=" + result);
+        }
+    }
+
+    public int getLatencyTimer()
+    {
+        byte[] data = new byte[1];
+        int result = deviceConnection.ControlTransfer(REQTYPE_DEVICE_TO_HOST, GET_LATENCY_TIMER_REQUEST,
+            0, _index + 0, data, data.Length, USB_WRITE_TIMEOUT_MILLIS);
+        if (result != data.Length)
+        {
+            throw new IOException("Get latency timer failed: result=" + result);
+        }
+        return data[0];
+    }
+
+
+
+    //    @SuppressWarnings({ "unused"})
+    //    public static Map<Integer, int[]> getSupportedDevices()
+    //{
+    //    final Map<Integer, int[]> supportedDevices = new LinkedHashMap<>();
+    //    supportedDevices.put(UsbId.VENDOR_FTDI,
+    //    new int[] {
+    //        UsbId.FTDI_FT232R,
+    //        UsbId.FTDI_FT232H,
+    //                    UsbId.FTDI_FT2232H,
+    //                    UsbId.FTDI_FT4232H,
+    //                    UsbId.FTDI_FT231X,  // same ID for FT230X, FT231X, FT234XD
+    //            });
+    //    return supportedDevices;
+
 }
-internal enum DeviceType
-{
-    TYPE_BM,
-    TYPE_AM,
-    TYPE_2232C,
-    TYPE_R,
-    TYPE_2232H,
-    TYPE_4232H,
-    TYPE_232H
-}
+
+
