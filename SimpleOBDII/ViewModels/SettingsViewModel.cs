@@ -29,9 +29,9 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
     protected SynchronizationContext syncContext;
 
 
-    public ICommand ReloadBTDevicesCommand => new Command(()=> {
-       // this.RefreshBluetoothDevices();
-    
+    public ICommand ReloadBTDevicesCommand => new Command(() => {
+        // this.RefreshBluetoothDevices();
+
     });
 
 
@@ -53,19 +53,28 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
 
     #endregion NavigateHomeCommand
 
-    public string SelectedCommMethod
+    public Tuple<string, int> SelectedCommMethod
     {
-        get => _appShellModel.SelectedCommMethod;
-        set {
-            _appShellModel.SelectedCommMethod = value;
+        
+        get => SerialCommMethods[_appShellModel.SelectedCommMethod];
+        
+    
+        set
+        {
+            
+            if(value.Item2 == 0)
+            {
+
+            }
+            _appShellModel.SelectedCommMethod = value.Item2; // Name
             OnPropertyChanged("IsBluetooth");
             OnPropertyChanged("PresetBluetoothDevice");
             OnPropertyChanged("EditButtonRow");
         }
-    
     }
+    
 
-    public List<string> SerialCommMethods => SerialDevices.DeviceTypes;
+    public List<Tuple<string, int>> SerialCommMethods => SerialDevices.DeviceTypes;
 
     public string CANHeader
     {

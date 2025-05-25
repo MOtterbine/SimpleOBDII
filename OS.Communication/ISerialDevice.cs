@@ -7,4 +7,8 @@ namespace OS.Communication;
 public interface ISerialDevice
 {
     uint BaudRate { get; set; }
+    // Data Terminal Ready
+    bool DTR { get; set; }
+    // Request To Send
+    bool RTS { get; set; }
 }

@@ -48,6 +48,25 @@ public class CH34X : AndroidUSB_Base, IDevicesService, ICommunicationDevice, ISe
     const uint CONTROL_OUT = 0x10;
     const uint CONTROL_DTR = 0x20;
     const uint CONTROL_RTS = 0x40;
+    public bool RTS
+    {
+        get => rts;
+        set
+        {
+            rts = value;
+        }
+    }
+    public bool DTR
+    {
+        get => dtr;
+        set
+        {
+            dtr = value;
+        }
+    }
+    private bool dtr = false;
+
+    private bool rts = false;
 
     //Uart state
     const uint UART_STATE = 0x00;

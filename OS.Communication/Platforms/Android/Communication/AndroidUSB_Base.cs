@@ -5,6 +5,7 @@ using System.Text;
 using String = System.String;
 using Exception = System.Exception;
 using OS.Communication;
+using OS.Localization;
 
 namespace OS.PlatformShared;
 
@@ -86,7 +87,7 @@ public class AndroidUSB_Base
         {
             this.tokenSource?.Cancel();
             this.rcvLock.Set();
-            FireErrorEvent($"Device Open Failure - {ex.Message}");
+            FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_DEVICE_OPEN_FAILURE"]} - {ex.Message}");
         }
         return false;
     }
@@ -96,14 +97,14 @@ public class AndroidUSB_Base
 
         if (String.IsNullOrEmpty(commChannel))
         {
-            FireErrorEvent(OS.Communication.Constants.COMMUNICATION_DEVICE_NOT_SETUP);
+            FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_DEVICE_NOT_SET"]);
             return;
         }
 
         // Attempt to set the device to a user-set name (which might not be available)
         if (this.IsConnected = TryDeviceConnect(commChannel))
         {
-            FireInfoEvent("Device connection established");
+            FireInfoEvent((string)LocalizationResourceManager.Instance["MSG_CONNECTED"]);
             while (this.IsConnected)
             {
                 await this.Listen();
@@ -125,7 +126,8 @@ public class AndroidUSB_Base
             sb.Clear();
             if (this.bManager == null)
             {
-                FireErrorEvent("No USB Capability Available");
+                
+                FireErrorEvent((string)LocalizationResourceManager.Instance["NO_USB_AVAILABLE"]);
                 return false;
             }
 
@@ -138,20 +140,20 @@ public class AndroidUSB_Base
 
             if (String.IsNullOrEmpty(deviceName))
             {
-                FireErrorEvent("Please set device in Setup page");
+                FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_DEVICE_NOT_SET"]);
                 return false;
             }
 
             if (!this.bManager.DeviceList.ContainsKey(deviceName))
             {
-                FireErrorEvent($"Device '{deviceName}' is not attached.");
+                FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_DEVICE_NOT_CONNECTED"]}: '{deviceName}'");
                 return false;
             }
             this.usbDevice = this.bManager.DeviceList[deviceName];
 
             if (this.usbDevice == null)
             {
-                FireErrorEvent($"Cannot find USB device '{deviceName}'");
+                FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_INVALID_USB"]}: '{deviceName}'");
                 return false;
             }
 
@@ -182,7 +184,7 @@ public class AndroidUSB_Base
             {
                 bManager.RequestPermission(usbDevice, mPermissionIntent);
                 Close();
-                FireErrorEvent("Permissions Required");
+                FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_PERMISSIONS_REQUIRED"]);
                 return false;
 
             }
@@ -193,7 +195,7 @@ public class AndroidUSB_Base
 
             if (this.deviceConnection == null)
             {
-                FireErrorEvent("Invalid USB Device");
+                FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_INVALID_USB"]);
                 return false;
             }
 
@@ -222,12 +224,12 @@ public class AndroidUSB_Base
         catch (Java.IO.IOException eio)
         {
             //this.FireErrorEvent($"ERROR: Unable to access Bluetooth device");
-            this.FireErrorEvent($"ERROR: {eio.Message}{System.Environment.NewLine}{sb.ToString()}");
+            this.FireErrorEvent($"{(string)LocalizationResourceManager.Instance["ERROR"]}: {eio.Message}{System.Environment.NewLine}{sb.ToString()}");
         }
         catch (Exception e)
         {
             //this.FireErrorEvent($"ERROR: Unable to access Bluetooth device");
-            this.FireErrorEvent($"ERROR: {e.Message}{System.Environment.NewLine}{sb.ToString()}");
+            this.FireErrorEvent($"{(string)LocalizationResourceManager.Instance["ERROR"]}: {e.Message}{System.Environment.NewLine}{sb.ToString()}");
         }
         finally
         {
@@ -245,7 +247,7 @@ public class AndroidUSB_Base
     {
         if (this.usbDevice == null)
         {
-            this.FireErrorEvent($"ERROR: Unable to access USB device");
+            this.FireErrorEvent($"{(string)LocalizationResourceManager.Instance["ERROR"]}: {(string)LocalizationResourceManager.Instance["MSG_DEVICE_ACCESS_FAILURE"]}");
             return;
         }
 
@@ -398,7 +400,7 @@ public class AndroidUSB_Base
         }
         catch (Exception ett)
         {
-            FireErrorEvent($"USB error - {ett.Message}");
+            FireErrorEvent($"{(string)LocalizationResourceManager.Instance["USB"]} {(string)LocalizationResourceManager.Instance["ERROR"]} - {ett.Message}");
         }
         return false;
     }

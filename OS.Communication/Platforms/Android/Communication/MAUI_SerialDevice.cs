@@ -1,4 +1,5 @@
 ﻿using OS.Communication;
+using OS.Localization;
 
 namespace OS.PlatformShared;
 
@@ -21,6 +22,38 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
             if (CurrentDevice is ISerialDevice)
             {
                 (CurrentDevice as ISerialDevice).BaudRate = value;
+            }
+        }
+    }
+
+    public bool DTR
+    {
+        get
+        {
+            if (!(CurrentDevice is ISerialDevice)) return false;
+            return (CurrentDevice as ISerialDevice).DTR;
+        }
+        set
+        {
+            if (CurrentDevice is ISerialDevice)
+            {
+                (CurrentDevice as ISerialDevice).DTR = value;
+            }
+        }
+    }
+
+    public bool RTS
+    {
+        get 
+        {
+            if (!(CurrentDevice is ISerialDevice)) return false;
+            return (CurrentDevice as ISerialDevice).RTS;
+        }
+        set
+        {
+            if (CurrentDevice is ISerialDevice)
+            {
+                (CurrentDevice as ISerialDevice).RTS = value;
             }
         }
     }
@@ -96,8 +129,8 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
     {
         if (this.CurrentDevice == null)
         {
-            if (String.IsNullOrEmpty(this.DeviceName)) FireErrorEvent("*** Device not setup ***");
-            else FireErrorEvent("Device is not connected");
+            if (String.IsNullOrEmpty(this.DeviceName)) FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_DEVICE_NOT_SET"]);
+            else FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_DEVICE_NOT_CONNECTED"]);
             return false;
         }
         return this.CurrentDevice.Open(commChannel);

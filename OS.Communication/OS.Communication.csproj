@@ -28,4 +28,8 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\OS.Languages\OS.Localization.csproj" />
+	</ItemGroup>
+
 </Project>

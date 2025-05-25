@@ -58,6 +58,8 @@ public const bool ADS_ARE_ACTIVE = false;
     public const string DTC_CODES_GROUP_STORED = "Stored";
     public const string USER_PIDS_VM_CODE = "UserPIDSViewModel_code";
 
+
+    public const string PREFS_KEY_CULTURE = "application_culture";
     public const string PREFS_KWP_WAKEUP_ON = "KWP_WAKEUP_ON";
     public const string PREFS_KWP_INIT_ADDRESS = "PREFS_KWP_INIT_ADDRESS";
     public const string PREFS_ISO_BAUD_RATE = "PREFS_ISO_BAUD_RATE";

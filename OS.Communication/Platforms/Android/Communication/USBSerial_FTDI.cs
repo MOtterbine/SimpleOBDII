@@ -51,7 +51,25 @@ public class USBSerial_FTDI : AndroidUSB_Base, IDevicesService, ICommunicationDe
     private static int RESET_PURGE_TX = 2;
 
     private bool baudRateWithPort = false;
+
+    public bool RTS
+    {
+        get => rts;
+        set
+        {
+            rts = value;
+        }
+    }
+    public bool DTR
+    {
+        get => dtr;
+        set
+        {
+            dtr = value;
+        }
+    }
     private bool dtr = false;
+    
     private bool rts = false;
     private int breakConfig = 0;
 

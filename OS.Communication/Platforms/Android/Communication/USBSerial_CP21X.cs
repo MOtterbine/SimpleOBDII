@@ -22,6 +22,27 @@ public class CP21X : AndroidUSB_Base, IDevicesService, ICommunicationDevice, ISe
     private const int REQTYPE_HOST_TO_DEVICE = 0x41;
     private const int SILABSER_SET_BAUDRATE = 0x1E;
 
+    public bool RTS
+    {
+        get => rts;
+        set
+        {
+            rts = value;
+        }
+    }
+    public bool DTR
+    {
+        get => dtr;
+        set
+        {
+            dtr = value;
+        }
+    }
+    private bool dtr = false;
+
+    private bool rts = false;
+
+
 
     public override int BUFFER_SIZE => 1024;
 

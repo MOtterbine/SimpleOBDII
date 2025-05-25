@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using OS.OBDII.Security;
 using Microsoft.Maui.Platform;
 using CommunityToolkit.Maui.Core.Primitives;
+using System.Globalization;
 
 
 #if WINDOWS
@@ -230,6 +231,20 @@ public partial class App : Microsoft.Maui.Controls.Application, IAppSizing, IPer
 
             LoadStylesAndTemplates();
             MainPage = new NavigationPage(new HomePage());
+
+        //  OS.OBDII.Localization.LocalizationResourceManager.Instance.Culture = new CultureInfo("te-IN");
+        var cul = "en-US";
+        //var cul = Preferences.Default.Get(Constants.PREFS_KEY_CULTURE, string.Empty);//, "en-US");
+        try
+        {
+            // If a language was previously set, then go ahead and set it back - otherwise accept the existing
+            if (!string.IsNullOrEmpty(cul)) OS.Localization.LocalizationResourceManager.Instance.Culture = new CultureInfo(cul);
+        }
+        catch (Exception e)
+        {
+            AppShellModel.Instance.LogService.AppendLog(Microsoft.Extensions.Logging.LogLevel.Error, $"Unable to set preset culture ({cul}) - {e.Message}");
+        }
+
 
     }
 

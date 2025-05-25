@@ -537,7 +537,7 @@ namespace OS.OBDII.ViewModels
 
         protected override OBD2DeviceAdapter OBD2Adapter { get; } = new OBD2DeviceAdapter();
 
-        public string SelectedCommMethod
+        public int SelectedCommMethod
         {
             get => AppShellModel.Instance.SelectedCommMethod;
             set { AppShellModel.Instance.SelectedCommMethod = value; }

@@ -136,7 +136,7 @@
                                     <Label FontAttributes="Bold" VerticalOptions="Center" Margin="0">Device Type</Label>
                                 </StackLayout>
                                 <StackLayout Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Spacing="0" Margin="0,0,0,0" >
-                                    <Label Text="{Binding SelectedCommMethod}"  Grid.ColumnSpan="2" Style="{DynamicResource settings-label}"></Label>
+                                    <Label Text="{Binding SelectedCommMethod.Item1}"  Grid.ColumnSpan="2" Style="{DynamicResource settings-label}"></Label>
                                 </StackLayout>
 
                                 <!-- Communication Device Details -->
@@ -280,7 +280,7 @@
                                         <!-- RF Type (WiFi vs Bluetooth) -->
                                         <!-- Edit -->
                                         <Label Grid.Row="0" Grid.Column="0" VerticalOptions="Center" Margin="5,0,0,15">Device Type</Label>
-                                        <Picker Margin="0,0,0,15" ItemsSource="{Binding SerialCommMethods}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"  ItemDisplayBinding="{Binding .}"  SelectedItem="{Binding SelectedCommMethod}" Style="{DynamicResource settings-picker}">
+                                        <Picker Margin="0,0,0,15" ItemsSource="{Binding SerialCommMethods}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"  ItemDisplayBinding="{Binding Item1}"  SelectedItem="{Binding SelectedCommMethod}" Style="{DynamicResource settings-picker}">
                                         </Picker>
 
                                         <!-- Bluetooth -->

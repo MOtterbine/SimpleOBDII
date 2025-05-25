@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOBDII_Tests", "Tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Communication", "OS.Communication\OS.Communication.csproj", "{C3A3A767-3F04-491B-8B0F-8888AE4CD235}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Localization", "OS.Languages\OS.Localization.csproj", "{34FC8ECB-8846-ABDA-D2D7-22B06CD5756B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{C3A3A767-3F04-491B-8B0F-8888AE4CD235}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3A3A767-3F04-491B-8B0F-8888AE4CD235}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3A3A767-3F04-491B-8B0F-8888AE4CD235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34FC8ECB-8846-ABDA-D2D7-22B06CD5756B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34FC8ECB-8846-ABDA-D2D7-22B06CD5756B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34FC8ECB-8846-ABDA-D2D7-22B06CD5756B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34FC8ECB-8846-ABDA-D2D7-22B06CD5756B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

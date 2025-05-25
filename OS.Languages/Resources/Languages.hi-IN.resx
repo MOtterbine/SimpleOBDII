@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SELECT_MODEL" xml:space="preserve">
+    <value>मॉडल का चयन करें</value>
+  </data>
+  <data name="MAIN_FEATURES" xml:space="preserve">
+    <value>मुख्य विशेषताएं</value>
+  </data>
+  <data name="MODEL" xml:space="preserve">
+    <value>को गढ़ना</value>
+  </data>
+  <data name="INFORMATION" xml:space="preserve">
+    <value>सूचना</value>
+  </data>
+  <data name="DTCs" xml:space="preserve">
+    <value>त्रुटियों</value>
+  </data>
+  <data name="ADVANCED_DATA" xml:space="preserve">
+    <value>उन्नत डेटा</value>
+  </data>
+  <data name="SELECT_MODEL_DESCRIPTION" xml:space="preserve">
+    <value>वाहन का प्रकार चुनें</value>
+  </data>
+  <data name="INFORMATION_DESCRIPTION" xml:space="preserve">
+    <value>स्थिति रिपोर्ट देखें</value>
+  </data>
+  <data name="ADVANCED_DATA_DESCRIPTION" xml:space="preserve">
+    <value>रनिंग डेटा देखें</value>
+  </data>
+  <data name="DONE" xml:space="preserve">
+    <value>समाज-सम्मत</value>
+  </data>
+  <data name="MANUFACTURERS" xml:space="preserve">
+    <value>निर्माताओं</value>
+  </data>
+  <data name="REFRESH" xml:space="preserve">
+    <value>पुनः लोड करें</value>
+  </data>
+  <data name="READ" xml:space="preserve">
+    <value>पढ़ना</value>
+  </data>
+  <data name="CLEAR" xml:space="preserve">
+    <value>स्पष्ट</value>
+  </data>
+  <data name="TROUBLE_CODES" xml:space="preserve">
+    <value>त्रुटि कोड</value>
+  </data>
+  <data name="VEHICLE_STATUS" xml:space="preserve">
+    <value>वाहन की स्थिति</value>
+  </data>
+  <data name="START" xml:space="preserve">
+    <value>चौंक</value>
+  </data>
+  <data name="STOP" xml:space="preserve">
+    <value>रुको</value>
+  </data>
+  <data name="PAUSE" xml:space="preserve">
+    <value>रुकना</value>
+  </data>
+  <data name="EDIT" xml:space="preserve">
+    <value>संपादन करना</value>
+  </data>
+  <data name="BACK" xml:space="preserve">
+    <value>शर्त लगाना</value>
+  </data>
+  <data name="BLUETOOTH_USB" xml:space="preserve">
+    <value>ब्लूटूथ/यूएसबी</value>
+  </data>
+  <data name="WIFI" xml:space="preserve">
+    <value>वाईफ़ाई</value>
+  </data>
+  <data name="MSG_NO_RESPONSE_VEHICLE" xml:space="preserve">
+    <value>कोई जवाब नहीं</value>
+  </data>
+  <data name="STRING_NO_CODES_FOUND" xml:space="preserve">
+    <value>कोई त्रुटि नहीं</value>
+  </data>
+  <data name="STRING_NOT_SET" xml:space="preserve">
+    <value>&lt;सेट नहीं&gt;</value>
+  </data>
+  <data name="STRING_SEARCHING" xml:space="preserve">
+    <value>खोज...</value>
+  </data>
+  <data name="STRING_ESTABLISHING_LINK" xml:space="preserve">
+    <value>प्रक्रिया सुरू करत आहे</value>
+  </data>
+  <data name="MSG_SUCCESS" xml:space="preserve">
+    <value>सफलता</value>
+  </data>
+  <data name="MSG_ERROR" xml:space="preserve">
+    <value>*** चूक ***</value>
+  </data>
+  <data name="STRING_NO_DATA" xml:space="preserve">
+    <value>*** कोई डेटा नहीं ***</value>
+  </data>
+  <data name="STRING_INITIALIZING" xml:space="preserve">
+    <value>तैयारी</value>
+  </data>
+  <data name="MSG_SINCE_DTCS_CLEARED" xml:space="preserve">
+    <value>चूंकि त्रुटियां साफ हो गई हैं</value>
+    <comment>time since dtc cleared</comment>
+  </data>
+  <data name="MSG_NO_RESPONSE_SYSTEM" xml:space="preserve">
+    <value>कोई जवाब नहीं</value>
+  </data>
+  <data name="STRING_ALL_TESTS_COMPLETE" xml:space="preserve">
+    <value>*** सभी टेस्ट पूरे ***</value>
+  </data>
+  <data name="COMMUNICATION_DEVICE_NOT_SETUP" xml:space="preserve">
+    <value>*** डिवाइस सेट नहीं है ***</value>
+  </data>
+  <data name="MSG_SENDING" xml:space="preserve">
+    <value>भेजने...</value>
+  </data>
+  <data name="MSG_OK" xml:space="preserve">
+    <value>ठीक है</value>
+  </data>
+  <data name="SETTINGS" xml:space="preserve">
+    <value>सेटिंग्स</value>
+  </data>
+  <data name="DTCs_DESCRIPTION" xml:space="preserve">
+    <value>कोड पढ़ें और साफ़ करें</value>
+  </data>
+  <data name="CONNECTING_TO" xml:space="preserve">
+    <value>से कनेक्ट करना</value>
+  </data>
+  <data name="HEADER" xml:space="preserve">
+    <value>शीर्षणीई</value>
+  </data>
+  <data name="PROTOCOL" xml:space="preserve">
+    <value>प्रोटोकॉल</value>
+  </data>
+  <data name="DEVICE_TYPE" xml:space="preserve">
+    <value>डिवाइस का प्रकार</value>
+  </data>
+  <data name="DEVICE" xml:space="preserve">
+    <value>उपकरण</value>
+  </data>
+  <data name="PLOT_HEIGHT" xml:space="preserve">
+    <value>प्लॉट की ऊंचाई</value>
+  </data>
+  <data name="LANGUAGE" xml:space="preserve">
+    <value>भाषा</value>
+  </data>
+  <data name="METRIC_UNITS" xml:space="preserve">
+    <value>मीट्रिक इकाइयां</value>
+  </data>
+  <data name="SERIAL_BAUD_RATE" xml:space="preserve">
+    <value>सीरियल बॉड दर</value>
+  </data>
+  <data name="IP_PORT" xml:space="preserve">
+    <value>आईपी ​​पोर्ट</value>
+  </data>
+  <data name="IP_ADDRESS" xml:space="preserve">
+    <value>आईपी ​​पता</value>
+  </data>
+  <data name="BLUETOOH_DEVICE" xml:space="preserve">
+    <value>ब्लूटूथ डिवाइस</value>
+  </data>
+  <data name="UNITS_MEAS" xml:space="preserve">
+    <value>माप प्रकार</value>
+  </data>
+  <data name="INITIALIZING" xml:space="preserve">
+    <value>नैतिकता पट्टे</value>
+  </data>
+  <data name="CONTACTING_VEHICLE" xml:space="preserve">
+    <value>अनुबंधित वाहन</value>
+  </data>
+  <data name="READING_DTCS" xml:space="preserve">
+    <value>पढ़ने का पता</value>
+  </data>
+  <data name="READING_PIDS" xml:space="preserve">
+    <value>मान पढ़ना</value>
+  </data>
+  <data name="EXIT_PROMPT1" xml:space="preserve">
+    <value>अपना हार्डवेयर न भूलें</value>
+  </data>
+  <data name="EXIT_PROMPT2" xml:space="preserve">
+    <value>बाहर निकलना?</value>
+  </data>
+  <data name="READING_STATUS" xml:space="preserve">
+    <value>पढ़ने की स्थिति</value>
+  </data>
+  <data name="CLEAR_DTCS_TITLE" xml:space="preserve">
+    <value>पते साफ़ करें</value>
+  </data>
+  <data name="CLEAR_DTCS_PROMPT" xml:space="preserve">
+    <value>त्रुटियाँ साफ़ करने की पुष्टि करें?</value>
+  </data>
+  <data name="MSG_CANCEL" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="MSG_READY" xml:space="preserve">
+    <value>तैयार</value>
+  </data>
+  <data name="MSG_NO_DATA" xml:space="preserve">
+    <value>***कोई डेटा नहीं ***</value>
+  </data>
+  <data name="MSG_NO_DATA_REPORTED" xml:space="preserve">
+    <value>कोई डेटा रिपोर्ट नहीं किया गया</value>
+  </data>
+  <data name="OBDII_PIDS" xml:space="preserve">
+    <value>लाइव डेटा</value>
+  </data>
+  <data name="MSG_EXIT_APPLICATION" xml:space="preserve">
+    <value>छोड़ने के लिए प्रार्थनापत्र</value>
+  </data>
+  <data name="MSG_EXIT" xml:space="preserve">
+    <value>बाहर निकलना</value>
+  </data>
+  <data name="MSG_OPERATION_CANCELLED" xml:space="preserve">
+    <value>गतिविधि रद्द कर दी गई</value>
+  </data>
+  <data name="MSG_RESET_COMMAND_SENT" xml:space="preserve">
+    <value>रीसेट आदेश भेजा गया</value>
+  </data>
+  <data name="MSG_COMPILING" xml:space="preserve">
+    <value>एकत्रित</value>
+  </data>
+  <data name="MSG_CONTACT_MIKE" xml:space="preserve">
+    <value>संपर्क करें MikeOtterbine@gmail.com</value>
+  </data>
+  <data name="MSG_CONTACT_MIKE1" xml:space="preserve">
+    <value>कोड प्राप्त करने के लिए</value>
+  </data>
+  <data name="MSG_INSTALL_CODE" xml:space="preserve">
+    <value>कोड स्थापित करें</value>
+  </data>
+  <data name="MSG_APP_ID" xml:space="preserve">
+    <value>ऐप आईडी</value>
+  </data>
+  <data name="MSG_APPLY" xml:space="preserve">
+    <value>जाना</value>
+  </data>
+  <data name="MSG_COPY_ID" xml:space="preserve">
+    <value>आईडी कॉपी करें</value>
+  </data>
+  <data name="MSG_DEVICE_NOT_SET" xml:space="preserve">
+    <value>डिवाइस सेट नहीं है</value>
+  </data>
+  <data name="METRIC" xml:space="preserve">
+    <value>मीट्रिक</value>
+  </data>
+  <data name="ENGLISH" xml:space="preserve">
+    <value>अंग्रेज़ी</value>
+  </data>
+  <data name="WIFI_TYPE_DESCRIPTOR" xml:space="preserve">
+    <value>वाईफ़ाई</value>
+  </data>
+  <data name="MSG_PORTS_LIST_ERROR" xml:space="preserve">
+    <value>पोर्ट सूची त्रुटि</value>
+  </data>
+  <data name="MSG_DEVICE_OPEN_FAILURE" xml:space="preserve">
+    <value>डिवाइस विफलता</value>
+  </data>
+  <data name="MSG_DEVICE_ACCESS_FAILURE" xml:space="preserve">
+    <value>डिवाइस एक्सेस विफलता</value>
+  </data>
+  <data name="MSG_NO_BLUETOOTH_DEVICE_FOUND" xml:space="preserve">
+    <value>कोई ब्लूटूथ डिवाइस नहीं</value>
+  </data>
+  <data name="MSG_BLUETOOTH_DISABLED" xml:space="preserve">
+    <value>ब्लूटूथ अक्षम</value>
+  </data>
+  <data name="MSG_BLUETOOTH_DEVICE_NOT_OPEN" xml:space="preserve">
+    <value>डिवाइस एक्सेस विफलता</value>
+  </data>
+  <data name="BLUETOOTH" xml:space="preserve">
+    <value>ब्लूटूथ</value>
+  </data>
+  <data name="MSG_BLUETOOTH_ERROR" xml:space="preserve">
+    <value>ब्लूटूथ त्रुटि</value>
+  </data>
+  <data name="MSG_DEVICE_NOT_CONNECTED" xml:space="preserve">
+    <value>डिवाइस डिस्कनेक्ट करें</value>
+  </data>
+  <data name="MSG_CONNECTED" xml:space="preserve">
+    <value>जुड़े हुए</value>
+  </data>
+  <data name="NO_USB_AVAILABLE" xml:space="preserve">
+    <value>कोई USB उपलब्ध नहीं</value>
+  </data>
+  <data name="MSG_PERMISSIONS_REQUIRED" xml:space="preserve">
+    <value>अनुमति की आवश्यकता है</value>
+  </data>
+  <data name="MSG_INVALID_USB" xml:space="preserve">
+    <value>अमान्य यूएसबी</value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value>गलती</value>
+  </data>
+  <data name="USB" xml:space="preserve">
+    <value>USB</value>
+  </data>
+  <data name="PIDS_RPM_DESCR" xml:space="preserve">
+    <value>इंजन चक्र प्रति सेकंड</value>
+  </data>
+</root>

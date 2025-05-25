@@ -1,14 +1,16 @@
 ﻿
+using OS.Localization;
+
 namespace OS.Communication
 {
     public  class SerialDevices 
     {
-        public static List<string> DeviceTypes => sTypes;
+        public static List<Tuple<string,int>> DeviceTypes => sTypes;
 
-        private static readonly List<string> sTypes = new List<string>()
+        private static readonly List<Tuple<string, int>> sTypes = new List<Tuple<string, int>>()
         {
-           Constants.PREFS_BLUETOOTH_TYPE_DESCRIPTOR,
-            Constants.PREFS_WIFI_TYPE_DESCRIPTOR
+            new Tuple<string,int>((string)LocalizationResourceManager.Instance["BLUETOOTH_USB"], 0),
+            new Tuple<string,int>((string)LocalizationResourceManager.Instance["WIFI_TYPE_DESCRIPTOR"], 1),
         };
 
     }

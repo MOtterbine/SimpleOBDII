@@ -10,9 +10,12 @@ public interface ICommunicatioProfile
 
     UInt32 SerialBaudRate { get; set; }
 
-    void SetCommMethod();
+    void SetCommMethod(int channel = 0);
     bool StoreBluetoothDevicePreset(string device);
-    string SelectedCommMethod { get; set; }
+    /// <summary>
+    /// 0 for Bluetooth, 1 for Network/WiFi
+    /// </summary>
+    int SelectedCommMethod { get; set; }
     string IPAddress { get; set; }
     int IPPort { get; set; }
     bool IsBluetooth { get; }

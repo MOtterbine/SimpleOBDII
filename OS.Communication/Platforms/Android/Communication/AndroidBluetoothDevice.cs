@@ -2,8 +2,12 @@
 using Java.Util;
 using Android.Bluetooth;
 using OS.Communication;
+using OS.Localization;
+using Android.Content.Res;
+
 
 namespace OS.PlatformShared;
+
 
 public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDevice
 {
@@ -46,7 +50,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
         }
         catch (Exception e)
         {
-            FireErrorEvent($"Unable to get ports list. {e}");
+            FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_PORTS_LIST_ERROR"]} - {e}");
         }
     }
 
@@ -55,7 +59,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
 
     public bool IsConnected => this.bluetoothSocket == null ? false : this.bluetoothSocket.IsConnected;
 
-    public string Description => $"Bluetooth device: {this.DeviceName}";
+    public string Description => $"{(string)LocalizationResourceManager.Instance["BLUETOOTH_DEVICE"]}: {this.DeviceName}";
 
     Task listenTask = null;
 
@@ -86,7 +90,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
         catch (Exception ex)
         {
             this.tokenSource?.Cancel();
-            FireErrorEvent($"Device Open Failure - {ex.Message}");
+            FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_DEVICE_OPEN_FAILURE"]} - {ex.Message}");
         }
         return false;
     }
@@ -97,7 +101,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
 
         if (String.IsNullOrEmpty(commChannel))
         {
-            FireErrorEvent(OS.Communication.Constants.COMMUNICATION_DEVICE_NOT_SETUP);
+            FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_DEVICE_NOT_SET"]);
             return;
         }
 
@@ -118,7 +122,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
         }
         else
         {
-            FireErrorEvent($"Unable to access device: {commChannel}");
+            FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_DEVICE_ACCESS_FAILURE"]}: {commChannel}");
         }
 
         using (DeviceEventArgs evt = new DeviceEventArgs())
@@ -134,13 +138,13 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
         {
             if (this.bluetoothAdapter == null)
             {
-                FireErrorEvent("No Bluetooth adapter found");
+                FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_NO_BLUETOOTH_DEVICE_FOUND"]);
                 return false;
             }
 
             if (this.bluetoothAdapter.State == State.Off)
             {
-                FireErrorEvent("Bluetooth is not enabled on this device.");
+                FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_BLUETOOTH_DISABLED"]);
                 return false;
             }
 
@@ -158,7 +162,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
                     var lx = d;
                 }
 
-                FireErrorEvent("Please set device in Setup page");
+                FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_DEVICE_NOT_SET"]);
                 return false;
             }
 
@@ -168,14 +172,14 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
 
             if (this.bluetoothDevice == null)
             {
-                FireErrorEvent($"Cannot find Bluetooth device '{deviceName}'");
+                FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_DEVICE_ACCESS_FAILURE"]} '{deviceName}'");
                 return false;
             }
 
             this.bluetoothSocket = this.bluetoothDevice?.CreateRfcommSocketToServiceRecord(UUID.FromString("00001101-0000-1000-8000-00805f9b34fb"));
             if (this.bluetoothSocket == null)
             {
-                FireErrorEvent("Invalid Bluetooth Channel");
+                FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_DEVICE_ACCESS_FAILURE"]);
                 return false;
             }
 
@@ -189,11 +193,11 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
         }
         catch (Java.IO.IOException)
         {
-            this.FireErrorEvent($"ERROR: Unable to access Bluetooth device");
+            this.FireErrorEvent($"ERROR: {(string)LocalizationResourceManager.Instance["MSG_DEVICE_ACCESS_FAILURE"]}");
         }
         catch (Exception)
         {
-            this.FireErrorEvent($"ERROR: Unable to access Bluetooth device");
+            this.FireErrorEvent($"ERROR: {(string)LocalizationResourceManager.Instance["MSG_DEVICE_ACCESS_FAILURE"]}");
         }
         finally
         {
@@ -206,7 +210,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
     {
         if (this.bluetoothSocket == null)
         {
-            this.FireErrorEvent($"ERROR: Unable to access serial device");
+            this.FireErrorEvent($"ERROR: {(string)LocalizationResourceManager.Instance["MSG_DEVICE_ACCESS_FAILURE"]}");
             return;
         }
 
@@ -346,7 +350,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
         }
         catch (Exception ett)
         {
-            FireErrorEvent($"Bluetooth error - {ett.Message}");
+            FireErrorEvent($"{(string)LocalizationResourceManager.Instance["BLUETOOTH_ERROR"]} - {ett.Message}");
         }
         return false;
     }

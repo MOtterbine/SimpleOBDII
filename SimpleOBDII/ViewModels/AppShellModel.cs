@@ -2,6 +2,7 @@
 using OS.Communication;
 using OS.OBDII.Models;
 using OS.OBDII.Views;
+using OS.Localization;
 
 namespace OS.OBDII.ViewModels;
 
@@ -334,10 +335,10 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     }
     private bool useMetric = Preferences.Get(Constants.PREFS_USE_METRIC, false);
 
-    public bool IsBluetooth => selectedCommMethod == null ? true : String.Compare(selectedCommMethod, Constants.PREFS_BLUETOOTH_TYPE_DESCRIPTOR) == 0;
+    public bool IsBluetooth => selectedCommMethod == 0;
 
-    private string selectedCommMethod = Preferences.Get(Constants.PREFS_KEY_DEVICE_COMM_TYPE, Constants.PREFS_BLUETOOTH_TYPE_DESCRIPTOR);
-    public string SelectedCommMethod
+    private int selectedCommMethod = Preferences.Get(Constants.PREFS_KEY_DEVICE_COMM_TYPE, 0);
+    public int SelectedCommMethod
     {
         get => selectedCommMethod;
         set
@@ -385,7 +386,7 @@ public sealed partial class AppShellModel : BaseViewModel, IOBDIICommonUI, ILice
     public IList<string> DeviceList => this._DevicesService.GetDeviceList();
 
 
-    public void SetCommMethod()
+    public void SetCommMethod(int channel = 0)
     {
 
         if (!Preferences.ContainsKey("AppInitialized"))

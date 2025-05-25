@@ -1,4 +1,5 @@
 ﻿using OS.Communication;
+using OS.Localization;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using Windows.Devices.Enumeration;
@@ -72,6 +73,22 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
             }
         }
     }
+    public bool RTS
+    {
+        get => this.SelectedSerialDevice.IsRequestToSendEnabled;
+        set
+        {
+            this.SelectedSerialDevice.IsRequestToSendEnabled = value;
+        }
+    }
+    public bool DTR
+    {
+        get => this.SelectedSerialDevice.IsDataTerminalReadyEnabled;
+        set
+        {
+            this.SelectedSerialDevice.IsDataTerminalReadyEnabled = value;
+        }
+    }
 
     #endregion
 
@@ -103,7 +120,7 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
         }
         catch (Exception e)
         {
-            FireErrorEvent($"Unable to get ports list. {e}");
+            FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_PORTS_LIST_ERROR"]} - {e}");
         }
     }
 
@@ -216,7 +233,8 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
                 SelectedSerialDevice.DataBits = 8;
                 SelectedSerialDevice.Handshake = SerialHandshake.None;
                 SelectedSerialDevice.IsDataTerminalReadyEnabled = true;
-                SelectedSerialDevice.IsRequestToSendEnabled = true;
+                // is reset on some devices
+                SelectedSerialDevice.IsRequestToSendEnabled = false;
                 SelectedSerialDevice.Parity = SerialParity.None;
                 SelectedSerialDevice.StopBits = SerialStopBitCount.One;
                 SelectedSerialDevice.ReadTimeout = new TimeSpan(0, 0, 0, 0, 5);
@@ -252,7 +270,7 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
 
         if (String.IsNullOrEmpty(commChannel))
         {
-            FireErrorEvent(OS.Communication.Constants.COMMUNICATION_DEVICE_NOT_SETUP);
+            FireErrorEvent((string)LocalizationResourceManager.Instance["MSG_DEVICE_NOT_SET"]);
             return;
         }
 
@@ -393,6 +411,7 @@ public partial class MAUI_SerialDevice : IDevicesService, ICommunicationDevice, 
         try
         {
             await this.SelectedSerialDevice.OutputStream.WriteAsync(buffer.AsBuffer());
+            await this.SelectedSerialDevice.OutputStream.FlushAsync();
             return true;
         }
         catch (Exception ex)
