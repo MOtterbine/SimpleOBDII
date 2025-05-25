@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOBDII_Tests", "Tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Communication", "OS.Communication\OS.Communication.csproj", "{C3A3A767-3F04-491B-8B0F-8888AE4CD235}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Localization", "OS.Languages\OS.Localization.csproj", "{34FC8ECB-8846-ABDA-D2D7-22B06CD5756B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Localization", "OS.Localization\OS.Localization.csproj", "{34FC8ECB-8846-ABDA-D2D7-22B06CD5756B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

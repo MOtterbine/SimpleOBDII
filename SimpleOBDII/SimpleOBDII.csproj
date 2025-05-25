@@ -193,6 +193,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\OS.Communication\OS.Communication.csproj" />
+	  <ProjectReference Include="..\OS.Localization\OS.Localization.csproj" />
 	</ItemGroup>
 
 

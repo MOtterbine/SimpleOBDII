@@ -29,7 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\OS.Languages\OS.Localization.csproj" />
+	  <ProjectReference Include="..\OS.Localization\OS.Localization.csproj" />
 	</ItemGroup>
 
 </Project>
