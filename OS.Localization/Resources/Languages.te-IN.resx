@@ -142,7 +142,7 @@
     <value>సిస్టమ్ స్థితి</value>
   </data>
   <data name="ADVANCED_DATA_DESCRIPTION" xml:space="preserve">
-    <value>रनिंग डेटा देखें</value>
+    <value>రియల్ టైమ్ డేటా</value>
   </data>
   <data name="DONE" xml:space="preserve">
     <value>పూర్తయింది</value>
@@ -331,9 +331,6 @@
   <data name="MSG_RESET_COMMAND_SENT" xml:space="preserve">
     <value>రీసెట్ కమాండ్ పంపబడింది</value>
   </data>
-  <data name="MSG_COMPILING" xml:space="preserve">
-    <value>సేకరిస్తోంది</value>
-  </data>
   <data name="MSG_CONTACT_MIKE" xml:space="preserve">
     <value>MikeOtterbine@gmail.com ని సంప్రదించండి</value>
   </data>
@@ -411,5 +408,170 @@
   </data>
   <data name="PIDS_RPM_DESCR" xml:space="preserve">
     <value>సెకనుకు ఇంజిన్ సైకిల్</value>
+  </data>
+  <data name="MSG_AUTO" xml:space="preserve">
+    <value>ఆటోమేటిక్</value>
+  </data>
+  <data name="PIDS_MAF_DESCR" xml:space="preserve">
+    <value>ఎయిర్ ఫ్లో మాస్</value>
+  </data>
+  <data name="PIDS_MAP_DESCR" xml:space="preserve">
+    <value>ఇన్టేక్ ఎయిర్ ప్రెజర్</value>
+  </data>
+  <data name="PIDS_IAT_DESCR" xml:space="preserve">
+    <value>తీసుకోవడం గాలి ఉష్ణోగ్రత</value>
+  </data>
+  <data name="PIDS_THROTTLE_POS_DESCR" xml:space="preserve">
+    <value>థ్రాటిల్ శాతం</value>
+  </data>
+  <data name="PIDS_SPARKADV_DESCR" xml:space="preserve">
+    <value>స్పార్క్ అడ్వాన్స్</value>
+  </data>
+  <data name="PIDS_LONGFT24_DESCR" xml:space="preserve">
+    <value>బ్యాంకులకు దీర్ఘకాలిక ఇంధన సరఫరా 2/4</value>
+  </data>
+  <data name="PIDS_LONGFT13_DESCR" xml:space="preserve">
+    <value>బ్యాంకులకు దీర్ఘకాలిక ఇంధన సరఫరా 1/3</value>
+  </data>
+  <data name="PIDS_SHRTFT13_DESCR" xml:space="preserve">
+    <value>బ్యాంకులకు స్వల్పకాలిక ఇంధనం 1/3</value>
+  </data>
+  <data name="PIDS_SHRTFT24_DESCR" xml:space="preserve">
+    <value>బ్యాంకులకు స్వల్పకాలిక ఇంధనం 2/4</value>
+  </data>
+  <data name="PIDS_FRP_G_DESCR" xml:space="preserve">
+    <value>ఇంధన రైలు ఒత్తిడి</value>
+  </data>
+  <data name="PIDS_VSS_DESCR" xml:space="preserve">
+    <value>వాహన వేగం సెన్సార్</value>
+  </data>
+  <data name="PIDS_ECT_DESCR" xml:space="preserve">
+    <value>ఇంజిన్ శీతలకరణి ఉష్ణోగ్రత</value>
+  </data>
+  <data name="PIDS_LOAD_PCT_DESCR" xml:space="preserve">
+    <value>ఇంజిన్ లోడ్</value>
+  </data>
+  <data name="PIDS_FUELSYS_DESCR" xml:space="preserve">
+    <value>ఇంధన వ్యవస్థ స్థితి</value>
+  </data>
+  <data name="PIDS_O2S11_DESCR" xml:space="preserve">
+    <value>O2 సెన్సార్ 1 బ్యాంక్ 1</value>
+  </data>
+  <data name="PIDS_O2S12_DESCR" xml:space="preserve">
+    <value>O2 సెన్సార్ 2 బ్యాంక్ 1</value>
+  </data>
+  <data name="PIDS_O2S13_DESCR" xml:space="preserve">
+    <value>O2 సెన్సార్ 3 బ్యాంక్ 1</value>
+  </data>
+  <data name="PIDS_O2S14_DESCR" xml:space="preserve">
+    <value>O2 సెన్సార్ 4 బ్యాంక్ 1</value>
+  </data>
+  <data name="PIDS_O2S21_DESCR" xml:space="preserve">
+    <value>O2 సెన్సార్ 1 బ్యాంక్ 2</value>
+  </data>
+  <data name="PIDS_O2S22_DESCR" xml:space="preserve">
+    <value>O2 సెన్సార్ 2 బ్యాంక్ 2</value>
+  </data>
+  <data name="PIDS_O2S23_DESCR" xml:space="preserve">
+    <value>O2 సెన్సార్ 3 బ్యాంక్ 2</value>
+  </data>
+  <data name="PIDS_O2S24_DESCR" xml:space="preserve">
+    <value>O2 సెన్సార్ 4 బ్యాంక్ 2</value>
+  </data>
+  <data name="PIDS_RUNTM_DESCR" xml:space="preserve">
+    <value>ఇంజిన్ స్టార్ట్ అయినప్పటి నుండి సమయం</value>
+  </data>
+  <data name="PIDS_MIL_DIST_DESCR" xml:space="preserve">
+    <value>లోపం కాంతితో దూరం</value>
+  </data>
+  <data name="PIDS_FRP_MV_DESCR" xml:space="preserve">
+    <value>మానిఫోల్డ్ వాక్యూమ్‌కు సంబంధించి ఇంధన రైలు పీడనం</value>
+  </data>
+  <data name="PIDS_FRP_DESCR" xml:space="preserve">
+    <value>ఇంధన రైలు ఒత్తిడి</value>
+  </data>
+  <data name="PIDS_EGR_CMD_PCT_DESCR" xml:space="preserve">
+    <value>ఎగోర్‌ను ఆదేశించింది</value>
+  </data>
+  <data name="PIDS_EGR_ERR_PCT_DESCR" xml:space="preserve">
+    <value>ఎగర్ లోపం</value>
+  </data>
+  <data name="PIDS_FLI_DESCR" xml:space="preserve">
+    <value>ఇంధన స్థాయి</value>
+  </data>
+  <data name="PIDS_WARM_UPS_DESCR" xml:space="preserve">
+    <value>లోపాలు తొలగిపోయినప్పటి నుండి వార్మప్‌లు</value>
+  </data>
+  <data name="PIDS_CLR_DIST_DESCR" xml:space="preserve">
+    <value>లోపాలు క్లియర్ అయినప్పటి నుండి దూరం</value>
+  </data>
+  <data name="MSG_EMISSION_DTCS" xml:space="preserve">
+    <value>ఉద్గార లోపాలు</value>
+  </data>
+  <data name="PIDS_EVAP_VP_DESCR" xml:space="preserve">
+    <value>EVAP ఒత్తిడి</value>
+  </data>
+  <data name="PIDS_BARO_DESCR" xml:space="preserve">
+    <value>బారోమెట్రిక్ పీడనం</value>
+  </data>
+  <data name="PIDS_CATEMP11_DESCR" xml:space="preserve">
+    <value>ఉత్ప్రేరక ఉష్ణోగ్రత బ్యాంకు 1 సెన్సార్ 1</value>
+  </data>
+  <data name="PIDS_CATEMP21_DESCR" xml:space="preserve">
+    <value>ఉత్ప్రేరక ఉష్ణోగ్రత బ్యాంకు 2 సెన్సార్ 1</value>
+  </data>
+  <data name="PIDS_CATEMP12_DESCR" xml:space="preserve">
+    <value>ఉత్ప్రేరక ఉష్ణోగ్రత బ్యాంకు 1 సెన్సార్ 2</value>
+  </data>
+  <data name="PIDS_CATEMP22_DESCR" xml:space="preserve">
+    <value>ఉత్ప్రేరక ఉష్ణోగ్రత బ్యాంకు 2 సెన్సార్ 2</value>
+  </data>
+  <data name="PIDS_VPWR_DESCR" xml:space="preserve">
+    <value>వోల్ట్లు</value>
+  </data>
+  <data name="PIDS_LAMBDA_DESCR" xml:space="preserve">
+    <value>కమాండెడ్ ఎయిర్/ఇంధన నిష్పత్తి</value>
+  </data>
+  <data name="PIDS_AAT_DESCR" xml:space="preserve">
+    <value>పరిసర గాలి ఉష్ణోగ్రత</value>
+  </data>
+  <data name="PIDS_TP_R_DESCR" xml:space="preserve">
+    <value>సంబంధిత థొరెటల్ స్థానం</value>
+  </data>
+  <data name="PIDS_VPWR_CMD_DESCR" xml:space="preserve">
+    <value>కమాండెడ్ థ్రాటిల్ పొజిషన్</value>
+  </data>
+  <data name="PIDS_LOAD_ABS_DESCR" xml:space="preserve">
+    <value>సంపూర్ణ లోడ్</value>
+  </data>
+  <data name="PIDS_EVAP_PCT_DESCR" xml:space="preserve">
+    <value>EVAP ప్రక్షాళనకు ఆదేశించబడింది</value>
+  </data>
+  <data name="PIDS_FUEL_SYSTEM1_STATUS" xml:space="preserve">
+    <value>ఇంధన వ్యవస్థ 1 స్థితి</value>
+  </data>
+  <data name="PIDS_FUEL_SYSTEM2_STATUS" xml:space="preserve">
+    <value>ఇంధన వ్యవస్థ 2 స్థితి</value>
+  </data>
+  <data name="MSG_LANGUAGE_CHANGE_POPUP_TITLE" xml:space="preserve">
+    <value>భాష మార్చండి</value>
+  </data>
+  <data name="MSG_LANGUAGE_CHANGE_POPUP_TEXT" xml:space="preserve">
+    <value>అన్ని మార్పులు అమలులోకి రావడానికి యాప్‌ను పునఃప్రారంభించండి.</value>
+  </data>
+  <data name="MSG_FAULT" xml:space="preserve">
+    <value>తప్పు</value>
+  </data>
+  <data name="MSG_COMPLETE" xml:space="preserve">
+    <value>పూర్తి</value>
+  </data>
+  <data name="MSG_NOT_READY" xml:space="preserve">
+    <value>సిద్ధంగా లేదు</value>
+  </data>
+  <data name="MSG_MIL_ON" xml:space="preserve">
+    <value>ఎర్రర్ లైట్ ఆన్</value>
+  </data>
+  <data name="MSG_LIVE_DATA" xml:space="preserve">
+    <value>రియల్ టైమ్ డేటా</value>
   </data>
 </root>

@@ -142,7 +142,7 @@
     <value>সিস্টেমের অবস্থা প্রদর্শন করুন</value>
   </data>
   <data name="ADVANCED_DATA_DESCRIPTION" xml:space="preserve">
-    <value>रनिंग डेटा देखें</value>
+    <value>রিয়েল টাইম ডেটা</value>
   </data>
   <data name="DONE" xml:space="preserve">
     <value>করা হয়েছে</value>
@@ -166,7 +166,7 @@
     <value>গাড়ির অবস্থা</value>
   </data>
   <data name="START" xml:space="preserve">
-    <value>সূচনা</value>
+    <value>শুরু করুন</value>
   </data>
   <data name="STOP" xml:space="preserve">
     <value>থামান</value>
@@ -331,9 +331,6 @@
   <data name="MSG_RESET_COMMAND_SENT" xml:space="preserve">
     <value>রিসেট কমান্ড পাঠানো হয়েছে</value>
   </data>
-  <data name="MSG_COMPILING" xml:space="preserve">
-    <value>সংগ্রহ করা</value>
-  </data>
   <data name="MSG_CONTACT_MIKE" xml:space="preserve">
     <value>MikeOtterbine@gmail.com-এ যোগাযোগ করুন</value>
   </data>
@@ -411,5 +408,170 @@
   </data>
   <data name="PIDS_RPM_DESCR" xml:space="preserve">
     <value>প্রতি সেকেন্ডে ইঞ্জিন সাইকেল</value>
+  </data>
+  <data name="MSG_AUTO" xml:space="preserve">
+    <value>স্বয়ংক্রিয়</value>
+  </data>
+  <data name="PIDS_MAF_DESCR" xml:space="preserve">
+    <value>বায়ু প্রবাহ ভর</value>
+  </data>
+  <data name="PIDS_MAP_DESCR" xml:space="preserve">
+    <value>বায়ুচাপ গ্রহণ করুন</value>
+  </data>
+  <data name="PIDS_IAT_DESCR" xml:space="preserve">
+    <value>বায়ু তাপমাত্রা গ্রহণ</value>
+  </data>
+  <data name="PIDS_THROTTLE_POS_DESCR" xml:space="preserve">
+    <value>থ্রটল শতাংশ</value>
+  </data>
+  <data name="PIDS_SPARKADV_DESCR" xml:space="preserve">
+    <value>স্পার্ক অ্যাডভান্স</value>
+  </data>
+  <data name="PIDS_LONGFT24_DESCR" xml:space="preserve">
+    <value>ব্যাংক 2/4 এর জন্য দীর্ঘমেয়াদী জ্বালানি ট্রিম</value>
+  </data>
+  <data name="PIDS_LONGFT13_DESCR" xml:space="preserve">
+    <value>ব্যাংক ১/৩ এর জন্য দীর্ঘমেয়াদী জ্বালানি ট্রিম</value>
+  </data>
+  <data name="PIDS_SHRTFT13_DESCR" xml:space="preserve">
+    <value>ব্যাংক ১/৩ এর জন্য স্বল্পমেয়াদী জ্বালানি ট্রিম</value>
+  </data>
+  <data name="PIDS_SHRTFT24_DESCR" xml:space="preserve">
+    <value>ব্যাংক 2/4 এর জন্য স্বল্পমেয়াদী জ্বালানি ট্রিম</value>
+  </data>
+  <data name="PIDS_FRP_G_DESCR" xml:space="preserve">
+    <value>জ্বালানী রেল চাপ</value>
+  </data>
+  <data name="PIDS_VSS_DESCR" xml:space="preserve">
+    <value>যানবাহনের গতি সেন্সর</value>
+  </data>
+  <data name="PIDS_ECT_DESCR" xml:space="preserve">
+    <value>ইঞ্জিন কুল্যান্ট তাপমাত্রা</value>
+  </data>
+  <data name="PIDS_LOAD_PCT_DESCR" xml:space="preserve">
+    <value>ইঞ্জিন লোড</value>
+  </data>
+  <data name="PIDS_FUELSYS_DESCR" xml:space="preserve">
+    <value>জ্বালানী সিস্টেমের অবস্থা</value>
+  </data>
+  <data name="PIDS_O2S11_DESCR" xml:space="preserve">
+    <value>O2 সেন্সর ১ ব্যাংক ১</value>
+  </data>
+  <data name="PIDS_O2S12_DESCR" xml:space="preserve">
+    <value>O2 সেন্সর 2 ব্যাংক 1</value>
+  </data>
+  <data name="PIDS_O2S13_DESCR" xml:space="preserve">
+    <value>O2 সেন্সর 3 ব্যাংক 1</value>
+  </data>
+  <data name="PIDS_O2S14_DESCR" xml:space="preserve">
+    <value>O2 সেন্সর 4 ব্যাংক 1</value>
+  </data>
+  <data name="PIDS_O2S21_DESCR" xml:space="preserve">
+    <value>O2 সেন্সর 1 ব্যাংক 2</value>
+  </data>
+  <data name="PIDS_O2S22_DESCR" xml:space="preserve">
+    <value>O2 সেন্সর 2 ব্যাংক 2</value>
+  </data>
+  <data name="PIDS_O2S23_DESCR" xml:space="preserve">
+    <value>O2 সেন্সর 3 ব্যাংক 2</value>
+  </data>
+  <data name="PIDS_O2S24_DESCR" xml:space="preserve">
+    <value>O2 সেন্সর 4 ব্যাংক 2</value>
+  </data>
+  <data name="PIDS_RUNTM_DESCR" xml:space="preserve">
+    <value>টাইম সায়েন্স ইঞ্জিন স্টার্ট</value>
+  </data>
+  <data name="PIDS_MIL_DIST_DESCR" xml:space="preserve">
+    <value>ত্রুটি আলো সঙ্গে দূরত্ব</value>
+  </data>
+  <data name="PIDS_FRP_MV_DESCR" xml:space="preserve">
+    <value>বহুগুণ ভ্যাকুয়ামের সাপেক্ষে জ্বালানি রেলের চাপ</value>
+  </data>
+  <data name="PIDS_FRP_DESCR" xml:space="preserve">
+    <value>বায়ু তাপমাত্রা গ্রহণ</value>
+  </data>
+  <data name="PIDS_EGR_CMD_PCT_DESCR" xml:space="preserve">
+    <value>নির্দেশিত EGR</value>
+  </data>
+  <data name="PIDS_EGR_ERR_PCT_DESCR" xml:space="preserve">
+    <value>EGR ত্রুটি</value>
+  </data>
+  <data name="PIDS_FLI_DESCR" xml:space="preserve">
+    <value>জ্বালানী স্তর</value>
+  </data>
+  <data name="PIDS_WARM_UPS_DESCR" xml:space="preserve">
+    <value>ওয়ার্ম আপস বিজ্ঞানের ত্রুটিগুলি পরিষ্কার করা হয়েছে</value>
+  </data>
+  <data name="PIDS_CLR_DIST_DESCR" xml:space="preserve">
+    <value>दूरस्थ विज्ञान की त्रुटियाँ दूर की गईं</value>
+  </data>
+  <data name="MSG_EMISSION_DTCS" xml:space="preserve">
+    <value>उत्सर्जन त्रुटियाँ</value>
+  </data>
+  <data name="PIDS_EVAP_VP_DESCR" xml:space="preserve">
+    <value>Evap চাপ</value>
+  </data>
+  <data name="PIDS_BARO_DESCR" xml:space="preserve">
+    <value>ব্যারোমেট্রিক চাপ</value>
+  </data>
+  <data name="PIDS_CATEMP11_DESCR" xml:space="preserve">
+    <value>ক্যাটালিস্ট টেম্পারেচার ব্যাংক ১ সেন্স ১</value>
+  </data>
+  <data name="PIDS_CATEMP21_DESCR" xml:space="preserve">
+    <value>ক্যাটালিস্ট টেম্পারেচার ব্যাংক 2 সেন্সর 1</value>
+  </data>
+  <data name="PIDS_CATEMP12_DESCR" xml:space="preserve">
+    <value>ক্যাটালিস্ট টেম্পারেচার ব্যাংক ১ সেন্স ২</value>
+  </data>
+  <data name="PIDS_CATEMP22_DESCR" xml:space="preserve">
+    <value>ক্যাটালিস্ট টেম্পারেচার ব্যাংক 2 সেন্স 2</value>
+  </data>
+  <data name="PIDS_VPWR_DESCR" xml:space="preserve">
+    <value>ভোল্ট</value>
+  </data>
+  <data name="PIDS_LAMBDA_DESCR" xml:space="preserve">
+    <value>आदेशित वायु/ईंधन अनुपात</value>
+  </data>
+  <data name="PIDS_AAT_DESCR" xml:space="preserve">
+    <value>পরিবেষ্টিত বায়ু তাপমাত্রা</value>
+  </data>
+  <data name="PIDS_TP_R_DESCR" xml:space="preserve">
+    <value>গলার আপেক্ষিক অবস্থান</value>
+  </data>
+  <data name="PIDS_VPWR_CMD_DESCR" xml:space="preserve">
+    <value>নির্দেশিত থ্রোটল অবস্থান</value>
+  </data>
+  <data name="PIDS_LOAD_ABS_DESCR" xml:space="preserve">
+    <value>পরম লোড</value>
+  </data>
+  <data name="PIDS_EVAP_PCT_DESCR" xml:space="preserve">
+    <value>EVAP Purge-এর নির্দেশ</value>
+  </data>
+  <data name="PIDS_FUEL_SYSTEM1_STATUS" xml:space="preserve">
+    <value>জ্বালানি সিস্টেম ১ স্ট্যাটাস</value>
+  </data>
+  <data name="PIDS_FUEL_SYSTEM2_STATUS" xml:space="preserve">
+    <value>জ্বালানি সিস্টেম 2 অবস্থা</value>
+  </data>
+  <data name="MSG_LANGUAGE_CHANGE_POPUP_TITLE" xml:space="preserve">
+    <value>ভাষা পরিবর্তন করুন</value>
+  </data>
+  <data name="MSG_LANGUAGE_CHANGE_POPUP_TEXT" xml:space="preserve">
+    <value>সমস্ত পরিবর্তন কার্যকর হওয়ার জন্য অ্যাপটি পুনরায় চালু করুন</value>
+  </data>
+  <data name="MSG_FAULT" xml:space="preserve">
+    <value>দোষ</value>
+  </data>
+  <data name="MSG_COMPLETE" xml:space="preserve">
+    <value>সম্পূর্ণ</value>
+  </data>
+  <data name="MSG_NOT_READY" xml:space="preserve">
+    <value>প্রস্তুত নয়</value>
+  </data>
+  <data name="MSG_MIL_ON" xml:space="preserve">
+    <value>ত্রুটি লাইট অন</value>
+  </data>
+  <data name="MSG_LIVE_DATA" xml:space="preserve">
+    <value>রিয়েল টাইম ডেটা</value>
   </data>
 </root>

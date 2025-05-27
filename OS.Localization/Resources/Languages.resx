@@ -331,9 +331,6 @@
   <data name="MSG_RESET_COMMAND_SENT" xml:space="preserve">
     <value>Reset DTC command sent</value>
   </data>
-  <data name="MSG_COMPILING" xml:space="preserve">
-    <value>Compiling...</value>
-  </data>
   <data name="MSG_CONTACT_MIKE" xml:space="preserve">
     <value>Contact MikeOtterbine@Gmail.com</value>
   </data>
@@ -411,5 +408,170 @@
   </data>
   <data name="PIDS_RPM_DESCR" xml:space="preserve">
     <value>Engine RPM</value>
+  </data>
+  <data name="MSG_AUTO" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="PIDS_MAF_DESCR" xml:space="preserve">
+    <value>Mass Air Flow</value>
+  </data>
+  <data name="PIDS_MAP_DESCR" xml:space="preserve">
+    <value>Intake Manifold Air Pressure</value>
+  </data>
+  <data name="PIDS_IAT_DESCR" xml:space="preserve">
+    <value>Air Intake Temperature</value>
+  </data>
+  <data name="PIDS_THROTTLE_POS_DESCR" xml:space="preserve">
+    <value>Throttle Position</value>
+  </data>
+  <data name="PIDS_SPARKADV_DESCR" xml:space="preserve">
+    <value>Spark Advance (non-mechanical)</value>
+  </data>
+  <data name="PIDS_LONGFT24_DESCR" xml:space="preserve">
+    <value>Long-term fuel trim for bank 2/4</value>
+  </data>
+  <data name="PIDS_LONGFT13_DESCR" xml:space="preserve">
+    <value>Long-term fuel trim for bank 1/3</value>
+  </data>
+  <data name="PIDS_SHRTFT13_DESCR" xml:space="preserve">
+    <value>Short-term fuel trim for bank 1/3</value>
+  </data>
+  <data name="PIDS_SHRTFT24_DESCR" xml:space="preserve">
+    <value>Short-term fuel trim for bank 2/4</value>
+  </data>
+  <data name="PIDS_FRP_G_DESCR" xml:space="preserve">
+    <value>Fuel Rail Pressure (gauge)</value>
+  </data>
+  <data name="PIDS_VSS_DESCR" xml:space="preserve">
+    <value>Vehicle Speed Sensor</value>
+  </data>
+  <data name="PIDS_ECT_DESCR" xml:space="preserve">
+    <value>Engine Coolant Temperature</value>
+  </data>
+  <data name="PIDS_LOAD_PCT_DESCR" xml:space="preserve">
+    <value>Engine Load (calculated)</value>
+  </data>
+  <data name="PIDS_FUELSYS_DESCR" xml:space="preserve">
+    <value>Fuel System Status</value>
+  </data>
+  <data name="PIDS_O2S11_DESCR" xml:space="preserve">
+    <value>O2 Sensor 1 Bank 1</value>
+  </data>
+  <data name="PIDS_O2S12_DESCR" xml:space="preserve">
+    <value>O2 Sensor 2 Bank 1</value>
+  </data>
+  <data name="PIDS_O2S13_DESCR" xml:space="preserve">
+    <value>O2 Sensor 3 Bank 1</value>
+  </data>
+  <data name="PIDS_O2S14_DESCR" xml:space="preserve">
+    <value>O2 Sensor 4 Bank 1</value>
+  </data>
+  <data name="PIDS_O2S21_DESCR" xml:space="preserve">
+    <value>O2 Sensor 1 Bank 2</value>
+  </data>
+  <data name="PIDS_O2S22_DESCR" xml:space="preserve">
+    <value>O2 Sensor 2 Bank 2</value>
+  </data>
+  <data name="PIDS_O2S23_DESCR" xml:space="preserve">
+    <value>O2 Sensor 3 Bank 2</value>
+  </data>
+  <data name="PIDS_O2S24_DESCR" xml:space="preserve">
+    <value>O2 Sensor 4 Bank 2</value>
+  </data>
+  <data name="PIDS_RUNTM_DESCR" xml:space="preserve">
+    <value>Time since engine start</value>
+  </data>
+  <data name="PIDS_MIL_DIST_DESCR" xml:space="preserve">
+    <value>Distance with MIL on</value>
+  </data>
+  <data name="PIDS_FRP_MV_DESCR" xml:space="preserve">
+    <value>Fuel Rail Pressure Relative to Manifold Vacuum</value>
+  </data>
+  <data name="PIDS_FRP_DESCR" xml:space="preserve">
+    <value>Fuel Rail Pressure</value>
+  </data>
+  <data name="PIDS_EGR_CMD_PCT_DESCR" xml:space="preserve">
+    <value>Commanded EGR</value>
+  </data>
+  <data name="PIDS_EGR_ERR_PCT_DESCR" xml:space="preserve">
+    <value>EGR Error</value>
+  </data>
+  <data name="PIDS_FLI_DESCR" xml:space="preserve">
+    <value>Fuel Level</value>
+  </data>
+  <data name="PIDS_WARM_UPS_DESCR" xml:space="preserve">
+    <value>Warm ups since DTCs cleared</value>
+  </data>
+  <data name="PIDS_CLR_DIST_DESCR" xml:space="preserve">
+    <value>Distance since DTCs cleared</value>
+  </data>
+  <data name="MSG_EMISSION_DTCS" xml:space="preserve">
+    <value>Emission DTCs</value>
+  </data>
+  <data name="PIDS_EVAP_VP_DESCR" xml:space="preserve">
+    <value>EVAP Pressure</value>
+  </data>
+  <data name="PIDS_BARO_DESCR" xml:space="preserve">
+    <value>Barometric Pressure</value>
+  </data>
+  <data name="PIDS_CATEMP11_DESCR" xml:space="preserve">
+    <value>Cat Temp Bank 1 Sensor 1</value>
+  </data>
+  <data name="PIDS_CATEMP21_DESCR" xml:space="preserve">
+    <value>Cat Temp Bank 2 Sensor 1</value>
+  </data>
+  <data name="PIDS_CATEMP12_DESCR" xml:space="preserve">
+    <value>Cat Temp Bank 1 Sensor 2</value>
+  </data>
+  <data name="PIDS_CATEMP22_DESCR" xml:space="preserve">
+    <value>Cat Temp Bank 2 Sensor 2</value>
+  </data>
+  <data name="PIDS_VPWR_DESCR" xml:space="preserve">
+    <value>System Volts</value>
+  </data>
+  <data name="PIDS_LAMBDA_DESCR" xml:space="preserve">
+    <value>Fuel/Air Commanded Equiv. Ratio</value>
+  </data>
+  <data name="PIDS_AAT_DESCR" xml:space="preserve">
+    <value>Ambient Air Temperature</value>
+  </data>
+  <data name="PIDS_TP_R_DESCR" xml:space="preserve">
+    <value>Relative Throttle Position</value>
+  </data>
+  <data name="PIDS_VPWR_CMD_DESCR" xml:space="preserve">
+    <value>Commanded Throttle Actuator Position</value>
+  </data>
+  <data name="PIDS_LOAD_ABS_DESCR" xml:space="preserve">
+    <value>Absolute Load</value>
+  </data>
+  <data name="PIDS_EVAP_PCT_DESCR" xml:space="preserve">
+    <value>Commanded EVAP Purge</value>
+  </data>
+  <data name="PIDS_FUEL_SYSTEM1_STATUS" xml:space="preserve">
+    <value>Fuel System 1 Status</value>
+  </data>
+  <data name="PIDS_FUEL_SYSTEM2_STATUS" xml:space="preserve">
+    <value>Fuel System 2 Status</value>
+  </data>
+  <data name="MSG_LANGUAGE_CHANGE_POPUP_TITLE" xml:space="preserve">
+    <value>Change Language</value>
+  </data>
+  <data name="MSG_LANGUAGE_CHANGE_POPUP_TEXT" xml:space="preserve">
+    <value>Restart App For All Changes To Take Effect</value>
+  </data>
+  <data name="MSG_FAULT" xml:space="preserve">
+    <value>Fault</value>
+  </data>
+  <data name="MSG_COMPLETE" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="MSG_NOT_READY" xml:space="preserve">
+    <value>Not Ready</value>
+  </data>
+  <data name="MSG_MIL_ON" xml:space="preserve">
+    <value>DTC Light On</value>
+  </data>
+  <data name="MSG_LIVE_DATA" xml:space="preserve">
+    <value>Live Data</value>
   </data>
 </root>

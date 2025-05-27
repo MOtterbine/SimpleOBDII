@@ -385,6 +385,15 @@ namespace OS.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto.
+        /// </summary>
+        internal static string MSG_AUTO {
+            get {
+                return ResourceManager.GetString("MSG_AUTO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bluetooth device not open.
         /// </summary>
         internal static string MSG_BLUETOOTH_DEVICE_NOT_OPEN {
@@ -421,11 +430,11 @@ namespace OS.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compiling....
+        ///   Looks up a localized string similar to Complete.
         /// </summary>
-        internal static string MSG_COMPILING {
+        internal static string MSG_COMPLETE {
             get {
-                return ResourceManager.GetString("MSG_COMPILING", resourceCulture);
+                return ResourceManager.GetString("MSG_COMPLETE", resourceCulture);
             }
         }
         
@@ -502,6 +511,15 @@ namespace OS.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emission DTCs.
+        /// </summary>
+        internal static string MSG_EMISSION_DTCS {
+            get {
+                return ResourceManager.GetString("MSG_EMISSION_DTCS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to *** ERROR ***.
         /// </summary>
         internal static string MSG_ERROR {
@@ -529,6 +547,15 @@ namespace OS.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fault.
+        /// </summary>
+        internal static string MSG_FAULT {
+            get {
+                return ResourceManager.GetString("MSG_FAULT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install Code.
         /// </summary>
         internal static string MSG_INSTALL_CODE {
@@ -543,6 +570,42 @@ namespace OS.Localization.Resources {
         internal static string MSG_INVALID_USB {
             get {
                 return ResourceManager.GetString("MSG_INVALID_USB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart App For All Changes To Take Effect.
+        /// </summary>
+        internal static string MSG_LANGUAGE_CHANGE_POPUP_TEXT {
+            get {
+                return ResourceManager.GetString("MSG_LANGUAGE_CHANGE_POPUP_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Language.
+        /// </summary>
+        internal static string MSG_LANGUAGE_CHANGE_POPUP_TITLE {
+            get {
+                return ResourceManager.GetString("MSG_LANGUAGE_CHANGE_POPUP_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Live Data.
+        /// </summary>
+        internal static string MSG_LIVE_DATA {
+            get {
+                return ResourceManager.GetString("MSG_LIVE_DATA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DTC Light On.
+        /// </summary>
+        internal static string MSG_MIL_ON {
+            get {
+                return ResourceManager.GetString("MSG_MIL_ON", resourceCulture);
             }
         }
         
@@ -588,6 +651,15 @@ namespace OS.Localization.Resources {
         internal static string MSG_NO_RESPONSE_VEHICLE {
             get {
                 return ResourceManager.GetString("MSG_NO_RESPONSE_VEHICLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Ready.
+        /// </summary>
+        internal static string MSG_NOT_READY {
+            get {
+                return ResourceManager.GetString("MSG_NOT_READY", resourceCulture);
             }
         }
         
@@ -700,11 +772,425 @@ namespace OS.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ambient Air Temperature.
+        /// </summary>
+        internal static string PIDS_AAT_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_AAT_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barometric Pressure.
+        /// </summary>
+        internal static string PIDS_BARO_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_BARO_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cat Temp Bank 1 Sensor 1.
+        /// </summary>
+        internal static string PIDS_CATEMP11_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_CATEMP11_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cat Temp Bank 1 Sensor 2.
+        /// </summary>
+        internal static string PIDS_CATEMP12_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_CATEMP12_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cat Temp Bank 2 Sensor 1.
+        /// </summary>
+        internal static string PIDS_CATEMP21_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_CATEMP21_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cat Temp Bank 2 Sensor 2.
+        /// </summary>
+        internal static string PIDS_CATEMP22_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_CATEMP22_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance since DTCs cleared.
+        /// </summary>
+        internal static string PIDS_CLR_DIST_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_CLR_DIST_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Engine Coolant Temperature.
+        /// </summary>
+        internal static string PIDS_ECT_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_ECT_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commanded EGR.
+        /// </summary>
+        internal static string PIDS_EGR_CMD_PCT_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_EGR_CMD_PCT_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EGR Error.
+        /// </summary>
+        internal static string PIDS_EGR_ERR_PCT_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_EGR_ERR_PCT_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commanded EVAP Purge.
+        /// </summary>
+        internal static string PIDS_EVAP_PCT_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_EVAP_PCT_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EVAP Pressure.
+        /// </summary>
+        internal static string PIDS_EVAP_VP_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_EVAP_VP_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuel Level.
+        /// </summary>
+        internal static string PIDS_FLI_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_FLI_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuel Rail Pressure.
+        /// </summary>
+        internal static string PIDS_FRP_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_FRP_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuel Rail Pressure (gauge).
+        /// </summary>
+        internal static string PIDS_FRP_G_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_FRP_G_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuel Rail Pressure Relative to Manifold Vacuum.
+        /// </summary>
+        internal static string PIDS_FRP_MV_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_FRP_MV_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuel System 1 Status.
+        /// </summary>
+        internal static string PIDS_FUEL_SYSTEM1_STATUS {
+            get {
+                return ResourceManager.GetString("PIDS_FUEL_SYSTEM1_STATUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuel System 2 Status.
+        /// </summary>
+        internal static string PIDS_FUEL_SYSTEM2_STATUS {
+            get {
+                return ResourceManager.GetString("PIDS_FUEL_SYSTEM2_STATUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuel System Status.
+        /// </summary>
+        internal static string PIDS_FUELSYS_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_FUELSYS_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Air Intake Temperature.
+        /// </summary>
+        internal static string PIDS_IAT_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_IAT_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuel/Air Commanded Equiv. Ratio.
+        /// </summary>
+        internal static string PIDS_LAMBDA_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_LAMBDA_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Absolute Load.
+        /// </summary>
+        internal static string PIDS_LOAD_ABS_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_LOAD_ABS_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Engine Load (calculated).
+        /// </summary>
+        internal static string PIDS_LOAD_PCT_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_LOAD_PCT_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long-term fuel trim for bank 1/3.
+        /// </summary>
+        internal static string PIDS_LONGFT13_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_LONGFT13_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long-term fuel trim for bank 2/4.
+        /// </summary>
+        internal static string PIDS_LONGFT24_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_LONGFT24_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mass Air Flow.
+        /// </summary>
+        internal static string PIDS_MAF_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_MAF_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intake Manifold Air Pressure.
+        /// </summary>
+        internal static string PIDS_MAP_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_MAP_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance with MIL on.
+        /// </summary>
+        internal static string PIDS_MIL_DIST_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_MIL_DIST_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O2 Sensor 1 Bank 1.
+        /// </summary>
+        internal static string PIDS_O2S11_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_O2S11_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O2 Sensor 2 Bank 1.
+        /// </summary>
+        internal static string PIDS_O2S12_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_O2S12_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O2 Sensor 3 Bank 1.
+        /// </summary>
+        internal static string PIDS_O2S13_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_O2S13_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O2 Sensor 4 Bank 1.
+        /// </summary>
+        internal static string PIDS_O2S14_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_O2S14_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O2 Sensor 1 Bank 2.
+        /// </summary>
+        internal static string PIDS_O2S21_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_O2S21_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O2 Sensor 2 Bank 2.
+        /// </summary>
+        internal static string PIDS_O2S22_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_O2S22_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O2 Sensor 3 Bank 2.
+        /// </summary>
+        internal static string PIDS_O2S23_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_O2S23_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O2 Sensor 4 Bank 2.
+        /// </summary>
+        internal static string PIDS_O2S24_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_O2S24_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Engine RPM.
         /// </summary>
         internal static string PIDS_RPM_DESCR {
             get {
                 return ResourceManager.GetString("PIDS_RPM_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time since engine start.
+        /// </summary>
+        internal static string PIDS_RUNTM_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_RUNTM_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short-term fuel trim for bank 1/3.
+        /// </summary>
+        internal static string PIDS_SHRTFT13_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_SHRTFT13_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short-term fuel trim for bank 2/4.
+        /// </summary>
+        internal static string PIDS_SHRTFT24_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_SHRTFT24_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spark Advance (non-mechanical).
+        /// </summary>
+        internal static string PIDS_SPARKADV_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_SPARKADV_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Throttle Position.
+        /// </summary>
+        internal static string PIDS_THROTTLE_POS_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_THROTTLE_POS_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relative Throttle Position.
+        /// </summary>
+        internal static string PIDS_TP_R_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_TP_R_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commanded Throttle Actuator Position.
+        /// </summary>
+        internal static string PIDS_VPWR_CMD_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_VPWR_CMD_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Volts.
+        /// </summary>
+        internal static string PIDS_VPWR_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_VPWR_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle Speed Sensor.
+        /// </summary>
+        internal static string PIDS_VSS_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_VSS_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warm ups since DTCs cleared.
+        /// </summary>
+        internal static string PIDS_WARM_UPS_DESCR {
+            get {
+                return ResourceManager.GetString("PIDS_WARM_UPS_DESCR", resourceCulture);
             }
         }
         
