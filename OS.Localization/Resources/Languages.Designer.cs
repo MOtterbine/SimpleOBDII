@@ -1303,6 +1303,15 @@ namespace OS.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Recording.
+        /// </summary>
+        internal static string START_RECORDING {
+            get {
+                return ResourceManager.GetString("START_RECORDING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop.
         /// </summary>
         internal static string STOP {

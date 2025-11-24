@@ -66,7 +66,7 @@ public class SettingsViewModel : BaseViewModel_AdSupport, IViewModel
             {
 
             }
-            _appShellModel.SelectedCommMethod = value.Item2; // Name
+            _appShellModel.SelectedCommMethod = value.Item2; // index
             OnPropertyChanged("IsBluetooth");
             OnPropertyChanged("PresetBluetoothDevice");
             OnPropertyChanged("EditButtonRow");

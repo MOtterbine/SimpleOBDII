@@ -574,4 +574,7 @@
   <data name="MSG_LIVE_DATA" xml:space="preserve">
     <value>वास्तविक समय डेटा</value>
   </data>
+  <data name="START_RECORDING" xml:space="preserve">
+    <value>रिकॉर्डिंग शुरू करें</value>
+  </data>
 </root>

@@ -574,4 +574,7 @@
   <data name="MSG_LIVE_DATA" xml:space="preserve">
     <value>Live Data</value>
   </data>
+  <data name="START_RECORDING" xml:space="preserve">
+    <value>Start Recording</value>
+  </data>
 </root>

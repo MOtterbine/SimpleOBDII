@@ -118,463 +118,463 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SELECT_MODEL" xml:space="preserve">
-    <value>মডেল নির্বাচন করুন</value>
+    <value>Seleccionar modo</value>
   </data>
   <data name="MAIN_FEATURES" xml:space="preserve">
-    <value>প্রধান বৈশিষ্ট্য</value>
+    <value>Principales Características</value>
   </data>
   <data name="MODEL" xml:space="preserve">
-    <value>মডেল</value>
+    <value>Modelo</value>
   </data>
   <data name="INFORMATION" xml:space="preserve">
-    <value>তথ্য</value>
+    <value>Información</value>
   </data>
   <data name="DTCs" xml:space="preserve">
-    <value>ত্রুটি</value>
+    <value>DTCs</value>
   </data>
   <data name="ADVANCED_DATA" xml:space="preserve">
-    <value>উন্নত উপাত্ত</value>
+    <value>Datos avanzados</value>
   </data>
   <data name="SELECT_MODEL_DESCRIPTION" xml:space="preserve">
-    <value>গাড়ির ধরন নির্বাচন করুন</value>
+    <value>Seleccione el modelo y el fabricante</value>
   </data>
   <data name="INFORMATION_DESCRIPTION" xml:space="preserve">
-    <value>সিস্টেমের অবস্থা প্রদর্শন করুন</value>
+    <value>Ver el estado general reportado desde el sistema</value>
   </data>
   <data name="ADVANCED_DATA_DESCRIPTION" xml:space="preserve">
-    <value>রিয়েল টাইম ডেটা</value>
+    <value>Ver parámetros en tiempo real con valores</value>
   </data>
   <data name="DONE" xml:space="preserve">
-    <value>করা হয়েছে</value>
+    <value>Hecho</value>
   </data>
   <data name="MANUFACTURERS" xml:space="preserve">
-    <value>নির্মাতা</value>
+    <value>Fabricantes</value>
   </data>
   <data name="REFRESH" xml:space="preserve">
-    <value>পুনরায় লোড করুন</value>
+    <value>Recargar</value>
   </data>
   <data name="READ" xml:space="preserve">
-    <value>রিড</value>
+    <value>Leer</value>
   </data>
   <data name="CLEAR" xml:space="preserve">
-    <value>অবলোপ</value>
+    <value>Claro</value>
   </data>
   <data name="TROUBLE_CODES" xml:space="preserve">
-    <value>ত্রুটি কোড</value>
+    <value>Códigos de problemas</value>
   </data>
   <data name="VEHICLE_STATUS" xml:space="preserve">
-    <value>গাড়ির অবস্থা</value>
+    <value>Estado del vehículo</value>
   </data>
   <data name="START" xml:space="preserve">
-    <value>শুরু করুন</value>
+    <value>Empezar</value>
   </data>
   <data name="STOP" xml:space="preserve">
-    <value>থামান</value>
+    <value>Parar</value>
   </data>
   <data name="PAUSE" xml:space="preserve">
-    <value>বিরাম</value>
+    <value>Pausa</value>
   </data>
   <data name="EDIT" xml:space="preserve">
-    <value>সম্পাদনা</value>
+    <value>Editar</value>
   </data>
   <data name="BACK" xml:space="preserve">
-    <value>ফিরে</value>
+    <value>Atrás</value>
   </data>
   <data name="BLUETOOTH_USB" xml:space="preserve">
-    <value>ব্লুটুথ/ইউএসবি</value>
+    <value>Bluetooth/USB</value>
   </data>
   <data name="WIFI" xml:space="preserve">
-    <value>ওয়াইফাই</value>
+    <value>WiFi</value>
   </data>
   <data name="MSG_NO_RESPONSE_VEHICLE" xml:space="preserve">
-    <value>কোন সাড়া নেই</value>
+    <value>No hay respuesta del vehículo</value>
   </data>
   <data name="STRING_NO_CODES_FOUND" xml:space="preserve">
-    <value>কোন ত্রুটি নেই</value>
+    <value>No se han encontrado códigos</value>
   </data>
   <data name="STRING_NOT_SET" xml:space="preserve">
-    <value>&lt;সেট করা হয়নি&gt;</value>
+    <value>&lt;No establecido&gt;</value>
   </data>
   <data name="STRING_SEARCHING" xml:space="preserve">
-    <value>সন্ধানের...</value>
+    <value>Minucioso...</value>
   </data>
   <data name="STRING_ESTABLISHING_LINK" xml:space="preserve">
-    <value>শুরু করার প্রক্রিয়া</value>
+    <value>Establecimiento de LInk</value>
   </data>
   <data name="MSG_SUCCESS" xml:space="preserve">
-    <value>সাফল্য</value>
+    <value>Éxito</value>
   </data>
   <data name="MSG_ERROR" xml:space="preserve">
-    <value>*** ত্রুটি ***</value>
+    <value>*** ERROR ***</value>
   </data>
   <data name="STRING_NO_DATA" xml:space="preserve">
-    <value>*** কোন তথ্য নেই ***</value>
+    <value>*** Sin datos ***</value>
   </data>
   <data name="STRING_INITIALIZING" xml:space="preserve">
-    <value>প্রস্তুত</value>
+    <value>Inicializar</value>
   </data>
   <data name="MSG_SINCE_DTCS_CLEARED" xml:space="preserve">
-    <value>রিসেট হওয়ার পর থেকে</value>
-    <comment>time since dtc cleared</comment>
+    <value>Since DTCs Cleared</value>
+    <comment>Dado que los DTC se eliminaron</comment>
   </data>
   <data name="MSG_NO_RESPONSE_SYSTEM" xml:space="preserve">
-    <value>কোন সাড়া নেই</value>
+    <value>No hay respuesta del sistema</value>
   </data>
   <data name="STRING_ALL_TESTS_COMPLETE" xml:space="preserve">
-    <value>*** সমস্ত পরীক্ষা সম্পন্ন ***</value>
+    <value>*** Todas las pruebas completadas ***</value>
   </data>
   <data name="COMMUNICATION_DEVICE_NOT_SETUP" xml:space="preserve">
-    <value>*** ডিভাইস সেট করা নেই ***</value>
+    <value>*** Dispositivo no configurado ***</value>
   </data>
   <data name="MSG_SENDING" xml:space="preserve">
-    <value>প্রেরণ...</value>
+    <value>Envío...</value>
   </data>
   <data name="MSG_OK" xml:space="preserve">
-    <value>ঠিক আছে</value>
+    <value>Ok</value>
   </data>
   <data name="SETTINGS" xml:space="preserve">
-    <value>সেটিংস</value>
+    <value>Configuración</value>
   </data>
   <data name="DTCs_DESCRIPTION" xml:space="preserve">
-    <value>কোডগুলি পড়ুন এবং সাফ করুন</value>
+    <value>Leer y borrar códigos de error</value>
   </data>
   <data name="CONNECTING_TO" xml:space="preserve">
-    <value>এর সাথে সংযোগ স্থাপন করা হচ্ছে</value>
+    <value>Conectando a</value>
   </data>
   <data name="HEADER" xml:space="preserve">
-    <value>শিরোলেখ</value>
+    <value>Encabezado</value>
   </data>
   <data name="PROTOCOL" xml:space="preserve">
-    <value>প্রোটোকল</value>
+    <value>Protocolo</value>
   </data>
   <data name="DEVICE_TYPE" xml:space="preserve">
-    <value>ডিভাইসের ধরন</value>
+    <value>Tipo de dispositivo</value>
   </data>
   <data name="DEVICE" xml:space="preserve">
-    <value>ডিভাইস</value>
+    <value>Dispositivo</value>
   </data>
   <data name="PLOT_HEIGHT" xml:space="preserve">
-    <value>প্লটের উচ্চতা</value>
+    <value>Altura de la parcela</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>ভাষা</value>
+    <value>Idioma</value>
   </data>
   <data name="METRIC_UNITS" xml:space="preserve">
-    <value>মেট্রিক ইউনিট</value>
+    <value>Unidades métricas</value>
   </data>
   <data name="SERIAL_BAUD_RATE" xml:space="preserve">
-    <value>সিরিয়াল বউড রেট</value>
+    <value>Serial Baud Rate</value>
   </data>
   <data name="IP_PORT" xml:space="preserve">
-    <value>আইপি পোর্ট</value>
+    <value>IP Port</value>
   </data>
   <data name="IP_ADDRESS" xml:space="preserve">
-    <value>আইপি ঠিকানা</value>
+    <value>IP Address</value>
   </data>
   <data name="BLUETOOH_DEVICE" xml:space="preserve">
-    <value>ব্লুটুথ ডিভাইস</value>
+    <value>Dispositivo Bluetooth</value>
   </data>
   <data name="UNITS_MEAS" xml:space="preserve">
-    <value>পরিমাপ প্রকার</value>
+    <value>Unidades</value>
   </data>
   <data name="INITIALIZING" xml:space="preserve">
-    <value>শুরু করা হচ্ছে</value>
+    <value>Inicializar</value>
   </data>
   <data name="CONTACTING_VEHICLE" xml:space="preserve">
-    <value>যানবাহন যোগাযোগ</value>
+    <value>Contacto con el vehículo</value>
   </data>
   <data name="READING_DTCS" xml:space="preserve">
-    <value>পড়ার ত্রুটি</value>
+    <value>Lectura de DTC</value>
   </data>
   <data name="READING_PIDS" xml:space="preserve">
-    <value>পড়া মান</value>
+    <value>Lectura de PID</value>
   </data>
   <data name="EXIT_PROMPT1" xml:space="preserve">
-    <value>তোমার হার্ডওয়্যার ভুলো না</value>
+    <value>Don't forget to recover your hardware from the vehicle</value>
   </data>
   <data name="EXIT_PROMPT2" xml:space="preserve">
-    <value>প্রস্থান করবেন?</value>
+    <value>Continue to Exit?</value>
   </data>
   <data name="READING_STATUS" xml:space="preserve">
-    <value>পড়ার অবস্থা</value>
+    <value>Reading Status...</value>
   </data>
   <data name="CLEAR_DTCS_TITLE" xml:space="preserve">
-    <value>পরিষ্কার ত্রুটি</value>
+    <value>Clear Diagnostic Trouble Codes</value>
   </data>
   <data name="CLEAR_DTCS_PROMPT" xml:space="preserve">
-    <value>ত্রুটিগুলি পরিষ্কার করার বিষয়টি নিশ্চিত করবেন?</value>
+    <value>Clear DTCs and freeze frame data?</value>
   </data>
   <data name="MSG_CANCEL" xml:space="preserve">
-    <value>বাতিল করুন</value>
+    <value>Cancel</value>
   </data>
   <data name="MSG_READY" xml:space="preserve">
-    <value>প্রস্তুত</value>
+    <value>Ready</value>
   </data>
   <data name="MSG_NO_DATA" xml:space="preserve">
-    <value>***কোন ডেটা নেই ***</value>
+    <value>*** No Data ***</value>
   </data>
   <data name="MSG_NO_DATA_REPORTED" xml:space="preserve">
-    <value>কোন ডেটা রিপোর্ট করা হয়নি</value>
+    <value>No Data Reported</value>
   </data>
   <data name="OBDII_PIDS" xml:space="preserve">
-    <value>লাইভ ডাটা</value>
+    <value>OBDII PIDS</value>
   </data>
   <data name="MSG_EXIT_APPLICATION" xml:space="preserve">
-    <value>প্রস্থান আবেদন</value>
+    <value>Exit Application</value>
   </data>
   <data name="MSG_EXIT" xml:space="preserve">
-    <value>প্রস্থান করুন</value>
+    <value>Exit</value>
   </data>
   <data name="MSG_OPERATION_CANCELLED" xml:space="preserve">
-    <value>কার্যকলাপ বাতিল করা হয়েছে৷</value>
+    <value>Operation Cancelled</value>
   </data>
   <data name="MSG_RESET_COMMAND_SENT" xml:space="preserve">
-    <value>রিসেট কমান্ড পাঠানো হয়েছে</value>
+    <value>Reset DTC command sent</value>
   </data>
   <data name="MSG_CONTACT_MIKE" xml:space="preserve">
-    <value>MikeOtterbine@gmail.com-এ যোগাযোগ করুন</value>
+    <value>Contact MikeOtterbine@Gmail.com</value>
   </data>
   <data name="MSG_CONTACT_MIKE1" xml:space="preserve">
-    <value>কোড পেতে</value>
+    <value>For Install Code</value>
   </data>
   <data name="MSG_INSTALL_CODE" xml:space="preserve">
-    <value>কোড ইনস্টল করুন</value>
+    <value>Install Code</value>
   </data>
   <data name="MSG_APP_ID" xml:space="preserve">
-    <value>অ্যাপ আইডি</value>
+    <value>App ID</value>
   </data>
   <data name="MSG_APPLY" xml:space="preserve">
-    <value>যাও</value>
+    <value>Apply</value>
   </data>
   <data name="MSG_COPY_ID" xml:space="preserve">
-    <value>আইডি কপি করুন</value>
+    <value>Copy ID</value>
   </data>
   <data name="MSG_DEVICE_NOT_SET" xml:space="preserve">
-    <value>ডিভাইস সেট করা হয়নি</value>
+    <value>*** Device Not Set ***</value>
   </data>
   <data name="METRIC" xml:space="preserve">
-    <value>মেট্রিক</value>
+    <value>Metric</value>
   </data>
   <data name="ENGLISH" xml:space="preserve">
-    <value>ইংরেজি</value>
+    <value>English</value>
   </data>
   <data name="WIFI_TYPE_DESCRIPTOR" xml:space="preserve">
-    <value>ওয়াইফাই</value>
+    <value>Red/WiFi</value>
   </data>
   <data name="MSG_PORTS_LIST_ERROR" xml:space="preserve">
-    <value>পোর্ট তালিকা ত্রুটি</value>
+    <value>Unable To get ports list</value>
   </data>
   <data name="MSG_DEVICE_OPEN_FAILURE" xml:space="preserve">
-    <value>ডিভাইস ব্যর্থতা</value>
+    <value>Device Open Failure</value>
   </data>
   <data name="MSG_DEVICE_ACCESS_FAILURE" xml:space="preserve">
-    <value>ডিভাইস অ্যাক্সেস ব্যর্থতা</value>
+    <value>Unable to access device</value>
   </data>
   <data name="MSG_NO_BLUETOOTH_DEVICE_FOUND" xml:space="preserve">
-    <value>ব্লুটুথ ডিভাইস নেই</value>
+    <value>No Bluetooth device found</value>
   </data>
   <data name="MSG_BLUETOOTH_DISABLED" xml:space="preserve">
-    <value>ব্লুটুথ অক্ষম</value>
+    <value>Bluetooth is disabled on this device</value>
   </data>
   <data name="MSG_BLUETOOTH_DEVICE_NOT_OPEN" xml:space="preserve">
-    <value>ডিভাইস অ্যাক্সেস ব্যর্থতা</value>
+    <value>Bluetooth device not open</value>
   </data>
   <data name="BLUETOOTH" xml:space="preserve">
-    <value>ব্লুটুথ</value>
+    <value>Bluetooth</value>
   </data>
   <data name="MSG_BLUETOOTH_ERROR" xml:space="preserve">
-    <value>ব্লুটুথ ত্রুটি৷</value>
+    <value>Bluetooth error</value>
   </data>
   <data name="MSG_DEVICE_NOT_CONNECTED" xml:space="preserve">
-    <value>ডিভাইস সংযোগ বিচ্ছিন্ন</value>
+    <value>Device not connected</value>
   </data>
   <data name="MSG_CONNECTED" xml:space="preserve">
-    <value>সংযুক্ত</value>
+    <value>Connected</value>
   </data>
   <data name="NO_USB_AVAILABLE" xml:space="preserve">
-    <value>কোন USB উপলব্ধ নেই</value>
+    <value>No USB available</value>
   </data>
   <data name="MSG_PERMISSIONS_REQUIRED" xml:space="preserve">
-    <value>অনুমতি প্রয়োজন</value>
+    <value>Permissions required</value>
   </data>
   <data name="MSG_INVALID_USB" xml:space="preserve">
-    <value>অবৈধ USB</value>
+    <value>Invalid USB</value>
   </data>
   <data name="ERROR" xml:space="preserve">
-    <value>ত্রুটি</value>
+    <value>Error</value>
   </data>
   <data name="USB" xml:space="preserve">
-    <value>ইউএসবি</value>
+    <value>USB</value>
   </data>
   <data name="PIDS_RPM_DESCR" xml:space="preserve">
-    <value>প্রতি সেকেন্ডে ইঞ্জিন সাইকেল</value>
+    <value>Engine RPM</value>
   </data>
   <data name="MSG_AUTO" xml:space="preserve">
-    <value>স্বয়ংক্রিয়</value>
+    <value>Auto</value>
   </data>
   <data name="PIDS_MAF_DESCR" xml:space="preserve">
-    <value>বায়ু প্রবাহ ভর</value>
+    <value>Mass Air Flow</value>
   </data>
   <data name="PIDS_MAP_DESCR" xml:space="preserve">
-    <value>বায়ুচাপ গ্রহণ করুন</value>
+    <value>Intake Manifold Air Pressure</value>
   </data>
   <data name="PIDS_IAT_DESCR" xml:space="preserve">
-    <value>বায়ু তাপমাত্রা গ্রহণ</value>
+    <value>Air Intake Temperature</value>
   </data>
   <data name="PIDS_THROTTLE_POS_DESCR" xml:space="preserve">
-    <value>থ্রটল শতাংশ</value>
+    <value>Throttle Position</value>
   </data>
   <data name="PIDS_SPARKADV_DESCR" xml:space="preserve">
-    <value>স্পার্ক অ্যাডভান্স</value>
+    <value>Spark Advance (non-mechanical)</value>
   </data>
   <data name="PIDS_LONGFT24_DESCR" xml:space="preserve">
-    <value>ব্যাংক 2/4 এর জন্য দীর্ঘমেয়াদী জ্বালানি ট্রিম</value>
+    <value>Long-term fuel trim for bank 2/4</value>
   </data>
   <data name="PIDS_LONGFT13_DESCR" xml:space="preserve">
-    <value>ব্যাংক ১/৩ এর জন্য দীর্ঘমেয়াদী জ্বালানি ট্রিম</value>
+    <value>Long-term fuel trim for bank 1/3</value>
   </data>
   <data name="PIDS_SHRTFT13_DESCR" xml:space="preserve">
-    <value>ব্যাংক ১/৩ এর জন্য স্বল্পমেয়াদী জ্বালানি ট্রিম</value>
+    <value>Short-term fuel trim for bank 1/3</value>
   </data>
   <data name="PIDS_SHRTFT24_DESCR" xml:space="preserve">
-    <value>ব্যাংক 2/4 এর জন্য স্বল্পমেয়াদী জ্বালানি ট্রিম</value>
+    <value>Short-term fuel trim for bank 2/4</value>
   </data>
   <data name="PIDS_FRP_G_DESCR" xml:space="preserve">
-    <value>জ্বালানী রেল চাপ</value>
+    <value>Fuel Rail Pressure (gauge)</value>
   </data>
   <data name="PIDS_VSS_DESCR" xml:space="preserve">
-    <value>যানবাহনের গতি সেন্সর</value>
+    <value>Vehicle Speed Sensor</value>
   </data>
   <data name="PIDS_ECT_DESCR" xml:space="preserve">
-    <value>ইঞ্জিন কুল্যান্ট তাপমাত্রা</value>
+    <value>Engine Coolant Temperature</value>
   </data>
   <data name="PIDS_LOAD_PCT_DESCR" xml:space="preserve">
-    <value>ইঞ্জিন লোড</value>
+    <value>Engine Load (calculated)</value>
   </data>
   <data name="PIDS_FUELSYS_DESCR" xml:space="preserve">
-    <value>জ্বালানী সিস্টেমের অবস্থা</value>
+    <value>Estado del sistema de combustible</value>
   </data>
   <data name="PIDS_O2S11_DESCR" xml:space="preserve">
-    <value>O2 সেন্সর ১ ব্যাংক ১</value>
+    <value>O2 Sensor 1 Bank 1</value>
   </data>
   <data name="PIDS_O2S12_DESCR" xml:space="preserve">
-    <value>O2 সেন্সর 2 ব্যাংক 1</value>
+    <value>O2 Sensor 2 Bank 1</value>
   </data>
   <data name="PIDS_O2S13_DESCR" xml:space="preserve">
-    <value>O2 সেন্সর 3 ব্যাংক 1</value>
+    <value>O2 Sensor 3 Bank 1</value>
   </data>
   <data name="PIDS_O2S14_DESCR" xml:space="preserve">
-    <value>O2 সেন্সর 4 ব্যাংক 1</value>
+    <value>O2 Sensor 4 Bank 1</value>
   </data>
   <data name="PIDS_O2S21_DESCR" xml:space="preserve">
-    <value>O2 সেন্সর 1 ব্যাংক 2</value>
+    <value>O2 Sensor 1 Bank 2</value>
   </data>
   <data name="PIDS_O2S22_DESCR" xml:space="preserve">
-    <value>O2 সেন্সর 2 ব্যাংক 2</value>
+    <value>O2 Sensor 2 Bank 2</value>
   </data>
   <data name="PIDS_O2S23_DESCR" xml:space="preserve">
-    <value>O2 সেন্সর 3 ব্যাংক 2</value>
+    <value>O2 Sensor 3 Bank 2</value>
   </data>
   <data name="PIDS_O2S24_DESCR" xml:space="preserve">
-    <value>O2 সেন্সর 4 ব্যাংক 2</value>
+    <value>O2 Sensor 4 Bank 2</value>
   </data>
   <data name="PIDS_RUNTM_DESCR" xml:space="preserve">
-    <value>টাইম সায়েন্স ইঞ্জিন স্টার্ট</value>
+    <value>Tiempo transcurrido desde el arranque del motor</value>
   </data>
   <data name="PIDS_MIL_DIST_DESCR" xml:space="preserve">
-    <value>ত্রুটি আলো সঙ্গে দূরত্ব</value>
+    <value>Distancia con MIL activada</value>
   </data>
   <data name="PIDS_FRP_MV_DESCR" xml:space="preserve">
-    <value>বহুগুণ ভ্যাকুয়ামের সাপেক্ষে জ্বালানি রেলের চাপ</value>
+    <value>Presión del riel de combustible en relación con el vacío del colector</value>
   </data>
   <data name="PIDS_FRP_DESCR" xml:space="preserve">
-    <value>বায়ু তাপমাত্রা গ্রহণ</value>
+    <value>Presión del riel de combustible</value>
   </data>
   <data name="PIDS_EGR_CMD_PCT_DESCR" xml:space="preserve">
-    <value>নির্দেশিত EGR</value>
+    <value>EGR comandada</value>
   </data>
   <data name="PIDS_EGR_ERR_PCT_DESCR" xml:space="preserve">
-    <value>EGR ত্রুটি</value>
+    <value>EGR Error</value>
   </data>
   <data name="PIDS_FLI_DESCR" xml:space="preserve">
-    <value>জ্বালানী স্তর</value>
+    <value>Nivel de combustible</value>
   </data>
   <data name="PIDS_WARM_UPS_DESCR" xml:space="preserve">
-    <value>ওয়ার্ম আপস বিজ্ঞানের ত্রুটিগুলি পরিষ্কার করা হয়েছে</value>
+    <value>Calentamientos desde que se eliminaron los DTC</value>
   </data>
   <data name="PIDS_CLR_DIST_DESCR" xml:space="preserve">
-    <value>दूरस्थ विज्ञान की त्रुटियाँ दूर की गईं</value>
+    <value>Distancia desde que se borraron los DTC</value>
   </data>
   <data name="MSG_EMISSION_DTCS" xml:space="preserve">
-    <value>उत्सर्जन त्रुटियाँ</value>
+    <value>DTC de emisiones</value>
   </data>
   <data name="PIDS_EVAP_VP_DESCR" xml:space="preserve">
-    <value>Evap চাপ</value>
+    <value>Presión EVAP</value>
   </data>
   <data name="PIDS_BARO_DESCR" xml:space="preserve">
-    <value>ব্যারোমেট্রিক চাপ</value>
+    <value>Presión atmosférica</value>
   </data>
   <data name="PIDS_CATEMP11_DESCR" xml:space="preserve">
-    <value>ক্যাটালিস্ট টেম্পারেচার ব্যাংক ১ সেন্স ১</value>
+    <value>Cat Temp Bank 1 Sensor 1</value>
   </data>
   <data name="PIDS_CATEMP21_DESCR" xml:space="preserve">
-    <value>ক্যাটালিস্ট টেম্পারেচার ব্যাংক 2 সেন্সর 1</value>
+    <value>Cat Temp Bank 2 Sensor 1</value>
   </data>
   <data name="PIDS_CATEMP12_DESCR" xml:space="preserve">
-    <value>ক্যাটালিস্ট টেম্পারেচার ব্যাংক ১ সেন্স ২</value>
+    <value>Cat Temp Bank 1 Sensor 2</value>
   </data>
   <data name="PIDS_CATEMP22_DESCR" xml:space="preserve">
-    <value>ক্যাটালিস্ট টেম্পারেচার ব্যাংক 2 সেন্স 2</value>
+    <value>Cat Temp Bank 2 Sensor 2</value>
   </data>
   <data name="PIDS_VPWR_DESCR" xml:space="preserve">
-    <value>ভোল্ট</value>
+    <value>Voltios del sistema</value>
   </data>
   <data name="PIDS_LAMBDA_DESCR" xml:space="preserve">
-    <value>आदेशित वायु/ईंधन अनुपात</value>
+    <value>Fuel/Air Commanded Equiv. Ratio</value>
   </data>
   <data name="PIDS_AAT_DESCR" xml:space="preserve">
-    <value>পরিবেষ্টিত বায়ু তাপমাত্রা</value>
+    <value>Ambient Air Temperature</value>
   </data>
   <data name="PIDS_TP_R_DESCR" xml:space="preserve">
-    <value>গলার আপেক্ষিক অবস্থান</value>
+    <value>Relative Throttle Position</value>
   </data>
   <data name="PIDS_VPWR_CMD_DESCR" xml:space="preserve">
-    <value>নির্দেশিত থ্রোটল অবস্থান</value>
+    <value>Commanded Throttle Actuator Position</value>
   </data>
   <data name="PIDS_LOAD_ABS_DESCR" xml:space="preserve">
-    <value>পরম লোড</value>
+    <value>Carga absoluta</value>
   </data>
   <data name="PIDS_EVAP_PCT_DESCR" xml:space="preserve">
-    <value>EVAP Purge-এর নির্দেশ</value>
+    <value>Commanded EVAP Purge</value>
   </data>
   <data name="PIDS_FUEL_SYSTEM1_STATUS" xml:space="preserve">
-    <value>জ্বালানি সিস্টেম ১ স্ট্যাটাস</value>
+    <value>Estado del sistema de combustible 1</value>
   </data>
   <data name="PIDS_FUEL_SYSTEM2_STATUS" xml:space="preserve">
-    <value>জ্বালানি সিস্টেম 2 অবস্থা</value>
+    <value>Estado del sistema de combustible 2</value>
   </data>
   <data name="MSG_LANGUAGE_CHANGE_POPUP_TITLE" xml:space="preserve">
-    <value>ভাষা পরিবর্তন করুন</value>
+    <value>Cambiar idioma</value>
   </data>
   <data name="MSG_LANGUAGE_CHANGE_POPUP_TEXT" xml:space="preserve">
-    <value>সমস্ত পরিবর্তন কার্যকর হওয়ার জন্য অ্যাপটি পুনরায় চালু করুন</value>
+    <value>Reinicie la aplicación para que los cambios surtan efecto</value>
   </data>
   <data name="MSG_FAULT" xml:space="preserve">
-    <value>দোষ</value>
+    <value>Culpa</value>
   </data>
   <data name="MSG_COMPLETE" xml:space="preserve">
-    <value>সম্পূর্ণ</value>
+    <value>Terminado</value>
   </data>
   <data name="MSG_NOT_READY" xml:space="preserve">
-    <value>প্রস্তুত নয়</value>
+    <value>No listo</value>
   </data>
   <data name="MSG_MIL_ON" xml:space="preserve">
-    <value>ত্রুটি লাইট অন</value>
+    <value>DTC Light On</value>
   </data>
   <data name="MSG_LIVE_DATA" xml:space="preserve">
-    <value>রিয়েল টাইম ডেটা</value>
+    <value>Datos en tiempo real</value>
   </data>
   <data name="START_RECORDING" xml:space="preserve">
-    <value>রেকর্ডিং শুরু করুন</value>
+    <value>Empezar a grabar</value>
   </data>
 </root>
