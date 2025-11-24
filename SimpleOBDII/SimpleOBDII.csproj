@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net8.0-maccatalyst;net9.0-ios;net9.0-android35.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net9.0-maccatalyst;net9.0-ios;net9.0-android35.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
         <OutputType Condition="'$(TargetFramework)' != 'net8.0'">Exe</OutputType>
@@ -146,6 +146,9 @@
 	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
 	   <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
 	   <ApplicationVersion>1</ApplicationVersion>
+	 </PropertyGroup>
+	 <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android35.0|AnyCPU'">
+	   <AndroidLinkTool>r8</AndroidLinkTool>
 	 </PropertyGroup>
 	
 
