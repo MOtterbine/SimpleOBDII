@@ -71,6 +71,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
         {
             // threads wait...
             this.waitConnect.Reset();
+            deviceOpenEvent.Reset();
             if (this.listenTask == null || listenTask.IsCompleted)
             {
                 listenTask = new Task(async () => { await beginListen(commChannel); });
@@ -80,11 +81,13 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
                 {
                     // connect timed out, cancel everthing
                     this.tokenSource?.Cancel();
+                    deviceOpenEvent.WaitOne();
                     return false;
 
                 }
                 //while (!this.IsConnected) ;
             }
+            //deviceOpenEvent.WaitOne();
             return true;
         }
         catch (Exception ex)
@@ -92,6 +95,7 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
             this.tokenSource?.Cancel();
             FireErrorEvent($"{(string)LocalizationResourceManager.Instance["MSG_DEVICE_OPEN_FAILURE"]} - {ex.Message}");
         }
+        deviceOpenEvent.WaitOne();
         return false;
     }
 
@@ -201,10 +205,13 @@ public partial class AndroidBluetoothDevice : IDevicesService, ICommunicationDev
         }
         finally
         {
+            deviceOpenEvent.Set();
             //  this._settingDevice = false;
         }
         return false; ;
     }
+
+    ManualResetEvent deviceOpenEvent = new ManualResetEvent(true);
 
     private async Task Listen()
     {

@@ -4,7 +4,7 @@
 		<TargetFrameworks>net9.0;net9.0-maccatalyst;net9.0-ios;net9.0-android35.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
-        <OutputType Condition="'$(TargetFramework)' != 'net8.0'">Exe</OutputType>
+        <OutputType Condition="'$(TargetFramework)' != 'net9.0'">Exe</OutputType>
 		<RootNamespace>OS.OBDII</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>

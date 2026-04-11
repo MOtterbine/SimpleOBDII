@@ -507,14 +507,15 @@ namespace OS.OBDII.Models
 
                         if (int.TryParse(s.Substring(4, 2), out idx))
                         {
-                            if (idx == 1)
-                            {
-                                str = s.Substring(12);
-                            }
-                            else
-                            {
-                                str = s.Substring(6);
-                            }
+                            str = s.Substring(6);
+                            //if (idx == 1)
+                            //{
+                            //    str = s.Substring(12);
+                            //}
+                            //else
+                            //{
+                            //    str = s.Substring(6);
+                            //}
                             for (int i = 0; i < str.Length; i += 2)// char  letter in values)
                             {
                                 sBuf.Append((char)byte.Parse(str.Substring(i, 2), System.Globalization.NumberStyles.HexNumber));
