@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="OS.OBDII.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:OS.OBDII.Views"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+   Title="Main App Shell">
+
+
+
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior  StatusBarColor="#000" StatusBarStyle="LightContent"  />
+    </Shell.Behaviors>
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:HomePage}"
+        Route="HomePage" />
+
+
+</Shell>

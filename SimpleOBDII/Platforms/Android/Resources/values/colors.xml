@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
+
+    <!--<color name="list_hightlight">#50A1E3FF</color>-->
+    <color name="list_hightlight">#30000000</color>
+
+
+    <color name="pressed_color">#4d90fe</color>
+
     
-    <color name="colorPrimary">#333333</color>
-    <color name="colorBackground">#333333</color>
-    <color name="colorPrimaryDark">#000</color>
-    <color name="colorBlack">#303F9F</color>
-    <color name="colorAccent">#222222</color>
+    
+    <color name ="colorBackground">#000000</color>
+    <color name ="colorPrimary">#000000</color>
+    <color name ="colorAccent">#000000</color>
+    <color name ="colorPrimaryDark">#000000</color>
+    <color name ="windowBackground">#000000</color>
+    <color name ="colorWindowBackground">#000000</color>
+
+    <color name ="navigationBarColor">#000000</color>
+    <color name ="statusBarColor">#000000</color>
+
+
+    <color name="launcher_background">#000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="splash_background">#000000</color>
+        <!----><!--<color name="list_hightlight">#50A1E3FF</color>--><!--
+    <color name="list_hightlight">#30000000</color>
+
+    <color name ="colorBackground">#000</color>
+
+    <color name="pressed_color">#4d90fe</color>-->
+    <color name="default_color">#000000</color>
+
 
 </resources>

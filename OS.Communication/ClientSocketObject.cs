@@ -4,7 +4,7 @@ namespace OS.Communication
 {
 	public class ClientSocketObject
 	{
-		public StateObject state = null;
-		public Socket socket = null;
+		public StateObject? state = null;
+		public Socket? socket = null;
 	};
 }

@@ -282,6 +282,10 @@ namespace OS.OBDII.ViewModels
                         { CANID="C133F1", Code=0, ResponseByteCount=1, UnitDescriptor = "°F" },
                     new UserPID("7E0 Engine RPM", string.Empty, 0, Encoding.ASCII.GetBytes("010C"), "((A*256)+B)/4")
                         { CANID="7E0", Code=0, ResponseByteCount=2, UnitDescriptor = string.Empty  },
+                    new UserPID("Engine RPM (11-bit CAN)", string.Empty, 0, Encoding.ASCII.GetBytes("010C"), "((A*256)+B)/4")
+                        { CANID="7DF", Code=0, ResponseByteCount=2, UnitDescriptor = string.Empty  },
+                    new UserPID("Engine RPM (29-bit CAN)", string.Empty, 0, Encoding.ASCII.GetBytes("010C"), "((A*256)+B)/4")
+                        { CANID="18DB33F1", Code=0, ResponseByteCount=2, UnitDescriptor = string.Empty  },
                     new UserPID("GM Trans Temp", "°F", 1, Encoding.ASCII.GetBytes("221940"), "((A-40)*1.8)+32")
                         { CANID="7E2", Code=0, ResponseByteCount=1, UnitDescriptor = "°F"  },
                     new UserPID("Powertrain Voltage", "V", 2, Encoding.ASCII.GetBytes("0142"), "((A*256)+B)*.001")

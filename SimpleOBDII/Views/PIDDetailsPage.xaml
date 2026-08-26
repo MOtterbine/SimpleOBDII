@@ -6,6 +6,9 @@
                         Background="#000"
                         NavigationPage.HasNavigationBar="False"
                         NavigationPage.HasBackButton="False"
+                        Shell.NavBarIsVisible="False"
+                        Shell.NavBarHasShadow="False"
+                        Shell.TabBarIsVisible="False"
                         xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
                         x:Class="OS.OBDII.Views.PIDDetailsPage">
     
@@ -15,9 +18,13 @@
                 <x:Boolean>false</x:Boolean>
             </x:Arguments>--><!--
         </vm:PIDDetailViewModel>
-    </ContentPage.BindingContext>-->    
+    </ContentPage.BindingContext>-->
     
-     <ContentPage.Resources>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    
+    <ContentPage.Resources>
 
 
         <Style x:Key="settings-label" TargetType="Label">

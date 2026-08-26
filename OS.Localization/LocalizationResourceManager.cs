@@ -13,6 +13,8 @@ namespace OS.Localization
         private LocalizationResourceManager()
         {
             Resources.Languages.Culture = CultureInfo.CurrentCulture;
+
+
         }
 
         public CultureInfo Culture

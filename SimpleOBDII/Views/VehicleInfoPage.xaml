@@ -5,11 +5,18 @@
              xmlns:controls="clr-namespace:OS.OBDII.Controls"
              Title="{Binding Title}" 
              Background="#000"
+             Shell.NavBarIsVisible="False"
+             Shell.NavBarHasShadow="False"
+             Shell.TabBarIsVisible="False"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              xmlns:Converters="clr-namespace:OS.OBDII.Converters"
              xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
              x:Class="OS.OBDII.Views.VehicleInfoPage" >
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
 
     <ContentPage.Resources>
         <Style TargetType="Grid">

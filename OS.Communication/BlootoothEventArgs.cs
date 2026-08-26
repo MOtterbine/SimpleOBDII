@@ -28,8 +28,8 @@ public class BluetoothEventArgs : EventArgs, IDisposable
 	#region Properties
 
 	public BlueToothEventTypes EventType;
-	public byte[] Data = null;
-	public Type iType = null;
+	public byte[]? Data = null;
+	public Type? iType = null;
 	public string Description;
 	public BluetoothEventArgs()
 	{
@@ -40,7 +40,7 @@ public class BluetoothEventArgs : EventArgs, IDisposable
 		data.CopyTo(this.Data, 0);
 
 	}
-	public object dataObject = null;
+	public object? dataObject = null;
 
 	#endregion
 

@@ -11,11 +11,14 @@
              Shell.TabBarIsVisible="False"
              NavigationPage.HasBackButton="False"
              NavigationPage.HasNavigationBar="False"
+             NavigationPage.BackButtonTitle=""
              
              xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
              
              x:Class="OS.OBDII.Views.CodesPage">
-    
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
     <ContentPage.Resources>
 
     </ContentPage.Resources>

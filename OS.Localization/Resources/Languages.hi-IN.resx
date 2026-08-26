@@ -577,4 +577,16 @@
   <data name="START_RECORDING" xml:space="preserve">
     <value>रिकॉर्डिंग शुरू करें</value>
   </data>
+  <data name="BEEP" xml:space="preserve">
+    <value>बीप</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>सक्रिय</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>अक्षम</value>
+  </data>
+  <data name="DTC_P1000" xml:space="preserve">
+    <value>बैंक एंगल सेंसर में खराबी या शॉर्ट सर्किट</value>
+  </data>
 </root>

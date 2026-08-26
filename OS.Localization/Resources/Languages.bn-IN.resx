@@ -577,4 +577,16 @@
   <data name="START_RECORDING" xml:space="preserve">
     <value>রেকর্ডিং শুরু করুন</value>
   </data>
+  <data name="BEEP" xml:space="preserve">
+    <value>বিপ</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>সক্রিয়</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>নিষ্ক্রিয়</value>
+  </data>
+  <data name="DTC_P1000" xml:space="preserve">
+    <value>(ব্যাংক অ্যাঙ্গেল সেন্সর ত্রুটি বা শর্ট সার্কিট)</value>
+  </data>
 </root>

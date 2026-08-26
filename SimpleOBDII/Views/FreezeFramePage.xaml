@@ -7,11 +7,16 @@
              Background="#000"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
-             xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
+             Shell.NavBarIsVisible="False"
+             Shell.NavBarHasShadow="False"
+             Shell.TabBarIsVisible="False"
+           xmlns:Behaviors="clr-namespace:OS.OBDII.Behaviors"
              x:Class="OS.OBDII.Views.FreezeFramePage">
-    
 
-    
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.Resources>
 
         <Style TargetType="Label">

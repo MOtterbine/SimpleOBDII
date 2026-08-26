@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+    <style name="OSTheme" parent="Maui.SplashTheme">
+        <!--item name ="android:windowBackground">#000000</item>
+        <item name ="android:colorBackground">#000000</item-->
+        <item name ="android:statusBarColor">#000000</item>
+        <item name ="android:navigationBarColor">#000000</item>
+    </style>
+    
+
+</resources>

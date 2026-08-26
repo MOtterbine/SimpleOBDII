@@ -230,7 +230,8 @@ public partial class App : Microsoft.Maui.Controls.Application, IAppSizing, IPer
             AppShellModel.Instance.LogService.AppendLog(Microsoft.Extensions.Logging.LogLevel.Debug, "About to create MainPage");
 
             LoadStylesAndTemplates();
-            MainPage = new NavigationPage(new HomePage());
+
+            //MainPage = new NavigationPage(new HomePage());
 
         //  OS.OBDII.Localization.LocalizationResourceManager.Instance.Culture = new CultureInfo("te-IN");
         var cul = "en-US";
@@ -285,7 +286,9 @@ public partial class App : Microsoft.Maui.Controls.Application, IAppSizing, IPer
     protected override Window CreateWindow(IActivationState activationState)
     {
 
-        var window = base.CreateWindow(activationState);
+        var window = new Window(new AppShell());
+       // var window = base.CreateWindow(activationState);
+        //window.Page.set    endBackButtonPressed dBackButtonPressed Padding.Top = 40;
 
 #if WINDOWS
 
@@ -337,6 +340,9 @@ public partial class App : Microsoft.Maui.Controls.Application, IAppSizing, IPer
             this.PermissionsReadyEvent(null, EventArgs.Empty);
         }
     }
+
+
+
 
     protected override void OnResume()
     {

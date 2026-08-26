@@ -214,7 +214,7 @@
     <value>Inicializar</value>
   </data>
   <data name="MSG_SINCE_DTCS_CLEARED" xml:space="preserve">
-    <value>Since DTCs Cleared</value>
+    <value>Desde que se autorizaron los DTC</value>
     <comment>Dado que los DTC se eliminaron</comment>
   </data>
   <data name="MSG_NO_RESPONSE_SYSTEM" xml:space="preserve">
@@ -263,7 +263,7 @@
     <value>Unidades métricas</value>
   </data>
   <data name="SERIAL_BAUD_RATE" xml:space="preserve">
-    <value>Serial Baud Rate</value>
+    <value>Tasa de transmisión serial</value>
   </data>
   <data name="IP_PORT" xml:space="preserve">
     <value>IP Port</value>
@@ -290,10 +290,10 @@
     <value>Lectura de PID</value>
   </data>
   <data name="EXIT_PROMPT1" xml:space="preserve">
-    <value>Don't forget to recover your hardware from the vehicle</value>
+    <value>No olvides recuperar el hardware del vehículo</value>
   </data>
   <data name="EXIT_PROMPT2" xml:space="preserve">
-    <value>Continue to Exit?</value>
+    <value>¿Seguir saliendo?</value>
   </data>
   <data name="READING_STATUS" xml:space="preserve">
     <value>Reading Status...</value>
@@ -305,55 +305,55 @@
     <value>Clear DTCs and freeze frame data?</value>
   </data>
   <data name="MSG_CANCEL" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
   </data>
   <data name="MSG_READY" xml:space="preserve">
-    <value>Ready</value>
+    <value>Listo</value>
   </data>
   <data name="MSG_NO_DATA" xml:space="preserve">
-    <value>*** No Data ***</value>
+    <value>*** Sin datos ***</value>
   </data>
   <data name="MSG_NO_DATA_REPORTED" xml:space="preserve">
-    <value>No Data Reported</value>
+    <value>No se reportan datos</value>
   </data>
   <data name="OBDII_PIDS" xml:space="preserve">
     <value>OBDII PIDS</value>
   </data>
   <data name="MSG_EXIT_APPLICATION" xml:space="preserve">
-    <value>Exit Application</value>
+    <value>Solicitud de salida</value>
   </data>
   <data name="MSG_EXIT" xml:space="preserve">
-    <value>Exit</value>
+    <value>Salida</value>
   </data>
   <data name="MSG_OPERATION_CANCELLED" xml:space="preserve">
-    <value>Operation Cancelled</value>
+    <value>Operación cancelada</value>
   </data>
   <data name="MSG_RESET_COMMAND_SENT" xml:space="preserve">
-    <value>Reset DTC command sent</value>
+    <value>Comando de restablecimiento DTC enviado</value>
   </data>
   <data name="MSG_CONTACT_MIKE" xml:space="preserve">
-    <value>Contact MikeOtterbine@Gmail.com</value>
+    <value>Contacta MikeOtterbine@Gmail.com</value>
   </data>
   <data name="MSG_CONTACT_MIKE1" xml:space="preserve">
-    <value>For Install Code</value>
+    <value>Para el código de instalación</value>
   </data>
   <data name="MSG_INSTALL_CODE" xml:space="preserve">
-    <value>Install Code</value>
+    <value>Código de instalación</value>
   </data>
   <data name="MSG_APP_ID" xml:space="preserve">
     <value>App ID</value>
   </data>
   <data name="MSG_APPLY" xml:space="preserve">
-    <value>Apply</value>
+    <value>Solicita</value>
   </data>
   <data name="MSG_COPY_ID" xml:space="preserve">
-    <value>Copy ID</value>
+    <value>Copiar ID</value>
   </data>
   <data name="MSG_DEVICE_NOT_SET" xml:space="preserve">
-    <value>*** Device Not Set ***</value>
+    <value>*** Dispositivo no configurado ***</value>
   </data>
   <data name="METRIC" xml:space="preserve">
-    <value>Metric</value>
+    <value>Métrica</value>
   </data>
   <data name="ENGLISH" xml:space="preserve">
     <value>English</value>
@@ -365,40 +365,40 @@
     <value>Unable To get ports list</value>
   </data>
   <data name="MSG_DEVICE_OPEN_FAILURE" xml:space="preserve">
-    <value>Device Open Failure</value>
+    <value>Fallo de apertura del dispositivo</value>
   </data>
   <data name="MSG_DEVICE_ACCESS_FAILURE" xml:space="preserve">
-    <value>Unable to access device</value>
+    <value>No se puede acceder al dispositivo</value>
   </data>
   <data name="MSG_NO_BLUETOOTH_DEVICE_FOUND" xml:space="preserve">
-    <value>No Bluetooth device found</value>
+    <value>No se ha encontrado ningún dispositivo Bluetooth</value>
   </data>
   <data name="MSG_BLUETOOTH_DISABLED" xml:space="preserve">
-    <value>Bluetooth is disabled on this device</value>
+    <value>El Bluetooth está deshabilitado en este dispositivo</value>
   </data>
   <data name="MSG_BLUETOOTH_DEVICE_NOT_OPEN" xml:space="preserve">
-    <value>Bluetooth device not open</value>
+    <value>Dispositivo Bluetooth no abierto</value>
   </data>
   <data name="BLUETOOTH" xml:space="preserve">
     <value>Bluetooth</value>
   </data>
   <data name="MSG_BLUETOOTH_ERROR" xml:space="preserve">
-    <value>Bluetooth error</value>
+    <value>Error Bluetooth</value>
   </data>
   <data name="MSG_DEVICE_NOT_CONNECTED" xml:space="preserve">
-    <value>Device not connected</value>
+    <value>Dispositivo no conectado</value>
   </data>
   <data name="MSG_CONNECTED" xml:space="preserve">
-    <value>Connected</value>
+    <value>Conectados</value>
   </data>
   <data name="NO_USB_AVAILABLE" xml:space="preserve">
-    <value>No USB available</value>
+    <value>No hay USB disponible</value>
   </data>
   <data name="MSG_PERMISSIONS_REQUIRED" xml:space="preserve">
-    <value>Permissions required</value>
+    <value>Se requieren permisos</value>
   </data>
   <data name="MSG_INVALID_USB" xml:space="preserve">
-    <value>Invalid USB</value>
+    <value>USB inválido</value>
   </data>
   <data name="ERROR" xml:space="preserve">
     <value>Error</value>
@@ -407,49 +407,49 @@
     <value>USB</value>
   </data>
   <data name="PIDS_RPM_DESCR" xml:space="preserve">
-    <value>Engine RPM</value>
+    <value>RPM del motor</value>
   </data>
   <data name="MSG_AUTO" xml:space="preserve">
-    <value>Auto</value>
+    <value>Automático</value>
   </data>
   <data name="PIDS_MAF_DESCR" xml:space="preserve">
-    <value>Mass Air Flow</value>
+    <value>Flujo de masa de aire</value>
   </data>
   <data name="PIDS_MAP_DESCR" xml:space="preserve">
-    <value>Intake Manifold Air Pressure</value>
+    <value>Presión de aire del colector de admisión</value>
   </data>
   <data name="PIDS_IAT_DESCR" xml:space="preserve">
-    <value>Air Intake Temperature</value>
+    <value>Temperatura de admisión de aire</value>
   </data>
   <data name="PIDS_THROTTLE_POS_DESCR" xml:space="preserve">
-    <value>Throttle Position</value>
+    <value>Posición del acelerador</value>
   </data>
   <data name="PIDS_SPARKADV_DESCR" xml:space="preserve">
-    <value>Spark Advance (non-mechanical)</value>
+    <value>Avance de chispa (no mecánico)</value>
   </data>
   <data name="PIDS_LONGFT24_DESCR" xml:space="preserve">
-    <value>Long-term fuel trim for bank 2/4</value>
+    <value>Trimado de combustible a largo plazo para el banco 2/4</value>
   </data>
   <data name="PIDS_LONGFT13_DESCR" xml:space="preserve">
-    <value>Long-term fuel trim for bank 1/3</value>
+    <value>Trimado de combustible a largo plazo para el banco 1/3</value>
   </data>
   <data name="PIDS_SHRTFT13_DESCR" xml:space="preserve">
-    <value>Short-term fuel trim for bank 1/3</value>
+    <value>Trimado de combustible a corto plazo para el banco 1/3</value>
   </data>
   <data name="PIDS_SHRTFT24_DESCR" xml:space="preserve">
-    <value>Short-term fuel trim for bank 2/4</value>
+    <value>Trimado de combustible a corto plazo para el banco 2/4</value>
   </data>
   <data name="PIDS_FRP_G_DESCR" xml:space="preserve">
     <value>Fuel Rail Pressure (gauge)</value>
   </data>
   <data name="PIDS_VSS_DESCR" xml:space="preserve">
-    <value>Vehicle Speed Sensor</value>
+    <value>Sensor de velocidad del vehículo</value>
   </data>
   <data name="PIDS_ECT_DESCR" xml:space="preserve">
-    <value>Engine Coolant Temperature</value>
+    <value>Temperatura del refrigerante del motor</value>
   </data>
   <data name="PIDS_LOAD_PCT_DESCR" xml:space="preserve">
-    <value>Engine Load (calculated)</value>
+    <value>Carga del motor (calculada)</value>
   </data>
   <data name="PIDS_FUELSYS_DESCR" xml:space="preserve">
     <value>Estado del sistema de combustible</value>
@@ -515,37 +515,37 @@
     <value>Presión atmosférica</value>
   </data>
   <data name="PIDS_CATEMP11_DESCR" xml:space="preserve">
-    <value>Cat Temp Bank 1 Sensor 1</value>
+    <value>Banco de temperatura del catalizador 1 Sensor 1</value>
   </data>
   <data name="PIDS_CATEMP21_DESCR" xml:space="preserve">
-    <value>Cat Temp Bank 2 Sensor 1</value>
+    <value>Banco de temperatura del catalizador 2 Sensor 1</value>
   </data>
   <data name="PIDS_CATEMP12_DESCR" xml:space="preserve">
-    <value>Cat Temp Bank 1 Sensor 2</value>
+    <value>Banco de temperatura del catalizador 1 Sensor 2</value>
   </data>
   <data name="PIDS_CATEMP22_DESCR" xml:space="preserve">
-    <value>Cat Temp Bank 2 Sensor 2</value>
+    <value>Banco de temperatura del catalizador 2 Sensor 2</value>
   </data>
   <data name="PIDS_VPWR_DESCR" xml:space="preserve">
     <value>Voltios del sistema</value>
   </data>
   <data name="PIDS_LAMBDA_DESCR" xml:space="preserve">
-    <value>Fuel/Air Commanded Equiv. Ratio</value>
+    <value>Relación equivalente de combustible/aire</value>
   </data>
   <data name="PIDS_AAT_DESCR" xml:space="preserve">
-    <value>Ambient Air Temperature</value>
+    <value>Temperatura del aire ambiente</value>
   </data>
   <data name="PIDS_TP_R_DESCR" xml:space="preserve">
-    <value>Relative Throttle Position</value>
+    <value>Posición relativa del acelerador</value>
   </data>
   <data name="PIDS_VPWR_CMD_DESCR" xml:space="preserve">
-    <value>Commanded Throttle Actuator Position</value>
+    <value>Posición comandada del actuador del acelerador</value>
   </data>
   <data name="PIDS_LOAD_ABS_DESCR" xml:space="preserve">
     <value>Carga absoluta</value>
   </data>
   <data name="PIDS_EVAP_PCT_DESCR" xml:space="preserve">
-    <value>Commanded EVAP Purge</value>
+    <value>Purga de EVAP ordenada</value>
   </data>
   <data name="PIDS_FUEL_SYSTEM1_STATUS" xml:space="preserve">
     <value>Estado del sistema de combustible 1</value>
@@ -569,12 +569,24 @@
     <value>No listo</value>
   </data>
   <data name="MSG_MIL_ON" xml:space="preserve">
-    <value>DTC Light On</value>
+    <value>Luz DTC encendida</value>
   </data>
   <data name="MSG_LIVE_DATA" xml:space="preserve">
     <value>Datos en tiempo real</value>
   </data>
   <data name="START_RECORDING" xml:space="preserve">
     <value>Empezar a grabar</value>
+  </data>
+  <data name="BEEP" xml:space="preserve">
+    <value>Bip</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Deshabilitado</value>
+  </data>
+  <data name="DTC_P1000" xml:space="preserve">
+    <value>(Fallo o cortocircuito en el sensor de ángulo de inclinación)</value>
   </data>
 </root>

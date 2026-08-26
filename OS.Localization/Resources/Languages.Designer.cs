@@ -19,7 +19,7 @@ namespace OS.Localization.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Languages {
@@ -61,6 +61,15 @@ namespace OS.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        internal static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advanced Data.
         /// </summary>
         internal static string ADVANCED_DATA {
@@ -84,6 +93,15 @@ namespace OS.Localization.Resources {
         internal static string BACK {
             get {
                 return ResourceManager.GetString("BACK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beep.
+        /// </summary>
+        internal static string BEEP {
+            get {
+                return ResourceManager.GetString("BEEP", resourceCulture);
             }
         }
         
@@ -187,11 +205,29 @@ namespace OS.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        internal static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         internal static string DONE {
             get {
                 return ResourceManager.GetString("DONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Bank angle sensor fault or short circuit).
+        /// </summary>
+        internal static string DTC_P1000 {
+            get {
+                return ResourceManager.GetString("DTC_P1000", resourceCulture);
             }
         }
         

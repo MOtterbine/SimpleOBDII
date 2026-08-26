@@ -11,7 +11,7 @@ public class DeviceEventArgs : EventArgs, IDisposable
 	public CommunicationEvents Event;
 	public byte[] data;
 	public string Description;
-	public object dataObject = null;
+	public object? dataObject = null;
 	public object dataObject1 = null;
 
 	#endregion
